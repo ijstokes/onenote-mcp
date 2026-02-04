@@ -1,58 +1,22 @@
-import { Client } from '@microsoft/microsoft-graph-client';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-// Get current directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Path for storing the access token
-const tokenFilePath = path.join(__dirname, '.access-token.txt');
+import { createGraphClient } from './lib/auth.js';
+import { fetchAll } from './lib/pagination.js';
+import { pickByNameOrId } from './lib/selection.js';
 
 async function getPageContent() {
   try {
-    // Read the access token
-    if (!fs.existsSync(tokenFilePath)) {
-      console.error('Access token not found. Please authenticate first.');
-      return;
-    }
-
-    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');
-    let accessToken;
-    
-    try {
-      // Try to parse as JSON first (new format)
-      const parsedToken = JSON.parse(tokenData);
-      accessToken = parsedToken.token;
-    } catch (parseError) {
-      // Fall back to using the raw token (old format)
-      accessToken = tokenData;
-    }
-
-    if (!accessToken) {
-      console.error('Access token not found in file.');
-      return;
-    }
-
-    // Create Microsoft Graph client
-    const client = Client.init({
-      authProvider: (done) => {
-        done(null, accessToken);
-      }
-    });
+    const client = createGraphClient();
 
     // Get all pages
     console.log('Fetching pages...');
-    const pagesResponse = await client.api('/me/onenote/pages').get();
+    const pages = await fetchAll(client, '/me/onenote/pages');
     
-    if (pagesResponse.value.length === 0) {
+    if (pages.length === 0) {
       console.log('No pages found.');
       return;
     }
     
     // Use the first page
-    const page = pagesResponse.value[0];
+    const page = pickByNameOrId(pages, null, { allowEmpty: true }).item;
     console.log(`Using page: "${page.title}" (ID: ${page.id})`);
     
     // Test different methods to get content
@@ -123,7 +87,7 @@ async function getPageContent() {
     }
 
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error:', error.message || error);
   }
 }
 

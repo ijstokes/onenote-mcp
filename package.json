@@ -10,13 +10,17 @@
     "list-notebooks": "node simple-onenote.js",
     "list-sections": "node list-sections.js",
     "list-pages": "node list-pages.js",
-    "create-page": "node create-page.js"
+    "create-page": "node create-page.js",
+    "list-groups": "node list-groups.js",
+    "list-group-notebooks": "node list-group-notebooks.js",
+    "list-group-sections": "node list-group-sections.js",
+    "list-group-pages": "node list-group-pages.js"
   },
   "dependencies": {
     "@azure/identity": "^2.1.0",
     "@azure/msal-node": "^3.5.0",
     "@microsoft/microsoft-graph-client": "^3.0.7",
-    "@modelcontextprotocol/sdk": "file:./typescript-sdk",
+    "@modelcontextprotocol/sdk": "^1.26.0",
     "dotenv": "^16.0.0",
     "jsdom": "^26.0.0",
     "node-fetch": "^3.3.2",

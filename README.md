@@ -77,6 +77,26 @@ The first time you ask about OneNote, the AI will guide you through the authenti
    
 4. You can now ask Claude to interact with your OneNote data
 
+### Setup for Claude Code
+
+1. Clone this repository and follow the installation steps below
+2. Start the MCP server: `npm start`
+3. Add the MCP server configuration to `~/.claude.json`:
+
+```json
+{
+  "mcpServers": {
+    "onenote": {
+      "command": "node",
+      "args": ["/absolute/path/to/your/onenote-mcp.mjs"],
+      "env": {}
+    }
+  }
+}
+```
+
+4. Restart Claude Code and use the OneNote tools
+
 ## Features
 
 - Authentication with Microsoft OneNote using device code flow (no Azure setup needed)
@@ -105,14 +125,11 @@ cd onenote-mcp
 
 ### Step 2: Download the TypeScript SDK
 
-This project requires the MCP TypeScript SDK, which needs to be downloaded separately:
+This project uses the MCP TypeScript SDK via npm:
 
 ```bash
-git clone https://github.com/modelcontextprotocol/typescript-sdk.git
-cd typescript-sdk
-npm install
-npm run build
-cd ..
+npm install @modelcontextprotocol/server zod
+npm install @modelcontextprotocol/client zod
 ```
 
 ### Step 3: Install Project Dependencies
@@ -158,6 +175,7 @@ Once authenticated, the following tools are available for AI assistants to use:
 | Tool Name | Description |
 |-----------|-------------|
 | `authenticate` | Start the Microsoft authentication flow |
+| `saveAccessToken` | Save a Microsoft Graph access token for later use |
 | `listNotebooks` | Get a list of all your OneNote notebooks |
 | `getNotebook` | Get details of a specific notebook |
 | `listSections` | List all sections in a notebook |
@@ -165,6 +183,17 @@ Once authenticated, the following tools are available for AI assistants to use:
 | `getPage` | Get the complete content of a specific page, including HTML formatting |
 | `createPage` | Create a new page with HTML content |
 | `searchPages` | Search for pages across your notebooks |
+
+## Additional CLI Tools
+
+The following scripts were added to support shared group notebooks and deeper inspection:
+
+| Script | Description |
+|--------|-------------|
+| `npm run list-groups` | List Microsoft 365 groups that have OneNote notebooks |
+| `npm run list-group-notebooks -- "<group name or id>"` | List notebooks in a specific group |
+| `npm run list-group-sections -- "<group name or id>" ["notebook name or id"]` | List sections in a group notebook |
+| `npm run list-group-pages -- "<group name or id>" "<section name or id>"` | List pages in a group section |
 
 ## Example Interactions
 
@@ -220,6 +249,12 @@ npm run list-sections
 # List pages in the first section
 npm run list-pages
 
+# List group notebooks (shared/team notebooks)
+npm run list-groups
+npm run list-group-notebooks -- "Engineering Design"
+npm run list-group-sections -- "Engineering Design" "Engineering Design Notebook"
+npm run list-group-pages -- "Engineering Design" "Market Landscape"
+
 # Create a new page
 npm run create-page
 
@@ -242,7 +277,7 @@ node read-all-pages.js
 
 - Verify Node.js is installed (version 16+): `node --version`
 - Make sure all dependencies are installed: `npm install`
-- Check that the TypeScript SDK was built correctly
+- Ensure the MCP SDK dependencies are installed via npm
 
 ### AI Can't Connect to the Server
 

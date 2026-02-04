@@ -1,18 +1,6 @@
 import { DeviceCodeCredential } from '@azure/identity';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-// Get current directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Path for storing the access token
-const tokenFilePath = path.join(__dirname, '.access-token.txt');
-
-// Client ID for Microsoft Graph API access
-const clientId = '14d82eec-204b-4c2f-b7e8-296a70dab67e'; // Microsoft Graph Explorer client ID
-const scopes = ['Notes.Read.All', 'Notes.ReadWrite.All', 'User.Read'];
+import { clientId, scopes, tokenFilePath } from './lib/config.js';
+import { writeAccessToken } from './lib/auth.js';
 
 async function authenticate() {
   try {
@@ -33,7 +21,7 @@ async function authenticate() {
     
     // Save the token for future use
     const accessToken = tokenResponse.token;
-    fs.writeFileSync(tokenFilePath, JSON.stringify({ token: accessToken }));
+    writeAccessToken(accessToken);
     
     console.log('\nAuthentication successful!');
     console.log('Access token saved to:', tokenFilePath);

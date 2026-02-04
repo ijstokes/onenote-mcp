@@ -1,35 +1,9 @@
 #!/usr/bin/env node
 
-import { Client } from '@microsoft/microsoft-graph-client';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import { JSDOM } from 'jsdom';
+import { createGraphClient, readAccessToken } from './lib/auth.js';
+import { fetchAll } from './lib/pagination.js';
 
-// Get current directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Path for storing the access token
-const tokenFilePath = path.join(__dirname, '.access-token.txt');
-
-// Function to read the access token
-function getAccessToken() {
-  try {
-    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');
-    try {
-      // Try to parse as JSON first (new format)
-      const parsedToken = JSON.parse(tokenData);
-      return parsedToken.token;
-    } catch (parseError) {
-      // Fall back to using the raw token (old format)
-      return tokenData;
-    }
-  } catch (error) {
-    console.error('Error reading token:', error);
-    return null;
-  }
-}
 
 // Extract readable text from HTML
 function extractReadableText(html) {
@@ -108,32 +82,28 @@ function extractReadableText(html) {
 async function readAllPages() {
   try {
     // Get the access token
-    const accessToken = getAccessToken();
+    const accessToken = readAccessToken();
     if (!accessToken) {
       console.error('No access token found');
       return;
     }
     
     // Initialize Graph client
-    const client = Client.init({
-      authProvider: (done) => {
-        done(null, accessToken);
-      }
-    });
+    const client = createGraphClient(accessToken);
     
     // List pages
     console.log("Fetching all pages...");
-    const pages = await client.api('/me/onenote/pages').get();
+    const pages = await fetchAll(client, '/me/onenote/pages');
     
-    if (!pages || !pages.value || pages.value.length === 0) {
+    if (!pages || pages.length === 0) {
       console.log("No pages found");
       return;
     }
     
-    console.log(`Found ${pages.value.length} pages. Reading full content for each...\n`);
+    console.log(`Found ${pages.length} pages. Reading full content for each...\n`);
     
     // Process each page
-    for (const page of pages.value) {
+    for (const page of pages) {
       console.log(`\n==================================================================`);
       console.log(`PAGE: ${page.title}`);
       console.log(`Last modified: ${new Date(page.lastModifiedDateTime).toLocaleString()}`);
@@ -167,7 +137,7 @@ async function readAllPages() {
     console.log("\nAll pages have been read. You can now ask questions about their content.");
     
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error:", error.message || error);
   }
 }
 

@@ -1,24 +1,15 @@
 #!/usr/bin/env node
 
-import { McpServer } from './typescript-sdk/dist/esm/server/mcp.js';
-import { Client } from '@microsoft/microsoft-graph-client';
-import { StdioServerTransport } from './typescript-sdk/dist/esm/server/stdio.js';
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
-import path from 'path';
-import fs from 'fs';
 import { DeviceCodeCredential } from '@azure/identity';
 import fetch from 'node-fetch';
+import { clientId, scopes } from './lib/config.js';
+import { createGraphClient, readAccessToken, writeAccessToken } from './lib/auth.js';
 
 // Load environment variables
 dotenv.config();
-
-// Get the current file's directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Path for storing the access token
-const tokenFilePath = path.join(__dirname, '.access-token.txt');
 
 // Create the MCP server
 const server = new McpServer(
@@ -36,80 +27,30 @@ const server = new McpServer(
   }
 );
 
-// Try to read the stored access token
-let accessToken = null;
-try {
-  if (fs.existsSync(tokenFilePath)) {
-    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');
-    try {
-      // Try to parse as JSON first (new format)
-      const parsedToken = JSON.parse(tokenData);
-      accessToken = parsedToken.token;
-    } catch (parseError) {
-      // Fall back to using the raw token (old format)
-      accessToken = tokenData;
-    }
-  }
-} catch (error) {
-  console.error('Error reading access token file:', error.message);
-}
-
-// Alternatively, check if token is in environment variables
-if (!accessToken && process.env.GRAPH_ACCESS_TOKEN) {
-  accessToken = process.env.GRAPH_ACCESS_TOKEN;
-}
+let accessToken = readAccessToken({ allowEnv: true });
 
 let graphClient = null;
-
-// Client ID for Microsoft Graph API access
-const clientId = '14d82eec-204b-4c2f-b7e8-296a70dab67e'; // Microsoft Graph Explorer client ID
-const scopes = ['Notes.Read.All', 'Notes.ReadWrite.All', 'User.Read'];
 
 // Function to ensure Graph client is created
 async function ensureGraphClient() {
   if (!graphClient) {
-    // Read token from file if it exists
-    try {
-      if (fs.existsSync(tokenFilePath)) {
-        const tokenData = fs.readFileSync(tokenFilePath, 'utf8');
-        try {
-          // Try to parse as JSON first (new format)
-          const parsedToken = JSON.parse(tokenData);
-          accessToken = parsedToken.token;
-        } catch (parseError) {
-          // Fall back to using the raw token (old format)
-          accessToken = tokenData;
-        }
-      }
-    } catch (error) {
-      console.error("Error reading token file:", error);
+    if (!accessToken) {
+      accessToken = readAccessToken({ allowEnv: true });
     }
-
     if (!accessToken) {
       throw new Error("Access token not found. Please save access token first.");
     }
 
     // Create Microsoft Graph client
-    graphClient = Client.init({
-      authProvider: (done) => {
-        done(null, accessToken);
-      }
-    });
+    graphClient = createGraphClient(accessToken);
   }
   return graphClient;
 }
 
 // Create graph client with device code auth or access token
-async function createGraphClient() {
+async function createGraphClientWithAuth() {
   if (accessToken) {
-    // Use access token if available
-    graphClient = Client.initWithMiddleware({
-      authProvider: {
-        getAccessToken: async () => {
-          return accessToken;
-        }
-      }
-    });
+    graphClient = createGraphClient(accessToken);
     return { type: 'token', client: graphClient };
   } else {
     // Use device code flow
@@ -127,16 +68,10 @@ async function createGraphClient() {
       
       // Save the token for future use
       accessToken = tokenResponse.token;
-      fs.writeFileSync(tokenFilePath, JSON.stringify({ token: accessToken }));
+      writeAccessToken(accessToken);
       
       // Initialize Graph client with the token
-      graphClient = Client.initWithMiddleware({
-        authProvider: {
-          getAccessToken: async () => {
-            return accessToken;
-          }
-        }
-      });
+      graphClient = createGraphClient(accessToken);
       
       return { type: 'device_code', client: graphClient };
     } catch (error) {
@@ -152,7 +87,7 @@ server.tool(
   "Start the authentication flow with Microsoft Graph",
   async () => {
     try {
-      const result = await createGraphClient();
+      const result = await createGraphClientWithAuth();
       if (result.type === 'device_code') {
         return { 
           content: [
@@ -187,9 +122,8 @@ server.tool(
     try {
       // Save the token for future use
       accessToken = params.random_string;
-      const tokenData = JSON.stringify({ token: accessToken });
-      fs.writeFileSync(tokenFilePath, tokenData);
-      await createGraphClient();
+      writeAccessToken(accessToken);
+      graphClient = createGraphClient(accessToken);
       return { 
         content: [
           {
