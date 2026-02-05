@@ -62,10 +62,15 @@ async function getAllPageContents() {
         const content = await response.text();
         const textSummary = extractTextContent(content);
 
-        console.log(`Last modified: ${new Date(page.lastModifiedDateTime).toLocaleString()}`);
+        console.log(
+          `Last modified: ${new Date(page.lastModifiedDateTime).toLocaleString()}`
+        );
         console.log(`Content summary: ${textSummary}`);
       } catch (error) {
-        console.error(`Error processing ${page.title}:`, (error as Error).message);
+        console.error(
+          `Error processing ${page.title}:`,
+          (error as Error).message
+        );
       }
     }
   } catch (error) {

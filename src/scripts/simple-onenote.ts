@@ -19,7 +19,10 @@ async function listNotebooks() {
       });
     }
   } catch (error) {
-    console.error('Error listing notebooks:', (error as Error).message || error);
+    console.error(
+      'Error listing notebooks:',
+      (error as Error).message || error
+    );
   }
 }
 

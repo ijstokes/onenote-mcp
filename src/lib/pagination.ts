@@ -1,4 +1,7 @@
-export async function fetchAll<T>(client: { api: (path: string) => { get: () => Promise<any> } }, apiPath: string): Promise<T[]> {
+export async function fetchAll<T>(
+  client: { api: (path: string) => { get: () => Promise<any> } },
+  apiPath: string
+): Promise<T[]> {
   const items: T[] = [];
   let nextUrl: string | null = apiPath;
 

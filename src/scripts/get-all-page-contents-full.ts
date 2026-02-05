@@ -22,13 +22,21 @@ async function getAllPagesFullContent() {
       return;
     }
 
-    console.log(`Found ${pages.length} pages. Fetching full content for each...\n`);
+    console.log(
+      `Found ${pages.length} pages. Fetching full content for each...\n`
+    );
 
     for (const page of pages) {
-      console.log('\n==================================================================');
+      console.log(
+        '\n=================================================================='
+      );
       console.log(`PAGE: ${page.title}`);
-      console.log(`Last modified: ${new Date(page.lastModifiedDateTime).toLocaleString()}`);
-      console.log('==================================================================\n');
+      console.log(
+        `Last modified: ${new Date(page.lastModifiedDateTime).toLocaleString()}`
+      );
+      console.log(
+        '==================================================================\n'
+      );
 
       try {
         const url = page.contentUrl;
@@ -52,7 +60,10 @@ async function getAllPagesFullContent() {
         console.log(content);
         console.log('\n');
       } catch (error) {
-        console.error(`Error processing ${page.title}:`, (error as Error).message);
+        console.error(
+          `Error processing ${page.title}:`,
+          (error as Error).message
+        );
       }
     }
   } catch (error) {

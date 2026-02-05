@@ -18,8 +18,14 @@ export const scopes = [
   'Group.Read.All'
 ];
 
-export const tokenStorage =
-  (process.env.ONENOTE_MCP_TOKEN_STORAGE ?? 'keychain').toLowerCase();
+const tokenStorageRaw = (
+  process.env.ONENOTE_MCP_TOKEN_STORAGE ?? 'keychain'
+).toLowerCase();
+const tokenStorageValues = new Set(['keychain', 'file', 'env']);
+export const tokenStorage = tokenStorageValues.has(tokenStorageRaw)
+  ? tokenStorageRaw
+  : 'keychain';
+export const tokenStorageConfigured = tokenStorageRaw;
 
 export const logLevel = process.env.ONENOTE_MCP_LOG_LEVEL ?? 'info';
 export const consoleLogging = /^(true|1|yes)$/i.test(
@@ -32,8 +38,7 @@ const defaultLogDirectory = () => {
   }
   if (process.platform === 'win32') {
     const base =
-      process.env.LOCALAPPDATA ??
-      path.join(os.homedir(), 'AppData', 'Local');
+      process.env.LOCALAPPDATA ?? path.join(os.homedir(), 'AppData', 'Local');
     return path.join(base, 'onenote-mcp', 'logs');
   }
   return path.join(os.homedir(), '.local', 'state', 'onenote-mcp');

@@ -71,7 +71,9 @@ async function createPage() {
 
     console.log('\nNew page created successfully:');
     console.log(`Title: ${response.title}`);
-    console.log(`Created: ${new Date(response.createdDateTime).toLocaleString()}`);
+    console.log(
+      `Created: ${new Date(response.createdDateTime).toLocaleString()}`
+    );
     console.log(`Link: ${response.links.oneNoteWebUrl.href}`);
   } catch (error) {
     console.error('Error creating page:', (error as Error).message || error);

@@ -1,22 +1,24 @@
 import fs from 'fs';
-import os from 'os';
-import path from 'path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-const tokenFilePath = path.join(os.tmpdir(), 'onenote-mcp-test-token.json');
+const testTokenPath = vi.hoisted(() => '/tmp/onenote-mcp-test-token.json');
 
 vi.mock('../src/lib/config.js', () => ({
-  tokenFilePath,
+  tokenFilePath: testTokenPath,
   tokenStorage: 'file',
+  tokenStorageConfigured: 'file',
   keychainService: 'onenote-mcp',
-  keychainAccount: 'graph-access-token'
+  keychainAccount: 'graph-access-token',
+  logLevel: 'info',
+  logFilePath: '/tmp/onenote-mcp-test.log',
+  consoleLogging: false
 }));
 
 import { readAccessToken, writeAccessToken } from '../src/lib/auth.js';
 
 afterEach(() => {
-  if (fs.existsSync(tokenFilePath)) {
-    fs.unlinkSync(tokenFilePath);
+  if (fs.existsSync(testTokenPath)) {
+    fs.unlinkSync(testTokenPath);
   }
 });
 

@@ -10,7 +10,9 @@ async function listGroupPages() {
     const sectionQuery = sectionParts.join(' ').trim();
 
     if (!groupQuery || !sectionQuery) {
-      console.error('Usage: node list-group-pages.js "<group name or id>" "<section name or id>"');
+      console.error(
+        'Usage: node list-group-pages.js "<group name or id>" "<section name or id>"'
+      );
       process.exit(1);
     }
 
@@ -50,7 +52,9 @@ async function listGroupPages() {
       if (sectionSelection.matches && sectionSelection.matches.length > 1) {
         console.log('Multiple matches found:');
         sectionSelection.matches.forEach((section, index) => {
-          console.log(`${index + 1}. ${section.displayName} (id: ${section.id})`);
+          console.log(
+            `${index + 1}. ${section.displayName} (id: ${section.id})`
+          );
         });
       }
       return;
@@ -75,7 +79,10 @@ async function listGroupPages() {
       console.log(`${index + 1}. ${page.title}`);
     });
   } catch (error) {
-    console.error('Error listing group pages:', (error as Error).message || error);
+    console.error(
+      'Error listing group pages:',
+      (error as Error).message || error
+    );
   }
 }
 

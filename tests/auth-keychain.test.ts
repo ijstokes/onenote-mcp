@@ -12,8 +12,12 @@ vi.mock('keytar', () => ({
 vi.mock('../src/lib/config.js', () => ({
   tokenFilePath: '/tmp/onenote-mcp-test-token.json',
   tokenStorage: 'keychain',
+  tokenStorageConfigured: 'keychain',
   keychainService: 'onenote-mcp',
-  keychainAccount: 'graph-access-token'
+  keychainAccount: 'graph-access-token',
+  logLevel: 'info',
+  logFilePath: '/tmp/onenote-mcp-test.log',
+  consoleLogging: false
 }));
 
 import { readAccessToken, writeAccessToken } from '../src/lib/auth.js';

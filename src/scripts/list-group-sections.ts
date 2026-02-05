@@ -46,13 +46,17 @@ async function listGroupSections() {
       return;
     }
 
-    const notebookSelection = pickByNameOrId(notebooks, notebookQuery, { allowEmpty: true });
+    const notebookSelection = pickByNameOrId(notebooks, notebookQuery, {
+      allowEmpty: true
+    });
     if (!notebookSelection.item) {
       console.log('No matching notebook found.');
       if (notebookSelection.matches && notebookSelection.matches.length > 1) {
         console.log('Multiple matches found:');
         notebookSelection.matches.forEach((notebook, index) => {
-          console.log(`${index + 1}. ${notebook.displayName} (id: ${notebook.id})`);
+          console.log(
+            `${index + 1}. ${notebook.displayName} (id: ${notebook.id})`
+          );
         });
       }
       return;
@@ -77,7 +81,10 @@ async function listGroupSections() {
       console.log(`${index + 1}. ${section.displayName}`);
     });
   } catch (error) {
-    console.error('Error listing group sections:', (error as Error).message || error);
+    console.error(
+      'Error listing group sections:',
+      (error as Error).message || error
+    );
   }
 }
 

@@ -6,7 +6,9 @@ import { fetchAll } from '../lib/pagination.js';
 
 const pageTitle = process.argv[2];
 if (!pageTitle) {
-  console.error('Please provide a page title as argument. Example: node get-page.js "Questions"');
+  console.error(
+    'Please provide a page title as argument. Example: node get-page.js "Questions"'
+  );
   process.exit(1);
 }
 
@@ -51,13 +53,18 @@ async function getPageContent() {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `HTTP error! Status: ${response.status} ${response.statusText}`
+      );
     }
 
     const content = await response.text();
     console.log(`Content received! Length: ${content.length} characters`);
 
-    const plainText = content.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim();
+    const plainText = content
+      .replace(/<[^>]*>?/gm, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
 
     console.log('\n--- PAGE CONTENT ---\n');
     console.log(plainText);

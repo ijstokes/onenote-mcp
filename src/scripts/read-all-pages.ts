@@ -41,7 +41,10 @@ function extractReadableText(html: string) {
     });
 
     document.querySelectorAll('div, span').forEach((element) => {
-      if (element.childNodes.length === 1 && element.childNodes[0].nodeType === 3) {
+      if (
+        element.childNodes.length === 1 &&
+        element.childNodes[0].nodeType === 3
+      ) {
         const content = element.textContent?.trim() ?? '';
         if (content) {
           text += `${content}\n\n`;
@@ -89,13 +92,21 @@ async function readAllPages() {
       return;
     }
 
-    console.log(`Found ${pages.length} pages. Reading full content for each...\n`);
+    console.log(
+      `Found ${pages.length} pages. Reading full content for each...\n`
+    );
 
     for (const page of pages) {
-      console.log('\n==================================================================');
+      console.log(
+        '\n=================================================================='
+      );
       console.log(`PAGE: ${page.title}`);
-      console.log(`Last modified: ${new Date(page.lastModifiedDateTime).toLocaleString()}`);
-      console.log('==================================================================\n');
+      console.log(
+        `Last modified: ${new Date(page.lastModifiedDateTime).toLocaleString()}`
+      );
+      console.log(
+        '==================================================================\n'
+      );
 
       try {
         const url = page.contentUrl;
@@ -119,11 +130,16 @@ async function readAllPages() {
         console.log(readableText);
         console.log('\n');
       } catch (error) {
-        console.error(`Error processing ${page.title}:`, (error as Error).message);
+        console.error(
+          `Error processing ${page.title}:`,
+          (error as Error).message
+        );
       }
     }
 
-    console.log('\nAll pages have been read. You can now ask questions about their content.');
+    console.log(
+      '\nAll pages have been read. You can now ask questions about their content.'
+    );
   } catch (error) {
     console.error('Error:', (error as Error).message || error);
   }

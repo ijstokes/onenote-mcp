@@ -17,6 +17,7 @@ This server is designed and maintained according to the following MCP best-pract
 ## What Does This Do?
 
 This server allows AI assistants to:
+
 - Access your OneNote notebooks, sections, and pages
 - Create new pages in your notebooks
 - Search through your notes
@@ -36,23 +37,24 @@ All of this happens directly through the AI interface without you having to swit
    - Open Cursor preferences (Cmd+, on Mac or Ctrl+, on Windows)
    - Go to the "MCP" tab
    - Add a new MCP server with these settings:
-     - Name: `onenote` 
+     - Name: `onenote`
      - Command: `node`
-    - Args: `["/path/to/your/onenote-mcp/dist/onenote-mcp.js"]` (use absolute path)
+   - Args: `["/path/to/your/onenote-mcp/dist/onenote-mcp.js"]` (use absolute path)
 
    Here's the complete JSON configuration example:
+
    ```json
    {
      "mcpServers": {
        "onenote": {
          "command": "node",
-        "args": ["/absolute/path/to/your/onenote-mcp/dist/onenote-mcp.js"],
+         "args": ["/absolute/path/to/your/onenote-mcp/dist/onenote-mcp.js"],
          "env": {}
        }
      }
    }
    ```
-   
+
 5. Restart Cursor
 6. In Cursor, you can now interact with your OneNote data using natural language:
 
@@ -72,21 +74,23 @@ The first time you ask about OneNote, the AI will guide you through the authenti
 4. In the Claude Desktop settings, add the OneNote MCP server:
    - Name: `onenote`
    - Command: `node`
-  - Args: `["/path/to/your/onenote-mcp/dist/onenote-mcp.js"]` (use absolute path)
-   
-   JSON configuration example:
-   ```json
-   {
-     "mcpServers": {
-       "onenote": {
-         "command": "node",
-        "args": ["/absolute/path/to/your/onenote-mcp/dist/onenote-mcp.js"],
-         "env": {}
-       }
-     }
-   }
-   ```
-   
+
+- Args: `["/path/to/your/onenote-mcp/dist/onenote-mcp.js"]` (use absolute path)
+
+JSON configuration example:
+
+```json
+{
+  "mcpServers": {
+    "onenote": {
+      "command": "node",
+      "args": ["/absolute/path/to/your/onenote-mcp/dist/onenote-mcp.js"],
+      "env": {}
+    }
+  }
+}
+```
+
 5. You can now ask Claude to interact with your OneNote data
 
 ### Setup for Claude Code
@@ -159,7 +163,14 @@ npm run build
 npm start
 ```
 
+If you install this package as a dependency, you can also run the CLI entrypoint:
+
+```bash
+onenote-mcp
+```
+
 This will start the MCP server, and you'll see a message:
+
 ```
 Server started successfully.
 Use the "authenticate" tool to start the authentication flow,
@@ -171,6 +182,7 @@ or use "saveAccessToken" if you already have a token.
 Once the server is running, you can authenticate directly through your AI assistant:
 
 1. In Cursor, Anthropic's Claude Desktop, or any MCP-compatible assistant, ask to authenticate with OneNote:
+
    ```
    Can you authenticate with my OneNote account?
    ```
@@ -187,18 +199,18 @@ Once the server is running, you can authenticate directly through your AI assist
 
 Once authenticated, the following tools are available for AI assistants to use:
 
-| Tool Name | Description |
-|-----------|-------------|
-| `authenticate` | Start the Microsoft authentication flow |
-| `saveAccessToken` | Save a Microsoft Graph access token for later use |
-| `listNotebooks` | Get a list of all your OneNote notebooks |
-| `getNotebook` | Get details of a specific notebook |
-| `listSections` | List all sections in a notebook |
-| `listPages` | List all pages in a section |
-| `getPage` | Get the complete content of a specific page, including HTML formatting |
-| `createPage` | Create a new page with HTML content |
-| `searchPages` | Search for pages across your notebooks |
-| `info` | Report server version, configuration, and dependency status |
+| Tool Name         | Description                                                            |
+| ----------------- | ---------------------------------------------------------------------- |
+| `authenticate`    | Start the Microsoft authentication flow                                |
+| `saveAccessToken` | Save a Microsoft Graph access token for later use                      |
+| `listNotebooks`   | Get a list of all your OneNote notebooks                               |
+| `getNotebook`     | Get details of a specific notebook                                     |
+| `listSections`    | List all sections in a notebook                                        |
+| `listPages`       | List all pages in a section                                            |
+| `getPage`         | Get the complete content of a specific page, including HTML formatting |
+| `createPage`      | Create a new page with HTML content                                    |
+| `searchPages`     | Search for pages across your notebooks                                 |
+| `info`            | Report server version, configuration, and dependency status            |
 
 ## MCP Tool Schemas
 
@@ -216,18 +228,18 @@ Tools use explicit, validated schemas. Key inputs include:
 
 The following scripts were added to support shared group notebooks and deeper inspection:
 
-| Script | Description |
-|--------|-------------|
-| `npm run list-groups` | List Microsoft 365 groups that have OneNote notebooks |
-| `npm run list-group-notebooks -- "<group name or id>"` | List notebooks in a specific group |
-| `npm run list-group-sections -- "<group name or id>" ["notebook name or id"]` | List sections in a group notebook |
-| `npm run list-group-pages -- "<group name or id>" "<section name or id>"` | List pages in a group section |
-| `npm run get-page -- "<page title>"` | Print plain text content for a page |
-| `npm run get-page-content` | Inspect multiple fetch strategies for page HTML |
-| `npm run simple-page-content` | Verify raw page content retrieval |
-| `npm run get-all-page-contents` | Summarize all pages |
-| `npm run get-all-page-contents-full` | Print full HTML for all pages |
-| `npm run read-all-pages` | Read full content in a readable format |
+| Script                                                                        | Description                                           |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `npm run list-groups`                                                         | List Microsoft 365 groups that have OneNote notebooks |
+| `npm run list-group-notebooks -- "<group name or id>"`                        | List notebooks in a specific group                    |
+| `npm run list-group-sections -- "<group name or id>" ["notebook name or id"]` | List sections in a group notebook                     |
+| `npm run list-group-pages -- "<group name or id>" "<section name or id>"`     | List pages in a group section                         |
+| `npm run get-page -- "<page title>"`                                          | Print plain text content for a page                   |
+| `npm run get-page-content`                                                    | Inspect multiple fetch strategies for page HTML       |
+| `npm run simple-page-content`                                                 | Verify raw page content retrieval                     |
+| `npm run get-all-page-contents`                                               | Summarize all pages                                   |
+| `npm run get-all-page-contents-full`                                          | Print full HTML for all pages                         |
+| `npm run read-all-pages`                                                      | Read full content in a readable format                |
 
 ## Example Interactions
 
@@ -319,6 +331,14 @@ Versioning follows SemVer and is sourced from `package.json`. Tag releases with:
 
 ```bash
 npm run release:tag
+```
+
+See `CHANGELOG.md` for release notes.
+
+## Testing
+
+```bash
+npm test
 ```
 
 ## Troubleshooting

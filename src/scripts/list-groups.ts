@@ -10,12 +10,18 @@ async function listGroupsWithOneNote() {
     const groups = await fetchAllGroups(client);
 
     console.log('Checking OneNote notebooks for each group...');
-    const groupsWithNotebooks: Array<{ id: string; displayName: string; notebookCount: number }> = [];
+    const groupsWithNotebooks: Array<{
+      id: string;
+      displayName: string;
+      notebookCount: number;
+    }> = [];
 
     for (const group of groups) {
       try {
         const notebooks = await client
-          .api(`${getOnenoteRoot({ scope: 'group', groupId: group.id })}/notebooks`)
+          .api(
+            `${getOnenoteRoot({ scope: 'group', groupId: group.id })}/notebooks`
+          )
           .get();
 
         if (notebooks.value && notebooks.value.length > 0) {

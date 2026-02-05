@@ -24,7 +24,9 @@ async function getPageContent() {
 
     console.log('\nMethod 1: Using /content endpoint');
     try {
-      const content1 = await client.api(`/me/onenote/pages/${page.id}/content`).get();
+      const content1 = await client
+        .api(`/me/onenote/pages/${page.id}/content`)
+        .get();
       console.log('Success! Content type:', typeof content1);
       console.log(
         'Content snippet:',
@@ -70,7 +72,10 @@ async function getPageContent() {
 
     console.log('\nMethod 4: Using contentUrl with header');
     try {
-      const content4 = await client.api(page.contentUrl).header('Accept', 'text/html').get();
+      const content4 = await client
+        .api(page.contentUrl)
+        .header('Accept', 'text/html')
+        .get();
       console.log('Success! Content type:', typeof content4);
       console.log(
         'Content snippet:',
@@ -84,11 +89,16 @@ async function getPageContent() {
 
     console.log('\nMethod 5: Using contentUrl with responseType "raw"');
     try {
-      const content5 = await client.api(page.contentUrl).responseType('raw').get();
+      const content5 = await client
+        .api(page.contentUrl)
+        .responseType('raw')
+        .get();
       console.log('Success! Raw response type:', typeof content5);
       if (content5 && content5.body) {
         const text = await content5.text();
-        console.log(`Content snippet from raw response: ${text.substring(0, 100)}...`);
+        console.log(
+          `Content snippet from raw response: ${text.substring(0, 100)}...`
+        );
       } else {
         console.log('Raw response does not have a body property');
       }

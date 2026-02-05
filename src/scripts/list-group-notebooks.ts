@@ -47,7 +47,10 @@ async function listGroupNotebooks() {
       console.log(`${index + 1}. ${notebook.displayName}`);
     });
   } catch (error) {
-    console.error('Error listing group notebooks:', (error as Error).message || error);
+    console.error(
+      'Error listing group notebooks:',
+      (error as Error).message || error
+    );
   }
 }
 

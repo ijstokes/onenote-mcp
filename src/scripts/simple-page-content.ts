@@ -43,7 +43,9 @@ async function getPageContent() {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `HTTP error! Status: ${response.status} ${response.statusText}`
+        );
       }
 
       const contentType = response.headers.get('content-type');
@@ -57,7 +59,9 @@ async function getPageContent() {
           .replace(/\n/g, ' ')}...`
       );
 
-      console.log('Content retrieval successful! Privacy preserved - not saving to disk.');
+      console.log(
+        'Content retrieval successful! Privacy preserved - not saving to disk.'
+      );
     } catch (error) {
       console.error('Error fetching content:', error);
     }

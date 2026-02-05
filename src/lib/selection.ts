@@ -12,7 +12,11 @@ type SelectionResult<T> = {
 export function pickByNameOrId<T extends Record<string, any>>(
   items: T[],
   query: string | null | undefined,
-  { nameKey = 'displayName', idKey = 'id', allowEmpty = false }: SelectionOptions = {}
+  {
+    nameKey = 'displayName',
+    idKey = 'id',
+    allowEmpty = false
+  }: SelectionOptions = {}
 ): SelectionResult<T> {
   if (!items || items.length === 0) {
     return { matches: [] };

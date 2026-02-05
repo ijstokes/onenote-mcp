@@ -4,7 +4,8 @@ import {
   keychainAccount,
   keychainService,
   tokenFilePath,
-  tokenStorage
+  tokenStorage,
+  tokenStorageConfigured
 } from './config.js';
 import { logger } from './logger.js';
 
@@ -43,7 +44,10 @@ export async function readAccessToken(
     const keytar = await getKeytar();
     if (keytar) {
       try {
-        const token = await keytar.getPassword(keychainService, keychainAccount);
+        const token = await keytar.getPassword(
+          keychainService,
+          keychainAccount
+        );
         if (token) {
           return token;
         }
@@ -102,6 +106,7 @@ export async function createGraphClient(accessToken?: string): Promise<Client> {
 export async function getTokenStorageStatus() {
   const keytar = tokenStorage !== 'file' ? await getKeytar() : null;
   return {
+    configuredStorage: tokenStorageConfigured,
     storageMode: tokenStorage,
     keychainAvailable: Boolean(keytar)
   };
