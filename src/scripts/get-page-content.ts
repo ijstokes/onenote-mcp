@@ -1,0 +1,103 @@
+import { createGraphClient } from '../lib/auth.js';
+import { fetchAll } from '../lib/pagination.js';
+import { pickByNameOrId } from '../lib/selection.js';
+
+async function getPageContent() {
+  try {
+    const client = await createGraphClient();
+
+    console.log('Fetching pages...');
+    const pages = await fetchAll<any>(client, '/me/onenote/pages');
+
+    if (pages.length === 0) {
+      console.log('No pages found.');
+      return;
+    }
+
+    const page = pickByNameOrId(pages, null, { allowEmpty: true }).item;
+    if (!page) {
+      console.log('No page selected.');
+      return;
+    }
+
+    console.log(`Using page: "${page.title}" (ID: ${page.id})`);
+
+    console.log('\nMethod 1: Using /content endpoint');
+    try {
+      const content1 = await client.api(`/me/onenote/pages/${page.id}/content`).get();
+      console.log('Success! Content type:', typeof content1);
+      console.log(
+        'Content snippet:',
+        typeof content1 === 'string'
+          ? `${content1.substring(0, 100)}...`
+          : `${JSON.stringify(content1).substring(0, 100)}...`
+      );
+    } catch (error) {
+      console.error('Method 1 failed:', (error as Error).message);
+    }
+
+    console.log('\nMethod 2: Using /content with header');
+    try {
+      const content2 = await client
+        .api(`/me/onenote/pages/${page.id}/content`)
+        .header('Accept', 'text/html')
+        .get();
+      console.log('Success! Content type:', typeof content2);
+      console.log(
+        'Content snippet:',
+        typeof content2 === 'string'
+          ? `${content2.substring(0, 100)}...`
+          : `${JSON.stringify(content2).substring(0, 100)}...`
+      );
+    } catch (error) {
+      console.error('Method 2 failed:', (error as Error).message);
+    }
+
+    console.log('\nMethod 3: Using contentUrl directly');
+    try {
+      console.log('ContentUrl:', page.contentUrl);
+      const content3 = await client.api(page.contentUrl).get();
+      console.log('Success! Content type:', typeof content3);
+      console.log(
+        'Content snippet:',
+        typeof content3 === 'string'
+          ? `${content3.substring(0, 100)}...`
+          : `${JSON.stringify(content3).substring(0, 100)}...`
+      );
+    } catch (error) {
+      console.error('Method 3 failed:', (error as Error).message);
+    }
+
+    console.log('\nMethod 4: Using contentUrl with header');
+    try {
+      const content4 = await client.api(page.contentUrl).header('Accept', 'text/html').get();
+      console.log('Success! Content type:', typeof content4);
+      console.log(
+        'Content snippet:',
+        typeof content4 === 'string'
+          ? `${content4.substring(0, 100)}...`
+          : `${JSON.stringify(content4).substring(0, 100)}...`
+      );
+    } catch (error) {
+      console.error('Method 4 failed:', (error as Error).message);
+    }
+
+    console.log('\nMethod 5: Using contentUrl with responseType "raw"');
+    try {
+      const content5 = await client.api(page.contentUrl).responseType('raw').get();
+      console.log('Success! Raw response type:', typeof content5);
+      if (content5 && content5.body) {
+        const text = await content5.text();
+        console.log(`Content snippet from raw response: ${text.substring(0, 100)}...`);
+      } else {
+        console.log('Raw response does not have a body property');
+      }
+    } catch (error) {
+      console.error('Method 5 failed:', (error as Error).message);
+    }
+  } catch (error) {
+    console.error('Error:', (error as Error).message || error);
+  }
+}
+
+getPageContent();

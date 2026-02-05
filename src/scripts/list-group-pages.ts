@@ -1,8 +1,8 @@
-import { createGraphClient } from './lib/auth.js';
-import { fetchAllGroups, pickGroup } from './lib/groups.js';
-import { getOnenoteRoot } from './lib/onenote-paths.js';
-import { pickByNameOrId } from './lib/selection.js';
-import { fetchAll } from './lib/pagination.js';
+import { createGraphClient } from '../lib/auth.js';
+import { fetchAllGroups, pickGroup } from '../lib/groups.js';
+import { getOnenoteRoot } from '../lib/onenote-paths.js';
+import { pickByNameOrId } from '../lib/selection.js';
+import { fetchAll } from '../lib/pagination.js';
 
 async function listGroupPages() {
   try {
@@ -14,7 +14,7 @@ async function listGroupPages() {
       process.exit(1);
     }
 
-    const client = createGraphClient();
+    const client = await createGraphClient();
 
     console.log('Fetching groups...');
     const groups = await fetchAllGroups(client);
@@ -34,7 +34,7 @@ async function listGroupPages() {
     const group = selection.item;
     console.log(`\nGroup: ${group.displayName} (id: ${group.id})`);
     console.log('Fetching sections...');
-    const sections = await fetchAll(
+    const sections = await fetchAll<any>(
       client,
       `${getOnenoteRoot({ scope: 'group', groupId: group.id })}/sections?$select=id,displayName`
     );
@@ -59,7 +59,7 @@ async function listGroupPages() {
     const section = sectionSelection.item;
     console.log(`\nSection: ${section.displayName} (id: ${section.id})`);
     console.log('Fetching pages...');
-    const pages = await fetchAll(
+    const pages = await fetchAll<any>(
       client,
       `${getOnenoteRoot({ scope: 'group', groupId: group.id })}/sections/${section.id}/pages`
     );
@@ -75,7 +75,7 @@ async function listGroupPages() {
       console.log(`${index + 1}. ${page.title}`);
     });
   } catch (error) {
-    console.error('Error listing group pages:', error.message || error);
+    console.error('Error listing group pages:', (error as Error).message || error);
   }
 }
 

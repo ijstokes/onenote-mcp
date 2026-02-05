@@ -1,16 +1,16 @@
-import { createGraphClient } from './lib/auth.js';
-import { fetchAllGroups } from './lib/groups.js';
-import { getOnenoteRoot } from './lib/onenote-paths.js';
+import { createGraphClient } from '../lib/auth.js';
+import { fetchAllGroups } from '../lib/groups.js';
+import { getOnenoteRoot } from '../lib/onenote-paths.js';
 
 async function listGroupsWithOneNote() {
   try {
-    const client = createGraphClient();
+    const client = await createGraphClient();
 
     console.log('Fetching groups...');
     const groups = await fetchAllGroups(client);
 
     console.log('Checking OneNote notebooks for each group...');
-    const groupsWithNotebooks = [];
+    const groupsWithNotebooks: Array<{ id: string; displayName: string; notebookCount: number }> = [];
 
     for (const group of groups) {
       try {
@@ -43,7 +43,7 @@ async function listGroupsWithOneNote() {
       });
     }
   } catch (error) {
-    console.error('Error listing groups:', error.message || error);
+    console.error('Error listing groups:', (error as Error).message || error);
   }
 }
 

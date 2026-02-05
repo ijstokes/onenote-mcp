@@ -1,8 +1,8 @@
-import { createGraphClient } from './lib/auth.js';
-import { fetchAllGroups, pickGroup } from './lib/groups.js';
-import { getOnenoteRoot } from './lib/onenote-paths.js';
-import { pickByNameOrId } from './lib/selection.js';
-import { fetchAll } from './lib/pagination.js';
+import { createGraphClient } from '../lib/auth.js';
+import { fetchAllGroups, pickGroup } from '../lib/groups.js';
+import { getOnenoteRoot } from '../lib/onenote-paths.js';
+import { pickByNameOrId } from '../lib/selection.js';
+import { fetchAll } from '../lib/pagination.js';
 
 async function listGroupSections() {
   try {
@@ -10,11 +10,13 @@ async function listGroupSections() {
     const notebookQuery = notebookParts.join(' ').trim();
 
     if (!groupQuery) {
-      console.error('Usage: node list-group-sections.js "<group name or id>" ["notebook name or id"]');
+      console.error(
+        'Usage: node list-group-sections.js "<group name or id>" ["notebook name or id"]'
+      );
       process.exit(1);
     }
 
-    const client = createGraphClient();
+    const client = await createGraphClient();
 
     console.log('Fetching groups...');
     const groups = await fetchAllGroups(client);
@@ -34,7 +36,7 @@ async function listGroupSections() {
     const group = selection.item;
     console.log(`\nGroup: ${group.displayName} (id: ${group.id})`);
     console.log('Fetching notebooks...');
-    const notebooks = await fetchAll(
+    const notebooks = await fetchAll<any>(
       client,
       `${getOnenoteRoot({ scope: 'group', groupId: group.id })}/notebooks`
     );
@@ -59,7 +61,7 @@ async function listGroupSections() {
     const notebook = notebookSelection.item;
     console.log(`\nNotebook: ${notebook.displayName} (id: ${notebook.id})`);
     console.log('Fetching sections...');
-    const sections = await fetchAll(
+    const sections = await fetchAll<any>(
       client,
       `${getOnenoteRoot({ scope: 'group', groupId: group.id })}/notebooks/${notebook.id}/sections`
     );
@@ -75,7 +77,7 @@ async function listGroupSections() {
       console.log(`${index + 1}. ${section.displayName}`);
     });
   } catch (error) {
-    console.error('Error listing group sections:', error.message || error);
+    console.error('Error listing group sections:', (error as Error).message || error);
   }
 }
 

@@ -1,7 +1,7 @@
-import { createGraphClient } from './lib/auth.js';
-import { fetchAllGroups, pickGroup } from './lib/groups.js';
-import { getOnenoteRoot } from './lib/onenote-paths.js';
-import { fetchAll } from './lib/pagination.js';
+import { createGraphClient } from '../lib/auth.js';
+import { fetchAllGroups, pickGroup } from '../lib/groups.js';
+import { getOnenoteRoot } from '../lib/onenote-paths.js';
+import { fetchAll } from '../lib/pagination.js';
 
 async function listGroupNotebooks() {
   try {
@@ -11,7 +11,7 @@ async function listGroupNotebooks() {
       process.exit(1);
     }
 
-    const client = createGraphClient();
+    const client = await createGraphClient();
 
     console.log('Fetching groups...');
     const groups = await fetchAllGroups(client);
@@ -31,7 +31,7 @@ async function listGroupNotebooks() {
     const group = selection.item;
     console.log(`\nGroup: ${group.displayName} (id: ${group.id})`);
     console.log('Fetching notebooks...');
-    const notebooks = await fetchAll(
+    const notebooks = await fetchAll<any>(
       client,
       `${getOnenoteRoot({ scope: 'group', groupId: group.id })}/notebooks`
     );
@@ -47,7 +47,7 @@ async function listGroupNotebooks() {
       console.log(`${index + 1}. ${notebook.displayName}`);
     });
   } catch (error) {
-    console.error('Error listing group notebooks:', error.message || error);
+    console.error('Error listing group notebooks:', (error as Error).message || error);
   }
 }
 
