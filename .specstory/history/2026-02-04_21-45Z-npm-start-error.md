@@ -58,6 +58,7 @@ Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/ian/othercode/onenote-m
 Node.js v24.7.0
 
 ```
+
 </details>
 </tool-use>
 
@@ -74,7 +75,6 @@ I'm checking the onenote-mcp.mjs and package.json files, along with the reposito
 <details>
 <summary>Tool use: **list_dir_v2**</summary>
 
-
 Parameters:
 
 ```json
@@ -82,6 +82,7 @@ Parameters:
   "targetDirectory": "/Users/ian/othercode/onenote-mcp"
 }
 ```
+
 Result:
 
 ```json
@@ -162,8 +163,8 @@ Result:
   }
 }
 ```
-Status: **completed**
 
+Status: **completed**
 
 </details>
 </tool-use>
@@ -224,7 +225,6 @@ I'm planning to replace local TypeScript SDK imports with proper package imports
 <details>
 <summary>Tool use: **ripgrep_raw_search**</summary>
 
-
 Parameters:
 
 ```json
@@ -236,6 +236,7 @@ Parameters:
   "caseInsensitive": false
 }
 ```
+
 Result:
 
 ```json
@@ -287,8 +288,8 @@ Result:
   }
 }
 ```
-Status: **completed**
 
+Status: **completed**
 
 </details>
 </tool-use>
@@ -314,6 +315,7 @@ npm view @modelcontextprotocol/sdk version
 npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
 
 ```
+
 </details>
 </tool-use>
 
@@ -369,6 +371,7 @@ npm view @modelcontextprotocol/sdk exports
 npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
 
 ```
+
 </details>
 </tool-use>
 
@@ -439,6 +442,7 @@ npm warn EBADENGINE   current: { node: 'v24.7.0', npm: '11.6.1' }
 npm warn EBADENGINE }
 
 ```
+
 </details>
 </tool-use>
 
@@ -467,6 +471,7 @@ Use the "authenticate" tool to start the authentication flow,
 or use "saveAccessToken" if you already have a token.
 
 ```
+
 </details>
 </tool-use>
 
@@ -497,10 +502,12 @@ I'm noting the server runs now via npm start with updated dependencies and impor
 Got it running. The failure was due to the local `./typescript-sdk` path not existing, so I switched the SDK dependency to the published package and updated imports to use it. `npm start` now launches the server successfully and is currently running in the background.
 
 What I changed
+
 - Updated `@modelcontextprotocol/sdk` dependency to the npm package in `package.json`
 - Updated imports in `onenote-mcp.mjs` to use `@modelcontextprotocol/sdk/server/*`
 
 Notes
+
 - You can stop the running server with `Ctrl+C` in the terminal session that ran `npm start`.
 - You may see a warning about `@azure/msal-node` engine compatibility with Node 24.7.0; it’s just a warning, but if you run into runtime issues, consider using Node 18 or 20.
 
@@ -537,6 +544,7 @@ You will see a URL and code to enter shortly...
 To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code EMLDDUP88 to authenticate.
 
 ```
+
 </details>
 </tool-use>
 
@@ -578,7 +586,7 @@ _**Agent (model gpt-5.2-codex, mode Agent)**_
 
 ---
 
-Authentication completed successfully and the access token was saved to `.access-token.txt`.  
+Authentication completed successfully and the access token was saved to `.access-token.txt`.
 
 You can now use the MCP tools (e.g., list notebooks) with the server that’s running.
 
@@ -620,6 +628,7 @@ Your OneNote Notebooks:
 npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
 
 ```
+
 </details>
 </tool-use>
 
@@ -627,7 +636,7 @@ npm warn Unknown env config "devdir". This will stop working in the next major v
 
 Found 2 notebooks:
 
-- Communications  
+- Communications
 - My Notebook @ Python Next Inc
 
 ---
@@ -649,7 +658,7 @@ Shared notebooks typically appear under the user's Microsoft account via the Gra
 
 If the notebook was shared directly to your Microsoft account, it should appear automatically after you authenticate with that same account. Make sure you’ve accepted the share invitation in OneNote/Outlook first, then re-run `list-notebooks`.
 
-If it’s a **team/shared notebook** stored in a **Microsoft 365 Group or Team**, it won’t show up under `/me/onenote/notebooks`. You need to query group notebooks instead (Graph uses `/groups/{groupId}/onenote/notebooks`).  
+If it’s a **team/shared notebook** stored in a **Microsoft 365 Group or Team**, it won’t show up under `/me/onenote/notebooks`. You need to query group notebooks instead (Graph uses `/groups/{groupId}/onenote/notebooks`).
 
 If you want, tell me which it is (direct share vs group/team) and I can add a tool/script to list group notebooks and pages.
 
@@ -657,7 +666,7 @@ If you want, tell me which it is (direct share vs group/team) and I can add a to
 
 _**User**_
 
-use the endpoint https://graph.microsoft.com/v1.0/groups   to get all OneNote groups
+use the endpoint https://graph.microsoft.com/v1.0/groups to get all OneNote groups
 
 ---
 
@@ -725,6 +734,7 @@ npm warn Unknown env config "devdir". This will stop working in the next major v
 Error listing groups: Insufficient privileges to complete the operation.
 
 ```
+
 </details>
 </tool-use>
 
@@ -786,6 +796,7 @@ You will see a URL and code to enter shortly...
 To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code EZKDLUNS2 to authenticate.
 
 ```
+
 </details>
 </tool-use>
 
@@ -851,6 +862,7 @@ Groups with OneNote notebooks:
 npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
 
 ```
+
 </details>
 </tool-use>
 
@@ -932,6 +944,7 @@ Notebooks:
 npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
 
 ```
+
 </details>
 </tool-use>
 
@@ -1020,6 +1033,7 @@ Sections:
 npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
 
 ```
+
 </details>
 </tool-use>
 
@@ -1027,21 +1041,21 @@ npm warn Unknown env config "devdir". This will stop working in the next major v
 
 Here are the sections in Engineering Design Notebook:
 
-- Data  
-- Data Model  
-- Engineering Patterns  
-- Information Architecture  
-- LLM Capabilities  
-- Market Landscape  
-- New Laptop SetUp  
-- Personas  
-- Product Architecture  
-- Product Feature Matrix  
-- Team Learning Journeys  
-- Toolkits  
-- User Journeys  
-- User Model  
-- Visual Design  
+- Data
+- Data Model
+- Engineering Patterns
+- Information Architecture
+- LLM Capabilities
+- Market Landscape
+- New Laptop SetUp
+- Personas
+- Product Architecture
+- Product Feature Matrix
+- Team Learning Journeys
+- Toolkits
+- User Journeys
+- User Model
+- Visual Design
 
 Want me to list pages in a specific section?
 
@@ -1109,6 +1123,7 @@ Pages:
 npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
 
 ```
+
 </details>
 </tool-use>
 
@@ -1116,7 +1131,7 @@ npm warn Unknown env config "devdir". This will stop working in the next major v
 
 Pages in **Market Landscape**:
 
-- Business Analysts Core Tools Today  
+- Business Analysts Core Tools Today
 - Business Analyst Obstacles
 
 Want the content of one of these pages, or list pages for another section?
@@ -1140,7 +1155,6 @@ _**Agent (model gpt-5.2-codex, mode Agent)**_
 <details>
 <summary>Tool use: **ripgrep_raw_search**</summary>
 
-
 Parameters:
 
 ```json
@@ -1151,6 +1165,7 @@ Parameters:
   "caseInsensitive": false
 }
 ```
+
 Result:
 
 ```json
@@ -1221,8 +1236,8 @@ Result:
   }
 }
 ```
-Status: **completed**
 
+Status: **completed**
 
 </details>
 </tool-use>
@@ -1269,6 +1284,7 @@ npm config get devdir
 npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
 
 ```
+
 </details>
 </tool-use>
 
@@ -1292,6 +1308,7 @@ npm config delete devdir
 npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
 
 ```
+
 </details>
 </tool-use>
 
@@ -1316,6 +1333,7 @@ npm config get devdir
 npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
 
 ```
+
 </details>
 </tool-use>
 
@@ -1339,6 +1357,7 @@ env | rg -i "npm_config_devdir|devdir"
 (eval):1: command not found: rg
 
 ```
+
 </details>
 </tool-use>
 
@@ -1362,6 +1381,7 @@ printenv npm_config_devdir
 /var/folders/xb/w88hbd6d14gfdjbk3j4lj_nc0000gn/T/cursor-sandbox-cache/9a70621f0d5c65b3685cd99e655b0e54/node-gyp
 
 ```
+
 </details>
 </tool-use>
 
@@ -1383,6 +1403,7 @@ I'll unset the npm_config_devdir variable in the current persistent shell sessio
 ```bash
 unset npm_config_devdir
 ```
+
 </details>
 </tool-use>
 
@@ -1399,6 +1420,7 @@ printenv npm_config_devdir
 /var/folders/xb/w88hbd6d14gfdjbk3j4lj_nc0000gn/T/cursor-sandbox-cache/9a70621f0d5c65b3685cd99e655b0e54/node-gyp
 
 ```
+
 </details>
 </tool-use>
 
@@ -1421,7 +1443,7 @@ Fix options (pick one):
 - **Remove the env var from your shell config** (permanent):  
   Check `~/.zshrc` / `~/.zprofile` for `npm_config_devdir` and delete that line, then restart your terminal.
 
-- **Run npm without that env var** (one‑off):  
+- **Run npm without that env var** (one‑off):
   ```bash
   env -u npm_config_devdir npm start
   ```
@@ -1459,7 +1481,6 @@ _**Agent (model gpt-5.2-codex, mode Agent)**_
 <details>
 <summary>Tool use: **task_v2**</summary>
 
-
 Parameters:
 
 ```json
@@ -1471,6 +1492,7 @@ Parameters:
   "name": "explore"
 }
 ```
+
 Additional data:
 
 ```json
@@ -1479,6 +1501,7 @@ Additional data:
   "composerData": "{\"_v\":13,\"composerId\":\"task-call_EvjPpRzwIDoJuwwPIhuP6AV9\\nfc_02c8075a0800936f016983c30388488199ba7dae48c8af403d\",\"richText\":\"\",\"hasLoaded\":true,\"text\":\"\",\"fullConversationHeadersOnly\":[{\"bubbleId\":\"b6339aff-59e9-47a8-9b76-18bd59d1772d\",\"type\":2},{\"bubbleId\":\"bf7f4e66-e4fe-44fa-b47e-0bb837960709\",\"type\":2},{\"bubbleId\":\"26478bd6-b40e-48c3-8924-362c54a9aac0\",\"type\":2},{\"bubbleId\":\"0b1d0a46-e4ee-4425-8a88-d3009c405b09\",\"type\":2},{\"bubbleId\":\"954c32c0-c0e1-4eb5-b5cf-ccca17a2d137\",\"type\":2},{\"bubbleId\":\"b2ccfc36-d29e-4d3a-b100-24d1f1f888fa\",\"type\":2},{\"bubbleId\":\"b321c7dd-8162-4034-9322-f1d18c7dd4d0\",\"type\":2},{\"bubbleId\":\"6c62633c-9105-4d58-9026-8b6493518f64\",\"type\":2},{\"bubbleId\":\"835f7362-cd95-4adc-a593-8f2977ec8f2f\",\"type\":2},{\"bubbleId\":\"8f5816b1-022f-4d7a-ae7d-8c2a6da5e66b\",\"type\":2},{\"bubbleId\":\"485a027c-3ad1-49c4-af12-92ecfe2cc223\",\"type\":2},{\"bubbleId\":\"baf0c66d-9083-401e-a83f-e5bf03e1e152\",\"type\":2},{\"bubbleId\":\"d6f09880-1f12-4a21-8378-d57905ce48f2\",\"type\":2},{\"bubbleId\":\"94f000ae-f183-41ec-aa08-ac866e0bb59b\",\"type\":2},{\"bubbleId\":\"d5bf8984-80c3-4c5b-8964-8c62f3c42130\",\"type\":2},{\"bubbleId\":\"17df81f5-7dd1-4eeb-bedc-874587277bda\",\"type\":2},{\"bubbleId\":\"ee49b133-a7b3-4ce9-8cb2-cc5f3987c489\",\"type\":2},{\"bubbleId\":\"ecfc0112-4e41-4f5f-ae27-978f5319248d\",\"type\":2},{\"bubbleId\":\"f7d59909-c58e-47e2-ad12-507a6e9804a1\",\"type\":2}],\"conversationMap\":{\"b6339aff-59e9-47a8-9b76-18bd59d1772d\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"773955d5-137a-428f-9315-d7dc6c42114b\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.086Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\\nExploring the repo for duplicated auth/client logic and common patterns. Reviewing key files.\\\\n\\\"}\",\"bf7f4e66-e4fe-44fa-b47e-0bb837960709\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"ace59083-037b-4fa7-a188-6a2090fffa68\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.086Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_a098f68a-174e-47b8-a686-533c7413ee0\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_a098f68a-174e-47b8-a686-533c7413ee0\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"read_file_v2\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/onenote-mcp.mjs\\\\\\\"}\\\",\\\"tool\\\":40,\\\"params\\\":\\\"{\\\\\\\"targetFile\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/onenote-mcp.mjs\\\\\\\",\\\\\\\"charsLimit\\\\\\\":1000000,\\\\\\\"effectiveUri\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/onenote-mcp.mjs\\\\\\\"}\\\",\\\"result\\\":\\\"{\\\\\\\"contents\\\\\\\":\\\\\\\"\\\\\\\",\\\\\\\"totalLinesInFile\\\\\\\":542}\\\"},\\\"capabilityType\\\":15}\",\"26478bd6-b40e-48c3-8924-362c54a9aac0\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"187ce771-14ed-4233-9fcb-49efa256f76d\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.086Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_e705651a-6c27-467c-b5ba-b69b2af12d7\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_e705651a-6c27-467c-b5ba-b69b2af12d7\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"read_file_v2\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/authenticate.js\\\\\\\"}\\\",\\\"tool\\\":40,\\\"params\\\":\\\"{\\\\\\\"targetFile\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/authenticate.js\\\\\\\",\\\\\\\"charsLimit\\\\\\\":1000000,\\\\\\\"effectiveUri\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/authenticate.js\\\\\\\"}\\\",\\\"result\\\":\\\"{\\\\\\\"contents\\\\\\\":\\\\\\\"import { DeviceCodeCredential } from '@azure/identity';\\\\\\\\nimport fs from 'fs';\\\\\\\\nimport path from 'path';\\\\\\\\nimport { fileURLToPath } from 'url';\\\\\\\\n\\\\\\\\n// Get current directory\\\\\\\\nconst __filename = fileURLToPath(import.meta.url);\\\\\\\\nconst __dirname = path.dirname(__filename);\\\\\\\\n\\\\\\\\n// Path for storing the access token\\\\\\\\nconst tokenFilePath = path.join(__dirname, '.access-token.txt');\\\\\\\\n\\\\\\\\n// Client ID for Microsoft Graph API access\\\\\\\\nconst clientId = '14d82eec-204b-4c2f-b7e8-296a70dab67e'; // Microsoft Graph Explorer client ID\\\\\\\\nconst scopes = ['Notes.Read.All', 'Notes.ReadWrite.All', 'User.Read', 'Group.Read.All'];\\\\\\\\n\\\\\\\\nasync function authenticate() {\\\\\\\\n  try {\\\\\\\\n    // Use device code flow\\\\\\\\n    const credential = new DeviceCodeCredential({\\\\\\\\n      clientId: clientId,\\\\\\\\n      userPromptCallback: (info) =&gt; {\\\\\\\\n        // This will show the URL and code to the user\\\\\\\\n        console.log('\\\\\\\\\\\\\\\\n' + info.message);\\\\\\\\n      }\\\\\\\\n    });\\\\\\\\n\\\\\\\\n    // Get an access token using device code flow\\\\\\\\n    console.log('Starting authentication...');\\\\\\\\n    console.log('You will see a URL and code to enter shortly...');\\\\\\\\n    \\\\\\\\n    const tokenResponse = await credential.getToken(scopes);\\\\\\\\n    \\\\\\\\n    // Save the token for future use\\\\\\\\n    const accessToken = tokenResponse.token;\\\\\\\\n    fs.writeFileSync(tokenFilePath, JSON.stringify({ token: accessToken }));\\\\\\\\n    \\\\\\\\n    console.log('\\\\\\\\\\\\\\\\nAuthentication successful!');\\\\\\\\n    console.log('Access token saved to:', tokenFilePath);\\\\\\\\n    \\\\\\\\n  } catch (error) {\\\\\\\\n    console.error('Authentication error:', error);\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\n// Run the authentication\\\\\\\\nauthenticate(); \\\\\\\",\\\\\\\"totalLinesInFile\\\\\\\":47}\\\"},\\\"capabilityType\\\":15}\",\"0b1d0a46-e4ee-4425-8a88-d3009c405b09\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"6849b980-8c52-4f70-8fb1-64fd244e91bd\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.086Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_2ecbc815-8c30-4f00-80e0-c26e35b2e85\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_2ecbc815-8c30-4f00-80e0-c26e35b2e85\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"read_file_v2\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/package.json\\\\\\\"}\\\",\\\"tool\\\":40,\\\"params\\\":\\\"{\\\\\\\"targetFile\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/package.json\\\\\\\",\\\\\\\"charsLimit\\\\\\\":1000000,\\\\\\\"effectiveUri\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/package.json\\\\\\\"}\\\",\\\"result\\\":\\\"{\\\\\\\"contents\\\\\\\":\\\\\\\"{\\\\\\\\n  \\\\\\\\\\\\\\\"name\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"mcp-server-onenote\\\\\\\\\\\\\\\",\\\\\\\\n  \\\\\\\\\\\\\\\"version\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"0.1.0\\\\\\\\\\\\\\\",\\\\\\\\n  \\\\\\\\\\\\\\\"description\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"OneNote MCP Server Implementation with Device Code Authentication\\\\\\\\\\\\\\\",\\\\\\\\n  \\\\\\\\\\\\\\\"type\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"module\\\\\\\\\\\\\\\",\\\\\\\\n  \\\\\\\\\\\\\\\"main\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"onenote-mcp.mjs\\\\\\\\\\\\\\\",\\\\\\\\n  \\\\\\\\\\\\\\\"scripts\\\\\\\\\\\\\\\": {\\\\\\\\n    \\\\\\\\\\\\\\\"start\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"node onenote-mcp.mjs\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"auth\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"node authenticate.js\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"list-notebooks\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"node simple-onenote.js\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"list-sections\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"node list-sections.js\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"list-pages\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"node list-pages.js\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"create-page\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"node create-page.js\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"list-groups\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"node list-groups.js\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"list-group-notebooks\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"node list-group-notebooks.js\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"list-group-sections\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"node list-group-sections.js\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"list-group-pages\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"node list-group-pages.js\\\\\\\\\\\\\\\"\\\\\\\\n  },\\\\\\\\n  \\\\\\\\\\\\\\\"dependencies\\\\\\\\\\\\\\\": {\\\\\\\\n    \\\\\\\\\\\\\\\"@azure/identity\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"^2.1.0\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"@azure/msal-node\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"^3.5.0\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"@microsoft/microsoft-graph-client\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"^3.0.7\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"@modelcontextprotocol/sdk\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"^1.26.0\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"dotenv\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"^16.0.0\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"jsdom\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"^26.0.0\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"node-fetch\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"^3.3.2\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"open\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"^10.1.0\\\\\\\\\\\\\\\"\\\\\\\\n  },\\\\\\\\n  \\\\\\\\\\\\\\\"keywords\\\\\\\\\\\\\\\": [\\\\\\\\n    \\\\\\\\\\\\\\\"mcp\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"onenote\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"modelcontextprotocol\\\\\\\\\\\\\\\",\\\\\\\\n    \\\\\\\\\\\\\\\"device-code-auth\\\\\\\\\\\\\\\"\\\\\\\\n  ],\\\\\\\\n  \\\\\\\\\\\\\\\"author\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"Zubeid Hendricks\\\\\\\\\\\\\\\",\\\\\\\\n  \\\\\\\\\\\\\\\"license\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"MIT\\\\\\\\\\\\\\\"\\\\\\\\n}\\\\\\\\n\\\\\\\",\\\\\\\"totalLinesInFile\\\\\\\":38}\\\"},\\\"capabilityType\\\":15}\",\"954c32c0-c0e1-4eb5-b5cf-ccca17a2d137\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"612539a1-3047-4810-a5a7-bce5733d0792\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.086Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_c7ca7b86-ec23-4e32-abbd-a8a02fa9fc0\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_c7ca7b86-ec23-4e32-abbd-a8a02fa9fc0\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"read_file_v2\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-pages.js\\\\\\\"}\\\",\\\"tool\\\":40,\\\"params\\\":\\\"{\\\\\\\"targetFile\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-pages.js\\\\\\\",\\\\\\\"charsLimit\\\\\\\":1000000,\\\\\\\"effectiveUri\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-pages.js\\\\\\\"}\\\",\\\"result\\\":\\\"{\\\\\\\"contents\\\\\\\":\\\\\\\"import { Client } from '@microsoft/microsoft-graph-client';\\\\\\\\nimport fs from 'fs';\\\\\\\\nimport path from 'path';\\\\\\\\nimport { fileURLToPath } from 'url';\\\\\\\\n\\\\\\\\n// Get current directory\\\\\\\\nconst __filename = fileURLToPath(import.meta.url);\\\\\\\\nconst __dirname = path.dirname(__filename);\\\\\\\\n\\\\\\\\n// Path for storing the access token\\\\\\\\nconst tokenFilePath = path.join(__dirname, '.access-token.txt');\\\\\\\\n\\\\\\\\nasync function listPages() {\\\\\\\\n  try {\\\\\\\\n    // Read the access token\\\\\\\\n    if (!fs.existsSync(tokenFilePath)) {\\\\\\\\n      console.error('Access token not found. Please authenticate first.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\\n    let accessToken;\\\\\\\\n    \\\\\\\\n    try {\\\\\\\\n      // Try to parse as JSON first (new format)\\\\\\\\n      const parsedToken = JSON.parse(tokenData);\\\\\\\\n      accessToken = parsedToken.token;\\\\\\\\n    } catch (parseError) {\\\\\\\\n      // Fall back to using the raw token (old format)\\\\\\\\n      accessToken = tokenData;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    if (!accessToken) {\\\\\\\\n      console.error('Access token not found in file.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    // Create Microsoft Graph client\\\\\\\\n    const client = Client.init({\\\\\\\\n      authProvider: (done) =&gt; {\\\\\\\\n        done(null, accessToken);\\\\\\\\n      }\\\\\\\\n    });\\\\\\\\n\\\\\\\\n    // First, get all notebooks\\\\\\\\n    console.log('Fetching notebooks...');\\\\\\\\n    const notebooksResponse = await client.api('/me/onenote/notebooks').get();\\\\\\\\n    \\\\\\\\n    if (notebooksResponse.value.length === 0) {\\\\\\\\n      console.log('No notebooks found.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    // Use the first notebook (you can modify this to select a specific notebook)\\\\\\\\n    const notebook = notebooksResponse.value[0];\\\\\\\\n    console.log(&#96;Using notebook: \\\\\\\\\\\\\\\"${notebook.displayName}\\\\\\\\\\\\\\\"&#96;);\\\\\\\\n\\\\\\\\n    // Get sections in the selected notebook\\\\\\\\n    console.log(&#96;Fetching sections in \\\\\\\\\\\\\\\"${notebook.displayName}\\\\\\\\\\\\\\\" notebook...&#96;);\\\\\\\\n    const sectionsResponse = await client.api(&#96;/me/onenote/notebooks/${notebook.id}/sections&#96;).get();\\\\\\\\n    \\\\\\\\n    if (sectionsResponse.value.length === 0) {\\\\\\\\n      console.log('No sections found in this notebook.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    // Use the first section (you can modify this to select a specific section)\\\\\\\\n    const section = sectionsResponse.value[0];\\\\\\\\n    console.log(&#96;Using section: \\\\\\\\\\\\\\\"${section.displayName}\\\\\\\\\\\\\\\"&#96;);\\\\\\\\n\\\\\\\\n    // Get pages in the section\\\\\\\\n    console.log(&#96;Fetching pages in \\\\\\\\\\\\\\\"${section.displayName}\\\\\\\\\\\\\\\" section...&#96;);\\\\\\\\n    const pagesResponse = await client.api(&#96;/me/onenote/sections/${section.id}/pages&#96;).get();\\\\\\\\n    \\\\\\\\n    console.log(&#96;\\\\\\\\\\\\\\\\nPages in ${section.displayName}:&#96;);\\\\\\\\n    console.log('=====================');\\\\\\\\n    \\\\\\\\n    if (pagesResponse.value.length === 0) {\\\\\\\\n      console.log('No pages found.');\\\\\\\\n    } else {\\\\\\\\n      pagesResponse.value.forEach((page, index) =&gt; {\\\\\\\\n        console.log(&#96;${index + 1}. ${page.title} (Created: ${new Date(page.createdDateTime).toLocaleString()})&#96;);\\\\\\\\n      });\\\\\\\\n    }\\\\\\\\n\\\\\\\\n  } catch (error) {\\\\\\\\n    console.error('Error listing pages:', error);\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\n// Run the function\\\\\\\\nlistPages(); \\\\\\\",\\\\\\\"totalLinesInFile\\\\\\\":92}\\\"},\\\"capabilityType\\\":15}\",\"b2ccfc36-d29e-4d3a-b100-24d1f1f888fa\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"18a03e85-6d46-4e24-a202-54d9b55f5fb6\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.086Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_1cbcb2b0-bbb7-4e6a-8974-d585ff5cfcc\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_1cbcb2b0-bbb7-4e6a-8974-d585ff5cfcc\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"read_file_v2\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-groups.js\\\\\\\"}\\\",\\\"tool\\\":40,\\\"params\\\":\\\"{\\\\\\\"targetFile\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-groups.js\\\\\\\",\\\\\\\"charsLimit\\\\\\\":1000000,\\\\\\\"effectiveUri\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-groups.js\\\\\\\"}\\\",\\\"result\\\":\\\"{\\\\\\\"contents\\\\\\\":\\\\\\\"import { Client } from '@microsoft/microsoft-graph-client';\\\\\\\\nimport fs from 'fs';\\\\\\\\nimport path from 'path';\\\\\\\\nimport { fileURLToPath } from 'url';\\\\\\\\n\\\\\\\\nconst __filename = fileURLToPath(import.meta.url);\\\\\\\\nconst __dirname = path.dirname(__filename);\\\\\\\\nconst tokenFilePath = path.join(__dirname, '.access-token.txt');\\\\\\\\n\\\\\\\\nfunction readAccessToken() {\\\\\\\\n  if (!fs.existsSync(tokenFilePath)) {\\\\\\\\n    throw new Error('Access token not found. Please authenticate first.');\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\\n\\\\\\\\n  try {\\\\\\\\n    const parsedToken = JSON.parse(tokenData);\\\\\\\\n    return parsedToken.token;\\\\\\\\n  } catch (parseError) {\\\\\\\\n    return tokenData;\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\nasync function fetchAllGroups(client) {\\\\\\\\n  const groups = [];\\\\\\\\n  let nextUrl = '/groups?$select=id,displayName';\\\\\\\\n\\\\\\\\n  while (nextUrl) {\\\\\\\\n    const response = await client.api(nextUrl).get();\\\\\\\\n    if (Array.isArray(response.value)) {\\\\\\\\n      groups.push(...response.value);\\\\\\\\n    }\\\\\\\\n    nextUrl = response['@odata.nextLink'] || null;\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  return groups;\\\\\\\\n}\\\\\\\\n\\\\\\\\nasync function listGroupsWithOneNote() {\\\\\\\\n  try {\\\\\\\\n    const accessToken = readAccessToken();\\\\\\\\n\\\\\\\\n    const client = Client.init({\\\\\\\\n      authProvider: (done) =&gt; {\\\\\\\\n        done(null, accessToken);\\\\\\\\n      }\\\\\\\\n    });\\\\\\\\n\\\\\\\\n    console.log('Fetching groups...');\\\\\\\\n    const groups = await fetchAllGroups(client);\\\\\\\\n\\\\\\\\n    console.log('Checking OneNote notebooks for each group...');\\\\\\\\n    const groupsWithNotebooks = [];\\\\\\\\n\\\\\\\\n    for (const group of groups) {\\\\\\\\n      try {\\\\\\\\n        const notebooks = await client\\\\\\\\n          .api(&#96;/groups/${group.id}/onenote/notebooks&#96;)\\\\\\\\n          .get();\\\\\\\\n\\\\\\\\n        if (notebooks.value &amp;&amp; notebooks.value.length &gt; 0) {\\\\\\\\n          groupsWithNotebooks.push({\\\\\\\\n            id: group.id,\\\\\\\\n            displayName: group.displayName,\\\\\\\\n            notebookCount: notebooks.value.length\\\\\\\\n          });\\\\\\\\n        }\\\\\\\\n      } catch (error) {\\\\\\\\n        // Ignore groups without OneNote or without access\\\\\\\\n      }\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    console.log('\\\\\\\\\\\\\\\\nGroups with OneNote notebooks:');\\\\\\\\n    console.log('==============================');\\\\\\\\n\\\\\\\\n    if (groupsWithNotebooks.length === 0) {\\\\\\\\n      console.log('No groups with OneNote notebooks found.');\\\\\\\\n    } else {\\\\\\\\n      groupsWithNotebooks.forEach((group, index) =&gt; {\\\\\\\\n        console.log(\\\\\\\\n          &#96;${index + 1}. ${group.displayName} (id: ${group.id}, notebooks: ${group.notebookCount})&#96;\\\\\\\\n        );\\\\\\\\n      });\\\\\\\\n    }\\\\\\\\n  } catch (error) {\\\\\\\\n    console.error('Error listing groups:', error.message || error);\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\nlistGroupsWithOneNote();\\\\\\\\n\\\\\\\",\\\\\\\"totalLinesInFile\\\\\\\":92}\\\"},\\\"capabilityType\\\":15}\",\"b321c7dd-8162-4034-9322-f1d18c7dd4d0\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"b4f5022c-37b8-4e0d-9d0f-b8ab7ebd7de4\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.086Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_a3f57eb0-6f13-4b88-bf46-4524107c316\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_a3f57eb0-6f13-4b88-bf46-4524107c316\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"read_file_v2\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-group-pages.js\\\\\\\"}\\\",\\\"tool\\\":40,\\\"params\\\":\\\"{\\\\\\\"targetFile\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-group-pages.js\\\\\\\",\\\\\\\"charsLimit\\\\\\\":1000000,\\\\\\\"effectiveUri\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-group-pages.js\\\\\\\"}\\\",\\\"result\\\":\\\"{\\\\\\\"contents\\\\\\\":\\\\\\\"import { Client } from '@microsoft/microsoft-graph-client';\\\\\\\\nimport fs from 'fs';\\\\\\\\nimport path from 'path';\\\\\\\\nimport { fileURLToPath } from 'url';\\\\\\\\n\\\\\\\\nconst __filename = fileURLToPath(import.meta.url);\\\\\\\\nconst __dirname = path.dirname(__filename);\\\\\\\\nconst tokenFilePath = path.join(__dirname, '.access-token.txt');\\\\\\\\n\\\\\\\\nfunction readAccessToken() {\\\\\\\\n  if (!fs.existsSync(tokenFilePath)) {\\\\\\\\n    throw new Error('Access token not found. Please authenticate first.');\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\\n\\\\\\\\n  try {\\\\\\\\n    const parsedToken = JSON.parse(tokenData);\\\\\\\\n    return parsedToken.token;\\\\\\\\n  } catch (parseError) {\\\\\\\\n    return tokenData;\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\nasync function fetchAllGroups(client) {\\\\\\\\n  const groups = [];\\\\\\\\n  let nextUrl = '/groups?$select=id,displayName';\\\\\\\\n\\\\\\\\n  while (nextUrl) {\\\\\\\\n    const response = await client.api(nextUrl).get();\\\\\\\\n    if (Array.isArray(response.value)) {\\\\\\\\n      groups.push(...response.value);\\\\\\\\n    }\\\\\\\\n    nextUrl = response['@odata.nextLink'] || null;\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  return groups;\\\\\\\\n}\\\\\\\\n\\\\\\\\nfunction pickGroup(groups, query) {\\\\\\\\n  const normalizedQuery = query.toLowerCase();\\\\\\\\n\\\\\\\\n  const exactMatches = groups.filter(\\\\\\\\n    (group) =&gt; (group.displayName || '').toLowerCase() === normalizedQuery\\\\\\\\n  );\\\\\\\\n  if (exactMatches.length === 1) {\\\\\\\\n    return { group: exactMatches[0] };\\\\\\\\n  }\\\\\\\\n  if (exactMatches.length &gt; 1) {\\\\\\\\n    return { matches: exactMatches };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const partialMatches = groups.filter((group) =&gt;\\\\\\\\n    (group.displayName || '').toLowerCase().includes(normalizedQuery)\\\\\\\\n  );\\\\\\\\n  if (partialMatches.length === 1) {\\\\\\\\n    return { group: partialMatches[0] };\\\\\\\\n  }\\\\\\\\n  if (partialMatches.length &gt; 1) {\\\\\\\\n    return { matches: partialMatches };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const idMatch = groups.find((group) =&gt; group.id === query);\\\\\\\\n  if (idMatch) {\\\\\\\\n    return { group: idMatch };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  return { matches: [] };\\\\\\\\n}\\\\\\\\n\\\\\\\\nasync function fetchAllSections(client, groupId) {\\\\\\\\n  const sections = [];\\\\\\\\n  let nextUrl = &#96;/groups/${groupId}/onenote/sections?$select=id,displayName&#96;;\\\\\\\\n\\\\\\\\n  while (nextUrl) {\\\\\\\\n    const response = await client.api(nextUrl).get();\\\\\\\\n    if (Array.isArray(response.value)) {\\\\\\\\n      sections.push(...response.value);\\\\\\\\n    }\\\\\\\\n    nextUrl = response['@odata.nextLink'] || null;\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  return sections;\\\\\\\\n}\\\\\\\\n\\\\\\\\nfunction pickSection(sections, query) {\\\\\\\\n  const normalizedQuery = query.toLowerCase();\\\\\\\\n\\\\\\\\n  const exactMatches = sections.filter(\\\\\\\\n    (section) =&gt; (section.displayName || '').toLowerCase() === normalizedQuery\\\\\\\\n  );\\\\\\\\n  if (exactMatches.length === 1) {\\\\\\\\n    return { section: exactMatches[0] };\\\\\\\\n  }\\\\\\\\n  if (exactMatches.length &gt; 1) {\\\\\\\\n    return { matches: exactMatches };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const partialMatches = sections.filter((section) =&gt;\\\\\\\\n    (section.displayName || '').toLowerCase().includes(normalizedQuery)\\\\\\\\n  );\\\\\\\\n  if (partialMatches.length === 1) {\\\\\\\\n    return { section: partialMatches[0] };\\\\\\\\n  }\\\\\\\\n  if (partialMatches.length &gt; 1) {\\\\\\\\n    return { matches: partialMatches };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const idMatch = sections.find((section) =&gt; section.id === query);\\\\\\\\n  if (idMatch) {\\\\\\\\n    return { section: idMatch };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  return { matches: [] };\\\\\\\\n}\\\\\\\\n\\\\\\\\nasync function listGroupPages() {\\\\\\\\n  try {\\\\\\\\n    const [groupQuery, ...sectionParts] = process.argv.slice(2);\\\\\\\\n    const sectionQuery = sectionParts.join(' ').trim();\\\\\\\\n\\\\\\\\n    if (!groupQuery || !sectionQuery) {\\\\\\\\n      console.error('Usage: node list-group-pages.js \\\\\\\\\\\\\\\"&lt;group name or id&gt;\\\\\\\\\\\\\\\" \\\\\\\\\\\\\\\"&lt;section name or id&gt;\\\\\\\\\\\\\\\"');\\\\\\\\n      process.exit(1);\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const accessToken = readAccessToken();\\\\\\\\n    const client = Client.init({\\\\\\\\n      authProvider: (done) =&gt; {\\\\\\\\n        done(null, accessToken);\\\\\\\\n      }\\\\\\\\n    });\\\\\\\\n\\\\\\\\n    console.log('Fetching groups...');\\\\\\\\n    const groups = await fetchAllGroups(client);\\\\\\\\n\\\\\\\\n    const selection = pickGroup(groups, groupQuery);\\\\\\\\n    if (!selection.group) {\\\\\\\\n      console.log('No matching group found.');\\\\\\\\n      if (selection.matches &amp;&amp; selection.matches.length &gt; 1) {\\\\\\\\n        console.log('Multiple matches found:');\\\\\\\\n        selection.matches.forEach((group, index) =&gt; {\\\\\\\\n          console.log(&#96;${index + 1}. ${group.displayName} (id: ${group.id})&#96;);\\\\\\\\n        });\\\\\\\\n      }\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const group = selection.group;\\\\\\\\n    console.log(&#96;\\\\\\\\\\\\\\\\nGroup: ${group.displayName} (id: ${group.id})&#96;);\\\\\\\\n    console.log('Fetching sections...');\\\\\\\\n    const sections = await fetchAllSections(client, group.id);\\\\\\\\n\\\\\\\\n    if (sections.length === 0) {\\\\\\\\n      console.log('No sections found.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const sectionSelection = pickSection(sections, sectionQuery);\\\\\\\\n    if (!sectionSelection.section) {\\\\\\\\n      console.log('No matching section found.');\\\\\\\\n      if (sectionSelection.matches &amp;&amp; sectionSelection.matches.length &gt; 1) {\\\\\\\\n        console.log('Multiple matches found:');\\\\\\\\n        sectionSelection.matches.forEach((section, index) =&gt; {\\\\\\\\n          console.log(&#96;${index + 1}. ${section.displayName} (id: ${section.id})&#96;);\\\\\\\\n        });\\\\\\\\n      }\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const section = sectionSelection.section;\\\\\\\\n    console.log(&#96;\\\\\\\\\\\\\\\\nSection: ${section.displayName} (id: ${section.id})&#96;);\\\\\\\\n    console.log('Fetching pages...');\\\\\\\\n    const pagesResponse = await client\\\\\\\\n      .api(&#96;/groups/${group.id}/onenote/sections/${section.id}/pages&#96;)\\\\\\\\n      .get();\\\\\\\\n\\\\\\\\n    console.log('\\\\\\\\\\\\\\\\nPages:');\\\\\\\\n    console.log('======');\\\\\\\\n    if (!pagesResponse.value || pagesResponse.value.length === 0) {\\\\\\\\n      console.log('No pages found.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    pagesResponse.value.forEach((page, index) =&gt; {\\\\\\\\n      console.log(&#96;${index + 1}. ${page.title}&#96;);\\\\\\\\n    });\\\\\\\\n  } catch (error) {\\\\\\\\n    console.error('Error listing group pages:', error.message || error);\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\nlistGroupPages();\\\\\\\\n\\\\\\\",\\\\\\\"totalLinesInFile\\\\\\\":194}\\\"},\\\"capabilityType\\\":15}\",\"6c62633c-9105-4d58-9026-8b6493518f64\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"628744b5-910a-466c-9ed7-09431916df78\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.086Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\\nReviewing additional files to identify patterns:\\\\n\\\"}\",\"835f7362-cd95-4adc-a593-8f2977ec8f2f\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"eb424400-f3ae-4e66-a220-fdc92ac27892\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.086Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_47ae3615-8f7f-4e1b-bd72-ae4ef6a1713\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_47ae3615-8f7f-4e1b-bd72-ae4ef6a1713\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"read_file_v2\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-sections.js\\\\\\\"}\\\",\\\"tool\\\":40,\\\"params\\\":\\\"{\\\\\\\"targetFile\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-sections.js\\\\\\\",\\\\\\\"charsLimit\\\\\\\":1000000,\\\\\\\"effectiveUri\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-sections.js\\\\\\\"}\\\",\\\"result\\\":\\\"{\\\\\\\"contents\\\\\\\":\\\\\\\"import { Client } from '@microsoft/microsoft-graph-client';\\\\\\\\nimport fs from 'fs';\\\\\\\\nimport path from 'path';\\\\\\\\nimport { fileURLToPath } from 'url';\\\\\\\\n\\\\\\\\n// Get current directory\\\\\\\\nconst __filename = fileURLToPath(import.meta.url);\\\\\\\\nconst __dirname = path.dirname(__filename);\\\\\\\\n\\\\\\\\n// Path for storing the access token\\\\\\\\nconst tokenFilePath = path.join(__dirname, '.access-token.txt');\\\\\\\\n\\\\\\\\nasync function listSections() {\\\\\\\\n  try {\\\\\\\\n    // Read the access token\\\\\\\\n    if (!fs.existsSync(tokenFilePath)) {\\\\\\\\n      console.error('Access token not found. Please authenticate first.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\\n    let accessToken;\\\\\\\\n    \\\\\\\\n    try {\\\\\\\\n      // Try to parse as JSON first (new format)\\\\\\\\n      const parsedToken = JSON.parse(tokenData);\\\\\\\\n      accessToken = parsedToken.token;\\\\\\\\n    } catch (parseError) {\\\\\\\\n      // Fall back to using the raw token (old format)\\\\\\\\n      accessToken = tokenData;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    if (!accessToken) {\\\\\\\\n      console.error('Access token not found in file.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    // Create Microsoft Graph client\\\\\\\\n    const client = Client.init({\\\\\\\\n      authProvider: (done) =&gt; {\\\\\\\\n        done(null, accessToken);\\\\\\\\n      }\\\\\\\\n    });\\\\\\\\n\\\\\\\\n    // First, let's get all notebooks\\\\\\\\n    console.log('Fetching notebooks...');\\\\\\\\n    const notebooksResponse = await client.api('/me/onenote/notebooks').get();\\\\\\\\n    \\\\\\\\n    if (notebooksResponse.value.length === 0) {\\\\\\\\n      console.log('No notebooks found.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    // Use the first notebook (you can modify this to select a specific notebook)\\\\\\\\n    const notebook = notebooksResponse.value[0];\\\\\\\\n    console.log(&#96;Using notebook: \\\\\\\\\\\\\\\"${notebook.displayName}\\\\\\\\\\\\\\\"&#96;);\\\\\\\\n\\\\\\\\n    // Get sections in the selected notebook\\\\\\\\n    console.log(&#96;Fetching sections in \\\\\\\\\\\\\\\"${notebook.displayName}\\\\\\\\\\\\\\\" notebook...&#96;);\\\\\\\\n    const sectionsResponse = await client.api(&#96;/me/onenote/notebooks/${notebook.id}/sections&#96;).get();\\\\\\\\n    \\\\\\\\n    console.log(&#96;\\\\\\\\\\\\\\\\nSections in ${notebook.displayName} Notebook:&#96;);\\\\\\\\n    console.log('============================');\\\\\\\\n    \\\\\\\\n    if (sectionsResponse.value.length === 0) {\\\\\\\\n      console.log('No sections found.');\\\\\\\\n    } else {\\\\\\\\n      sectionsResponse.value.forEach((section, index) =&gt; {\\\\\\\\n        console.log(&#96;${index + 1}. ${section.displayName}&#96;);\\\\\\\\n      });\\\\\\\\n    }\\\\\\\\n\\\\\\\\n  } catch (error) {\\\\\\\\n    console.error('Error listing sections:', error);\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\n// Run the function\\\\\\\\nlistSections(); \\\\\\\",\\\\\\\"totalLinesInFile\\\\\\\":79}\\\"},\\\"capabilityType\\\":15}\",\"8f5816b1-022f-4d7a-ae7d-8c2a6da5e66b\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"bbedd60e-ae6d-41db-a393-12d38d116778\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.087Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_9209e21e-df11-42da-b3ac-1509c3e12d4\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_9209e21e-df11-42da-b3ac-1509c3e12d4\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"read_file_v2\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-group-sections.js\\\\\\\"}\\\",\\\"tool\\\":40,\\\"params\\\":\\\"{\\\\\\\"targetFile\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-group-sections.js\\\\\\\",\\\\\\\"charsLimit\\\\\\\":1000000,\\\\\\\"effectiveUri\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-group-sections.js\\\\\\\"}\\\",\\\"result\\\":\\\"{\\\\\\\"contents\\\\\\\":\\\\\\\"import { Client } from '@microsoft/microsoft-graph-client';\\\\\\\\nimport fs from 'fs';\\\\\\\\nimport path from 'path';\\\\\\\\nimport { fileURLToPath } from 'url';\\\\\\\\n\\\\\\\\nconst __filename = fileURLToPath(import.meta.url);\\\\\\\\nconst __dirname = path.dirname(__filename);\\\\\\\\nconst tokenFilePath = path.join(__dirname, '.access-token.txt');\\\\\\\\n\\\\\\\\nfunction readAccessToken() {\\\\\\\\n  if (!fs.existsSync(tokenFilePath)) {\\\\\\\\n    throw new Error('Access token not found. Please authenticate first.');\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\\n\\\\\\\\n  try {\\\\\\\\n    const parsedToken = JSON.parse(tokenData);\\\\\\\\n    return parsedToken.token;\\\\\\\\n  } catch (parseError) {\\\\\\\\n    return tokenData;\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\nasync function fetchAllGroups(client) {\\\\\\\\n  const groups = [];\\\\\\\\n  let nextUrl = '/groups?$select=id,displayName';\\\\\\\\n\\\\\\\\n  while (nextUrl) {\\\\\\\\n    const response = await client.api(nextUrl).get();\\\\\\\\n    if (Array.isArray(response.value)) {\\\\\\\\n      groups.push(...response.value);\\\\\\\\n    }\\\\\\\\n    nextUrl = response['@odata.nextLink'] || null;\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  return groups;\\\\\\\\n}\\\\\\\\n\\\\\\\\nfunction pickGroup(groups, query) {\\\\\\\\n  const normalizedQuery = query.toLowerCase();\\\\\\\\n\\\\\\\\n  const exactMatches = groups.filter(\\\\\\\\n    (group) =&gt; (group.displayName || '').toLowerCase() === normalizedQuery\\\\\\\\n  );\\\\\\\\n  if (exactMatches.length === 1) {\\\\\\\\n    return { group: exactMatches[0] };\\\\\\\\n  }\\\\\\\\n  if (exactMatches.length &gt; 1) {\\\\\\\\n    return { matches: exactMatches };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const partialMatches = groups.filter((group) =&gt;\\\\\\\\n    (group.displayName || '').toLowerCase().includes(normalizedQuery)\\\\\\\\n  );\\\\\\\\n  if (partialMatches.length === 1) {\\\\\\\\n    return { group: partialMatches[0] };\\\\\\\\n  }\\\\\\\\n  if (partialMatches.length &gt; 1) {\\\\\\\\n    return { matches: partialMatches };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const idMatch = groups.find((group) =&gt; group.id === query);\\\\\\\\n  if (idMatch) {\\\\\\\\n    return { group: idMatch };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  return { matches: [] };\\\\\\\\n}\\\\\\\\n\\\\\\\\nfunction pickNotebook(notebooks, query) {\\\\\\\\n  if (!query) {\\\\\\\\n    return { notebook: notebooks[0] };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const normalizedQuery = query.toLowerCase();\\\\\\\\n  const exactMatches = notebooks.filter(\\\\\\\\n    (notebook) =&gt; (notebook.displayName || '').toLowerCase() === normalizedQuery\\\\\\\\n  );\\\\\\\\n  if (exactMatches.length === 1) {\\\\\\\\n    return { notebook: exactMatches[0] };\\\\\\\\n  }\\\\\\\\n  if (exactMatches.length &gt; 1) {\\\\\\\\n    return { matches: exactMatches };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const partialMatches = notebooks.filter((notebook) =&gt;\\\\\\\\n    (notebook.displayName || '').toLowerCase().includes(normalizedQuery)\\\\\\\\n  );\\\\\\\\n  if (partialMatches.length === 1) {\\\\\\\\n    return { notebook: partialMatches[0] };\\\\\\\\n  }\\\\\\\\n  if (partialMatches.length &gt; 1) {\\\\\\\\n    return { matches: partialMatches };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const idMatch = notebooks.find((notebook) =&gt; notebook.id === query);\\\\\\\\n  if (idMatch) {\\\\\\\\n    return { notebook: idMatch };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  return { matches: [] };\\\\\\\\n}\\\\\\\\n\\\\\\\\nasync function listGroupSections() {\\\\\\\\n  try {\\\\\\\\n    const [groupQuery, ...notebookParts] = process.argv.slice(2);\\\\\\\\n    const notebookQuery = notebookParts.join(' ').trim();\\\\\\\\n\\\\\\\\n    if (!groupQuery) {\\\\\\\\n      console.error('Usage: node list-group-sections.js \\\\\\\\\\\\\\\"&lt;group name or id&gt;\\\\\\\\\\\\\\\" [\\\\\\\\\\\\\\\"notebook name or id\\\\\\\\\\\\\\\"]');\\\\\\\\n      process.exit(1);\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const accessToken = readAccessToken();\\\\\\\\n    const client = Client.init({\\\\\\\\n      authProvider: (done) =&gt; {\\\\\\\\n        done(null, accessToken);\\\\\\\\n      }\\\\\\\\n    });\\\\\\\\n\\\\\\\\n    console.log('Fetching groups...');\\\\\\\\n    const groups = await fetchAllGroups(client);\\\\\\\\n\\\\\\\\n    const selection = pickGroup(groups, groupQuery);\\\\\\\\n    if (!selection.group) {\\\\\\\\n      console.log('No matching group found.');\\\\\\\\n      if (selection.matches &amp;&amp; selection.matches.length &gt; 1) {\\\\\\\\n        console.log('Multiple matches found:');\\\\\\\\n        selection.matches.forEach((group, index) =&gt; {\\\\\\\\n          console.log(&#96;${index + 1}. ${group.displayName} (id: ${group.id})&#96;);\\\\\\\\n        });\\\\\\\\n      }\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const group = selection.group;\\\\\\\\n    console.log(&#96;\\\\\\\\\\\\\\\\nGroup: ${group.displayName} (id: ${group.id})&#96;);\\\\\\\\n    console.log('Fetching notebooks...');\\\\\\\\n    const notebooksResponse = await client\\\\\\\\n      .api(&#96;/groups/${group.id}/onenote/notebooks&#96;)\\\\\\\\n      .get();\\\\\\\\n\\\\\\\\n    if (!notebooksResponse.value || notebooksResponse.value.length === 0) {\\\\\\\\n      console.log('No notebooks found.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const notebookSelection = pickNotebook(notebooksResponse.value, notebookQuery);\\\\\\\\n    if (!notebookSelection.notebook) {\\\\\\\\n      console.log('No matching notebook found.');\\\\\\\\n      if (notebookSelection.matches &amp;&amp; notebookSelection.matches.length &gt; 1) {\\\\\\\\n        console.log('Multiple matches found:');\\\\\\\\n        notebookSelection.matches.forEach((notebook, index) =&gt; {\\\\\\\\n          console.log(&#96;${index + 1}. ${notebook.displayName} (id: ${notebook.id})&#96;);\\\\\\\\n        });\\\\\\\\n      }\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const notebook = notebookSelection.notebook;\\\\\\\\n    console.log(&#96;\\\\\\\\\\\\\\\\nNotebook: ${notebook.displayName} (id: ${notebook.id})&#96;);\\\\\\\\n    console.log('Fetching sections...');\\\\\\\\n    const sectionsResponse = await client\\\\\\\\n      .api(&#96;/groups/${group.id}/onenote/notebooks/${notebook.id}/sections&#96;)\\\\\\\\n      .get();\\\\\\\\n\\\\\\\\n    console.log('\\\\\\\\\\\\\\\\nSections:');\\\\\\\\n    console.log('==========');\\\\\\\\n    if (!sectionsResponse.value || sectionsResponse.value.length === 0) {\\\\\\\\n      console.log('No sections found.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    sectionsResponse.value.forEach((section, index) =&gt; {\\\\\\\\n      console.log(&#96;${index + 1}. ${section.displayName}&#96;);\\\\\\\\n    });\\\\\\\\n  } catch (error) {\\\\\\\\n    console.error('Error listing group sections:', error.message || error);\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\nlistGroupSections();\\\\\\\\n\\\\\\\",\\\\\\\"totalLinesInFile\\\\\\\":184}\\\"},\\\"capabilityType\\\":15}\",\"485a027c-3ad1-49c4-af12-92ecfe2cc223\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"2ce83e37-8b00-4ee8-b5dc-195e931f3988\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.087Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_ffeee6ea-b5f5-48e8-8c5f-6b87b8df9fd\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_ffeee6ea-b5f5-48e8-8c5f-6b87b8df9fd\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"read_file_v2\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-group-notebooks.js\\\\\\\"}\\\",\\\"tool\\\":40,\\\"params\\\":\\\"{\\\\\\\"targetFile\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-group-notebooks.js\\\\\\\",\\\\\\\"charsLimit\\\\\\\":1000000,\\\\\\\"effectiveUri\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/list-group-notebooks.js\\\\\\\"}\\\",\\\"result\\\":\\\"{\\\\\\\"contents\\\\\\\":\\\\\\\"import { Client } from '@microsoft/microsoft-graph-client';\\\\\\\\nimport fs from 'fs';\\\\\\\\nimport path from 'path';\\\\\\\\nimport { fileURLToPath } from 'url';\\\\\\\\n\\\\\\\\nconst __filename = fileURLToPath(import.meta.url);\\\\\\\\nconst __dirname = path.dirname(__filename);\\\\\\\\nconst tokenFilePath = path.join(__dirname, '.access-token.txt');\\\\\\\\n\\\\\\\\nfunction readAccessToken() {\\\\\\\\n  if (!fs.existsSync(tokenFilePath)) {\\\\\\\\n    throw new Error('Access token not found. Please authenticate first.');\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\\n\\\\\\\\n  try {\\\\\\\\n    const parsedToken = JSON.parse(tokenData);\\\\\\\\n    return parsedToken.token;\\\\\\\\n  } catch (parseError) {\\\\\\\\n    return tokenData;\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\nasync function fetchAllGroups(client) {\\\\\\\\n  const groups = [];\\\\\\\\n  let nextUrl = '/groups?$select=id,displayName';\\\\\\\\n\\\\\\\\n  while (nextUrl) {\\\\\\\\n    const response = await client.api(nextUrl).get();\\\\\\\\n    if (Array.isArray(response.value)) {\\\\\\\\n      groups.push(...response.value);\\\\\\\\n    }\\\\\\\\n    nextUrl = response['@odata.nextLink'] || null;\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  return groups;\\\\\\\\n}\\\\\\\\n\\\\\\\\nfunction pickGroup(groups, query) {\\\\\\\\n  const normalizedQuery = query.toLowerCase();\\\\\\\\n\\\\\\\\n  const exactMatches = groups.filter(\\\\\\\\n    (group) =&gt; (group.displayName || '').toLowerCase() === normalizedQuery\\\\\\\\n  );\\\\\\\\n  if (exactMatches.length === 1) {\\\\\\\\n    return { group: exactMatches[0] };\\\\\\\\n  }\\\\\\\\n  if (exactMatches.length &gt; 1) {\\\\\\\\n    return { matches: exactMatches };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const partialMatches = groups.filter((group) =&gt;\\\\\\\\n    (group.displayName || '').toLowerCase().includes(normalizedQuery)\\\\\\\\n  );\\\\\\\\n  if (partialMatches.length === 1) {\\\\\\\\n    return { group: partialMatches[0] };\\\\\\\\n  }\\\\\\\\n  if (partialMatches.length &gt; 1) {\\\\\\\\n    return { matches: partialMatches };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  const idMatch = groups.find((group) =&gt; group.id === query);\\\\\\\\n  if (idMatch) {\\\\\\\\n    return { group: idMatch };\\\\\\\\n  }\\\\\\\\n\\\\\\\\n  return { matches: [] };\\\\\\\\n}\\\\\\\\n\\\\\\\\nasync function listGroupNotebooks() {\\\\\\\\n  try {\\\\\\\\n    const query = process.argv.slice(2).join(' ').trim();\\\\\\\\n    if (!query) {\\\\\\\\n      console.error('Usage: node list-group-notebooks.js \\\\\\\\\\\\\\\"&lt;group name or id&gt;\\\\\\\\\\\\\\\"');\\\\\\\\n      process.exit(1);\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const accessToken = readAccessToken();\\\\\\\\n    const client = Client.init({\\\\\\\\n      authProvider: (done) =&gt; {\\\\\\\\n        done(null, accessToken);\\\\\\\\n      }\\\\\\\\n    });\\\\\\\\n\\\\\\\\n    console.log('Fetching groups...');\\\\\\\\n    const groups = await fetchAllGroups(client);\\\\\\\\n\\\\\\\\n    const selection = pickGroup(groups, query);\\\\\\\\n    if (!selection.group) {\\\\\\\\n      console.log('No matching group found.');\\\\\\\\n      if (selection.matches &amp;&amp; selection.matches.length &gt; 1) {\\\\\\\\n        console.log('Multiple matches found:');\\\\\\\\n        selection.matches.forEach((group, index) =&gt; {\\\\\\\\n          console.log(&#96;${index + 1}. ${group.displayName} (id: ${group.id})&#96;);\\\\\\\\n        });\\\\\\\\n      }\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const group = selection.group;\\\\\\\\n    console.log(&#96;\\\\\\\\\\\\\\\\nGroup: ${group.displayName} (id: ${group.id})&#96;);\\\\\\\\n    console.log('Fetching notebooks...');\\\\\\\\n    const notebooks = await client\\\\\\\\n      .api(&#96;/groups/${group.id}/onenote/notebooks&#96;)\\\\\\\\n      .get();\\\\\\\\n\\\\\\\\n    console.log('\\\\\\\\\\\\\\\\nNotebooks:');\\\\\\\\n    console.log('==========');\\\\\\\\n    if (!notebooks.value || notebooks.value.length === 0) {\\\\\\\\n      console.log('No notebooks found.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    notebooks.value.forEach((notebook, index) =&gt; {\\\\\\\\n      console.log(&#96;${index + 1}. ${notebook.displayName}&#96;);\\\\\\\\n    });\\\\\\\\n  } catch (error) {\\\\\\\\n    console.error('Error listing group notebooks:', error.message || error);\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\nlistGroupNotebooks();\\\\\\\\n\\\\\\\",\\\\\\\"totalLinesInFile\\\\\\\":124}\\\"},\\\"capabilityType\\\":15}\",\"baf0c66d-9083-401e-a83f-e5bf03e1e152\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"46631c6b-47c3-4f4b-ab08-38f55e8eb729\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.087Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_8c6c352c-7e83-4349-b9ba-f78b72674bd\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_8c6c352c-7e83-4349-b9ba-f78b72674bd\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"read_file_v2\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/create-page.js\\\\\\\"}\\\",\\\"tool\\\":40,\\\"params\\\":\\\"{\\\\\\\"targetFile\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/create-page.js\\\\\\\",\\\\\\\"charsLimit\\\\\\\":1000000,\\\\\\\"effectiveUri\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/create-page.js\\\\\\\"}\\\",\\\"result\\\":\\\"{\\\\\\\"contents\\\\\\\":\\\\\\\"import { Client } from '@microsoft/microsoft-graph-client';\\\\\\\\nimport fs from 'fs';\\\\\\\\nimport path from 'path';\\\\\\\\nimport { fileURLToPath } from 'url';\\\\\\\\n\\\\\\\\n// Get current directory\\\\\\\\nconst __filename = fileURLToPath(import.meta.url);\\\\\\\\nconst __dirname = path.dirname(__filename);\\\\\\\\n\\\\\\\\n// Path for storing the access token\\\\\\\\nconst tokenFilePath = path.join(__dirname, '.access-token.txt');\\\\\\\\n\\\\\\\\nasync function createPage() {\\\\\\\\n  try {\\\\\\\\n    // Read the access token\\\\\\\\n    if (!fs.existsSync(tokenFilePath)) {\\\\\\\\n      console.error('Access token not found. Please authenticate first.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\\n    let accessToken;\\\\\\\\n    \\\\\\\\n    try {\\\\\\\\n      // Try to parse as JSON first (new format)\\\\\\\\n      const parsedToken = JSON.parse(tokenData);\\\\\\\\n      accessToken = parsedToken.token;\\\\\\\\n    } catch (parseError) {\\\\\\\\n      // Fall back to using the raw token (old format)\\\\\\\\n      accessToken = tokenData;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    if (!accessToken) {\\\\\\\\n      console.error('Access token not found in file.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    // Create Microsoft Graph client\\\\\\\\n    const client = Client.init({\\\\\\\\n      authProvider: (done) =&gt; {\\\\\\\\n        done(null, accessToken);\\\\\\\\n      }\\\\\\\\n    });\\\\\\\\n\\\\\\\\n    // First, get all notebooks\\\\\\\\n    console.log('Fetching notebooks...');\\\\\\\\n    const notebooksResponse = await client.api('/me/onenote/notebooks').get();\\\\\\\\n    \\\\\\\\n    if (notebooksResponse.value.length === 0) {\\\\\\\\n      console.log('No notebooks found.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    // Use the first notebook (you can modify this to select a specific notebook)\\\\\\\\n    const notebook = notebooksResponse.value[0];\\\\\\\\n    console.log(&#96;Using notebook: \\\\\\\\\\\\\\\"${notebook.displayName}\\\\\\\\\\\\\\\"&#96;);\\\\\\\\n\\\\\\\\n    // Get sections in the selected notebook\\\\\\\\n    console.log(&#96;Fetching sections in \\\\\\\\\\\\\\\"${notebook.displayName}\\\\\\\\\\\\\\\" notebook...&#96;);\\\\\\\\n    const sectionsResponse = await client.api(&#96;/me/onenote/notebooks/${notebook.id}/sections&#96;).get();\\\\\\\\n    \\\\\\\\n    if (sectionsResponse.value.length === 0) {\\\\\\\\n      console.log('No sections found in this notebook.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    // Use the first section (you can modify this to select a specific section)\\\\\\\\n    const section = sectionsResponse.value[0];\\\\\\\\n    console.log(&#96;Using section: \\\\\\\\\\\\\\\"${section.displayName}\\\\\\\\\\\\\\\"&#96;);\\\\\\\\n\\\\\\\\n    // Create a new page\\\\\\\\n    console.log(&#96;Creating a new page in \\\\\\\\\\\\\\\"${section.displayName}\\\\\\\\\\\\\\\" section...&#96;);\\\\\\\\n    \\\\\\\\n    // Current date and time\\\\\\\\n    const now = new Date();\\\\\\\\n    const formattedDate = now.toISOString().split('T')[0];\\\\\\\\n    const formattedTime = now.toLocaleTimeString();\\\\\\\\n    \\\\\\\\n    // Create simple HTML content\\\\\\\\n    const simpleHtml = &#96;\\\\\\\\n      &lt;!DOCTYPE html&gt;\\\\\\\\n      &lt;html&gt;\\\\\\\\n        &lt;head&gt;\\\\\\\\n          &lt;title&gt;Created via MCP on ${formattedDate}&lt;/title&gt;\\\\\\\\n        &lt;/head&gt;\\\\\\\\n        &lt;body&gt;\\\\\\\\n          &lt;h1&gt;Created via MCP on ${formattedDate}&lt;/h1&gt;\\\\\\\\n          &lt;p&gt;This page was created via the Microsoft Graph API at ${formattedTime}.&lt;/p&gt;\\\\\\\\n          &lt;p&gt;This demonstrates that the OneNote MCP integration is working correctly!&lt;/p&gt;\\\\\\\\n          &lt;ul&gt;\\\\\\\\n            &lt;li&gt;The authentication flow is working&lt;/li&gt;\\\\\\\\n            &lt;li&gt;We can create new pages&lt;/li&gt;\\\\\\\\n            &lt;li&gt;We can access existing notebooks&lt;/li&gt;\\\\\\\\n          &lt;/ul&gt;\\\\\\\\n        &lt;/body&gt;\\\\\\\\n      &lt;/html&gt;\\\\\\\\n    &#96;;\\\\\\\\n    \\\\\\\\n    const response = await client\\\\\\\\n      .api(&#96;/me/onenote/sections/${section.id}/pages&#96;)\\\\\\\\n      .header(\\\\\\\\\\\\\\\"Content-Type\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"application/xhtml+xml\\\\\\\\\\\\\\\")\\\\\\\\n      .post(simpleHtml);\\\\\\\\n    \\\\\\\\n    console.log(&#96;\\\\\\\\\\\\\\\\nNew page created successfully:&#96;);\\\\\\\\n    console.log(&#96;Title: ${response.title}&#96;);\\\\\\\\n    console.log(&#96;Created: ${new Date(response.createdDateTime).toLocaleString()}&#96;);\\\\\\\\n    console.log(&#96;Link: ${response.links.oneNoteWebUrl.href}&#96;);\\\\\\\\n\\\\\\\\n  } catch (error) {\\\\\\\\n    console.error('Error creating page:', error);\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\n// Run the function\\\\\\\\ncreatePage(); \\\\\\\",\\\\\\\"totalLinesInFile\\\\\\\":115}\\\"},\\\"capabilityType\\\":15}\",\"d6f09880-1f12-4a21-8378-d57905ce48f2\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"48d1f6f4-6b30-4ddb-87ab-123bdce73cba\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.087Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_062202bc-cb2d-4233-bdc2-0d9634a412d\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_062202bc-cb2d-4233-bdc2-0d9634a412d\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"read_file_v2\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/get-page-content.js\\\\\\\"}\\\",\\\"tool\\\":40,\\\"params\\\":\\\"{\\\\\\\"targetFile\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/get-page-content.js\\\\\\\",\\\\\\\"charsLimit\\\\\\\":1000000,\\\\\\\"effectiveUri\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/get-page-content.js\\\\\\\"}\\\",\\\"result\\\":\\\"{\\\\\\\"contents\\\\\\\":\\\\\\\"import { Client } from '@microsoft/microsoft-graph-client';\\\\\\\\nimport fs from 'fs';\\\\\\\\nimport path from 'path';\\\\\\\\nimport { fileURLToPath } from 'url';\\\\\\\\n\\\\\\\\n// Get current directory\\\\\\\\nconst __filename = fileURLToPath(import.meta.url);\\\\\\\\nconst __dirname = path.dirname(__filename);\\\\\\\\n\\\\\\\\n// Path for storing the access token\\\\\\\\nconst tokenFilePath = path.join(__dirname, '.access-token.txt');\\\\\\\\n\\\\\\\\nasync function getPageContent() {\\\\\\\\n  try {\\\\\\\\n    // Read the access token\\\\\\\\n    if (!fs.existsSync(tokenFilePath)) {\\\\\\\\n      console.error('Access token not found. Please authenticate first.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\\n    let accessToken;\\\\\\\\n    \\\\\\\\n    try {\\\\\\\\n      // Try to parse as JSON first (new format)\\\\\\\\n      const parsedToken = JSON.parse(tokenData);\\\\\\\\n      accessToken = parsedToken.token;\\\\\\\\n    } catch (parseError) {\\\\\\\\n      // Fall back to using the raw token (old format)\\\\\\\\n      accessToken = tokenData;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    if (!accessToken) {\\\\\\\\n      console.error('Access token not found in file.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    // Create Microsoft Graph client\\\\\\\\n    const client = Client.init({\\\\\\\\n      authProvider: (done) =&gt; {\\\\\\\\n        done(null, accessToken);\\\\\\\\n      }\\\\\\\\n    });\\\\\\\\n\\\\\\\\n    // Get all pages\\\\\\\\n    console.log('Fetching pages...');\\\\\\\\n    const pagesResponse = await client.api('/me/onenote/pages').get();\\\\\\\\n    \\\\\\\\n    if (pagesResponse.value.length === 0) {\\\\\\\\n      console.log('No pages found.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n    \\\\\\\\n    // Use the first page\\\\\\\\n    const page = pagesResponse.value[0];\\\\\\\\n    console.log(&#96;Using page: \\\\\\\\\\\\\\\"${page.title}\\\\\\\\\\\\\\\" (ID: ${page.id})&#96;);\\\\\\\\n    \\\\\\\\n    // Test different methods to get content\\\\\\\\n    \\\\\\\\n    console.log('\\\\\\\\\\\\\\\\nMethod 1: Using /content endpoint');\\\\\\\\n    try {\\\\\\\\n      const content1 = await client.api(&#96;/me/onenote/pages/${page.id}/content&#96;).get();\\\\\\\\n      console.log('Success! Content type:', typeof content1);\\\\\\\\n      console.log('Content snippet:', typeof content1 === 'string' ? \\\\\\\\n                  content1.substring(0, 100) + '...' : \\\\\\\\n                  JSON.stringify(content1).substring(0, 100) + '...');\\\\\\\\n    } catch (error) {\\\\\\\\n      console.error('Method 1 failed:', error.message);\\\\\\\\n    }\\\\\\\\n    \\\\\\\\n    console.log('\\\\\\\\\\\\\\\\nMethod 2: Using /content with header');\\\\\\\\n    try {\\\\\\\\n      const content2 = await client.api(&#96;/me/onenote/pages/${page.id}/content&#96;)\\\\\\\\n        .header('Accept', 'text/html')\\\\\\\\n        .get();\\\\\\\\n      console.log('Success! Content type:', typeof content2);\\\\\\\\n      console.log('Content snippet:', typeof content2 === 'string' ? \\\\\\\\n                  content2.substring(0, 100) + '...' : \\\\\\\\n                  JSON.stringify(content2).substring(0, 100) + '...');\\\\\\\\n    } catch (error) {\\\\\\\\n      console.error('Method 2 failed:', error.message);\\\\\\\\n    }\\\\\\\\n    \\\\\\\\n    console.log('\\\\\\\\\\\\\\\\nMethod 3: Using contentUrl directly');\\\\\\\\n    try {\\\\\\\\n      console.log('ContentUrl:', page.contentUrl);\\\\\\\\n      const content3 = await client.api(page.contentUrl).get();\\\\\\\\n      console.log('Success! Content type:', typeof content3);\\\\\\\\n      console.log('Content snippet:', typeof content3 === 'string' ? \\\\\\\\n                  content3.substring(0, 100) + '...' : \\\\\\\\n                  JSON.stringify(content3).substring(0, 100) + '...');\\\\\\\\n    } catch (error) {\\\\\\\\n      console.error('Method 3 failed:', error.message);\\\\\\\\n    }\\\\\\\\n    \\\\\\\\n    console.log('\\\\\\\\\\\\\\\\nMethod 4: Using contentUrl with header');\\\\\\\\n    try {\\\\\\\\n      const content4 = await client.api(page.contentUrl)\\\\\\\\n        .header('Accept', 'text/html')\\\\\\\\n        .get();\\\\\\\\n      console.log('Success! Content type:', typeof content4);\\\\\\\\n      console.log('Content snippet:', typeof content4 === 'string' ? \\\\\\\\n                  content4.substring(0, 100) + '...' : \\\\\\\\n                  JSON.stringify(content4).substring(0, 100) + '...');\\\\\\\\n    } catch (error) {\\\\\\\\n      console.error('Method 4 failed:', error.message);\\\\\\\\n    }\\\\\\\\n    \\\\\\\\n    console.log('\\\\\\\\\\\\\\\\nMethod 5: Using contentUrl with responseType \\\\\\\\\\\\\\\"raw\\\\\\\\\\\\\\\"');\\\\\\\\n    try {\\\\\\\\n      const content5 = await client.api(page.contentUrl)\\\\\\\\n        .responseType('raw')\\\\\\\\n        .get();\\\\\\\\n      console.log('Success! Raw response type:', typeof content5);\\\\\\\\n      if (content5 &amp;&amp; content5.body) {\\\\\\\\n        const text = await content5.text();\\\\\\\\n        console.log('Content snippet from raw response:', text.substring(0, 100) + '...');\\\\\\\\n      } else {\\\\\\\\n        console.log('Raw response does not have a body property');\\\\\\\\n      }\\\\\\\\n    } catch (error) {\\\\\\\\n      console.error('Method 5 failed:', error.message);\\\\\\\\n    }\\\\\\\\n\\\\\\\\n  } catch (error) {\\\\\\\\n    console.error('Error:', error);\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\ngetPageContent();\\\\\\\\n\\\\\\\",\\\\\\\"totalLinesInFile\\\\\\\":131}\\\"},\\\"capabilityType\\\":15}\",\"94f000ae-f183-41ec-aa08-ac866e0bb59b\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"298e7c86-8d8c-44ec-b631-093c41ce5d9a\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.087Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_6b2a2047-34a6-4dc1-ab90-07fb017ee7e\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_6b2a2047-34a6-4dc1-ab90-07fb017ee7e\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"read_file_v2\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/simple-onenote.js\\\\\\\"}\\\",\\\"tool\\\":40,\\\"params\\\":\\\"{\\\\\\\"targetFile\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/simple-onenote.js\\\\\\\",\\\\\\\"charsLimit\\\\\\\":1000000,\\\\\\\"effectiveUri\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/simple-onenote.js\\\\\\\"}\\\",\\\"result\\\":\\\"{\\\\\\\"contents\\\\\\\":\\\\\\\"import { Client } from '@microsoft/microsoft-graph-client';\\\\\\\\nimport fs from 'fs';\\\\\\\\nimport path from 'path';\\\\\\\\nimport { fileURLToPath } from 'url';\\\\\\\\n\\\\\\\\n// Get current directory\\\\\\\\nconst __filename = fileURLToPath(import.meta.url);\\\\\\\\nconst __dirname = path.dirname(__filename);\\\\\\\\n\\\\\\\\n// Path for storing the access token\\\\\\\\nconst tokenFilePath = path.join(__dirname, '.access-token.txt');\\\\\\\\n\\\\\\\\nasync function listNotebooks() {\\\\\\\\n  try {\\\\\\\\n    // Read the access token\\\\\\\\n    if (!fs.existsSync(tokenFilePath)) {\\\\\\\\n      console.error('Access token not found. Please authenticate first.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\\n    let accessToken;\\\\\\\\n    \\\\\\\\n    try {\\\\\\\\n      // Try to parse as JSON first (new format)\\\\\\\\n      const parsedToken = JSON.parse(tokenData);\\\\\\\\n      accessToken = parsedToken.token;\\\\\\\\n    } catch (parseError) {\\\\\\\\n      // Fall back to using the raw token (old format)\\\\\\\\n      accessToken = tokenData;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    if (!accessToken) {\\\\\\\\n      console.error('Access token not found in file.');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n\\\\\\\\n    // Create Microsoft Graph client\\\\\\\\n    const client = Client.init({\\\\\\\\n      authProvider: (done) =&gt; {\\\\\\\\n        done(null, accessToken);\\\\\\\\n      }\\\\\\\\n    });\\\\\\\\n\\\\\\\\n    // Get notebooks\\\\\\\\n    console.log('Fetching notebooks...');\\\\\\\\n    const response = await client.api('/me/onenote/notebooks').get();\\\\\\\\n    \\\\\\\\n    console.log('\\\\\\\\\\\\\\\\nYour OneNote Notebooks:');\\\\\\\\n    console.log('=======================');\\\\\\\\n    \\\\\\\\n    if (response.value.length === 0) {\\\\\\\\n      console.log('No notebooks found.');\\\\\\\\n    } else {\\\\\\\\n      response.value.forEach((notebook, index) =&gt; {\\\\\\\\n        console.log(&#96;${index + 1}. ${notebook.displayName}&#96;);\\\\\\\\n      });\\\\\\\\n    }\\\\\\\\n\\\\\\\\n  } catch (error) {\\\\\\\\n    console.error('Error listing notebooks:', error);\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\n// Run the function\\\\\\\\nlistNotebooks(); \\\\\\\",\\\\\\\"totalLinesInFile\\\\\\\":66}\\\"},\\\"capabilityType\\\":15}\",\"d5bf8984-80c3-4c5b-8964-8c62f3c42130\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"f01d0fd6-d38e-47ab-8d26-5f43a208a9d1\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.087Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\\nChecking a few more files to complete the analysis:\\\\n\\\"}\",\"17df81f5-7dd1-4eeb-bedc-874587277bda\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"0148912e-3772-4ac3-b8ce-2d00cec37bc5\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.087Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_68461334-c9b9-47d1-a3ac-feb43a22272\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_68461334-c9b9-47d1-a3ac-feb43a22272\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"read_file_v2\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/get-all-page-contents.js\\\\\\\"}\\\",\\\"tool\\\":40,\\\"params\\\":\\\"{\\\\\\\"targetFile\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/get-all-page-contents.js\\\\\\\",\\\\\\\"charsLimit\\\\\\\":1000000,\\\\\\\"effectiveUri\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp/get-all-page-contents.js\\\\\\\"}\\\",\\\"result\\\":\\\"{\\\\\\\"contents\\\\\\\":\\\\\\\"#!/usr/bin/env node\\\\\\\\n\\\\\\\\nimport { Client } from '@microsoft/microsoft-graph-client';\\\\\\\\nimport fs from 'fs';\\\\\\\\nimport path from 'path';\\\\\\\\nimport { fileURLToPath } from 'url';\\\\\\\\nimport { JSDOM } from 'jsdom';\\\\\\\\n\\\\\\\\n// Get current directory\\\\\\\\nconst __filename = fileURLToPath(import.meta.url);\\\\\\\\nconst __dirname = path.dirname(__filename);\\\\\\\\n\\\\\\\\n// Path for storing the access token\\\\\\\\nconst tokenFilePath = path.join(__dirname, '.access-token.txt');\\\\\\\\n\\\\\\\\n// Function to read the access token\\\\\\\\nfunction getAccessToken() {\\\\\\\\n  try {\\\\\\\\n    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\\n    try {\\\\\\\\n      // Try to parse as JSON first (new format)\\\\\\\\n      const parsedToken = JSON.parse(tokenData);\\\\\\\\n      return parsedToken.token;\\\\\\\\n    } catch (parseError) {\\\\\\\\n      // Fall back to using the raw token (old format)\\\\\\\\n      return tokenData;\\\\\\\\n    }\\\\\\\\n  } catch (error) {\\\\\\\\n    console.error('Error reading token:', error);\\\\\\\\n    return null;\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\n// Function to extract text content from HTML\\\\\\\\nfunction extractTextContent(html) {\\\\\\\\n  try {\\\\\\\\n    const dom = new JSDOM(html);\\\\\\\\n    const document = dom.window.document;\\\\\\\\n    \\\\\\\\n    // Extract main content\\\\\\\\n    const bodyText = document.body.textContent.trim();\\\\\\\\n    \\\\\\\\n    // Create a summary (first 300 chars or so)\\\\\\\\n    const summary = bodyText.substring(0, 300).replace(/\\\\\\\\\\\\\\\\s+/g, ' ');\\\\\\\\n    \\\\\\\\n    return summary.length &lt; bodyText.length \\\\\\\\n      ? &#96;${summary}...&#96; \\\\\\\\n      : summary;\\\\\\\\n  } catch (error) {\\\\\\\\n    console.error('Error extracting text:', error);\\\\\\\\n    return 'Could not extract text content';\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\n// Main function\\\\\\\\nasync function getAllPageContents() {\\\\\\\\n  try {\\\\\\\\n    // Get the access token\\\\\\\\n    const accessToken = getAccessToken();\\\\\\\\n    if (!accessToken) {\\\\\\\\n      console.error('No access token found');\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n    \\\\\\\\n    // Initialize Graph client\\\\\\\\n    const client = Client.init({\\\\\\\\n      authProvider: (done) =&gt; {\\\\\\\\n        done(null, accessToken);\\\\\\\\n      }\\\\\\\\n    });\\\\\\\\n    \\\\\\\\n    // List pages\\\\\\\\n    console.log(\\\\\\\\\\\\\\\"Fetching all pages...\\\\\\\\\\\\\\\");\\\\\\\\n    const pages = await client.api('/me/onenote/pages').get();\\\\\\\\n    \\\\\\\\n    if (!pages || !pages.value || pages.value.length === 0) {\\\\\\\\n      console.log(\\\\\\\\\\\\\\\"No pages found\\\\\\\\\\\\\\\");\\\\\\\\n      return;\\\\\\\\n    }\\\\\\\\n    \\\\\\\\n    console.log(&#96;Found ${pages.value.length} pages. Fetching content for each...&#96;);\\\\\\\\n    \\\\\\\\n    // Process each page\\\\\\\\n    for (const page of pages.value) {\\\\\\\\n      console.log(&#96;\\\\\\\\\\\\\\\\n===== ${page.title} =====&#96;);\\\\\\\\n      \\\\\\\\n      try {\\\\\\\\n        // Create direct HTTP request to the content endpoint\\\\\\\\n        const url = page.contentUrl;\\\\\\\\n        \\\\\\\\n        const response = await fetch(url, {\\\\\\\\n          headers: {\\\\\\\\n            'Authorization': &#96;Bearer ${accessToken}&#96;\\\\\\\\n          }\\\\\\\\n        });\\\\\\\\n        \\\\\\\\n        if (!response.ok) {\\\\\\\\n          console.error(&#96;Error fetching ${page.title}: ${response.status} ${response.statusText}&#96;);\\\\\\\\n          continue;\\\\\\\\n        }\\\\\\\\n        \\\\\\\\n        const content = await response.text();\\\\\\\\n        const textSummary = extractTextContent(content);\\\\\\\\n        \\\\\\\\n        console.log(&#96;Last modified: ${new Date(page.lastModifiedDateTime).toLocaleString()}&#96;);\\\\\\\\n        console.log(&#96;Content summary: ${textSummary}&#96;);\\\\\\\\n      } catch (error) {\\\\\\\\n        console.error(&#96;Error processing ${page.title}:&#96;, error.message);\\\\\\\\n      }\\\\\\\\n    }\\\\\\\\n    \\\\\\\\n  } catch (error) {\\\\\\\\n    console.error(\\\\\\\\\\\\\\\"Error:\\\\\\\\\\\\\\\", error);\\\\\\\\n  }\\\\\\\\n}\\\\\\\\n\\\\\\\\n// Run the function\\\\\\\\ngetAllPageContents(); \\\\\\\",\\\\\\\"totalLinesInFile\\\\\\\":118}\\\"},\\\"capabilityType\\\":15}\",\"ee49b133-a7b3-4ce9-8cb2-cc5f3987c489\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"775b7a43-0aa6-4134-bbde-d0bd1d00a86a\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.087Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_53ec8c4a-0a49-4535-add0-cecb9bd04d7\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_53ec8c4a-0a49-4535-add0-cecb9bd04d7\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"ripgrep_raw_search\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"pattern\\\\\\\":\\\\\\\"readAccessToken|readFileSync.*token|Client\\\\\\\\\\\\\\\\.init\\\\\\\",\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp\\\\\\\",\\\\\\\"caseInsensitive\\\\\\\":false,\\\\\\\"multiline\\\\\\\":false,\\\\\\\"toolCallId\\\\\\\":\\\\\\\"tool_53ec8c4a-0a49-4535-add0-cecb9bd04d7\\\\\\\"}\\\",\\\"tool\\\":41,\\\"params\\\":\\\"{\\\\\\\"pattern\\\\\\\":\\\\\\\"readAccessToken|readFileSync.*token|Client\\\\\\\\\\\\\\\\.init\\\\\\\",\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp\\\\\\\",\\\\\\\"caseInsensitive\\\\\\\":false}\\\",\\\"result\\\":\\\"{\\\\\\\"success\\\\\\\":{\\\\\\\"pattern\\\\\\\":\\\\\\\"readAccessToken|readFileSync.*token|Client\\\\\\\\\\\\\\\\.init\\\\\\\",\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp\\\\\\\",\\\\\\\"outputMode\\\\\\\":\\\\\\\"content\\\\\\\",\\\\\\\"workspaceResults\\\\\\\":{\\\\\\\"/Users/ian/othercode/onenote-mcp\\\\\\\":{\\\\\\\"content\\\\\\\":{\\\\\\\"matches\\\\\\\":[{\\\\\\\"file\\\\\\\":\\\\\\\"./list-group-pages.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":10,\\\\\\\"content\\\\\\\":\\\\\\\"function readAccessToken() {\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":15,\\\\\\\"content\\\\\\\":\\\\\\\"  const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":127,\\\\\\\"content\\\\\\\":\\\\\\\"    const accessToken = readAccessToken();\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":128,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./list-group-sections.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":10,\\\\\\\"content\\\\\\\":\\\\\\\"function readAccessToken() {\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":15,\\\\\\\"content\\\\\\\":\\\\\\\"  const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":115,\\\\\\\"content\\\\\\\":\\\\\\\"    const accessToken = readAccessToken();\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":116,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./list-group-notebooks.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":10,\\\\\\\"content\\\\\\\":\\\\\\\"function readAccessToken() {\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":15,\\\\\\\"content\\\\\\\":\\\\\\\"  const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":79,\\\\\\\"content\\\\\\\":\\\\\\\"    const accessToken = readAccessToken();\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":80,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./onenote-mcp.mjs\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":43,\\\\\\\"content\\\\\\\":\\\\\\\"    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":74,\\\\\\\"content\\\\\\\":\\\\\\\"        const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":93,\\\\\\\"content\\\\\\\":\\\\\\\"    graphClient = Client.init({\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":106,\\\\\\\"content\\\\\\\":\\\\\\\"    graphClient = Client.initWithMiddleware({\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":133,\\\\\\\"content\\\\\\\":\\\\\\\"      graphClient = Client.initWithMiddleware({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./list-groups.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":10,\\\\\\\"content\\\\\\\":\\\\\\\"function readAccessToken() {\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":15,\\\\\\\"content\\\\\\\":\\\\\\\"  const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":42,\\\\\\\"content\\\\\\\":\\\\\\\"    const accessToken = readAccessToken();\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":44,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./simple-page-content.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":18,\\\\\\\"content\\\\\\\":\\\\\\\"    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":44,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./simple-onenote.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":21,\\\\\\\"content\\\\\\\":\\\\\\\"    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":39,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./read-all-pages.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":19,\\\\\\\"content\\\\\\\":\\\\\\\"    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":118,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./list-sections.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":21,\\\\\\\"content\\\\\\\":\\\\\\\"    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":39,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./list-pages.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":21,\\\\\\\"content\\\\\\\":\\\\\\\"    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":39,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./get-page.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":25,\\\\\\\"content\\\\\\\":\\\\\\\"    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":51,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./get-page-content.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":21,\\\\\\\"content\\\\\\\":\\\\\\\"    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":39,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./get-all-page-contents.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":19,\\\\\\\"content\\\\\\\":\\\\\\\"    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":66,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./get-all-page-contents-full.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":18,\\\\\\\"content\\\\\\\":\\\\\\\"    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":44,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./create-page.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":21,\\\\\\\"content\\\\\\\":\\\\\\\"    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":39,\\\\\\\"content\\\\\\\":\\\\\\\"    const client = Client.init({\\\\\\\"}]}],\\\\\\\"totalLines\\\\\\\":41,\\\\\\\"totalMatchedLines\\\\\\\":41}}}}}\\\"},\\\"capabilityType\\\":15}\",\"ecfc0112-4e41-4f5f-ae27-978f5319248d\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"5a1e6be9-b193-428f-99fd-a96ef615581f\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.087Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\",\\\"toolFormerData\\\":{\\\"toolCallId\\\":\\\"tool_ebdaee25-a5f1-423b-b1a4-03bbbad0b9a\\\",\\\"toolIndex\\\":0,\\\"modelCallId\\\":\\\"tool_ebdaee25-a5f1-423b-b1a4-03bbbad0b9a\\\",\\\"status\\\":\\\"completed\\\",\\\"name\\\":\\\"ripgrep_raw_search\\\",\\\"rawArgs\\\":\\\"{\\\\\\\"pattern\\\\\\\":\\\\\\\"fetchAllGroups|pickGroup|pickSection|pickNotebook\\\\\\\",\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp\\\\\\\",\\\\\\\"caseInsensitive\\\\\\\":false,\\\\\\\"multiline\\\\\\\":false,\\\\\\\"toolCallId\\\\\\\":\\\\\\\"tool_ebdaee25-a5f1-423b-b1a4-03bbbad0b9a\\\\\\\"}\\\",\\\"tool\\\":41,\\\"params\\\":\\\"{\\\\\\\"pattern\\\\\\\":\\\\\\\"fetchAllGroups|pickGroup|pickSection|pickNotebook\\\\\\\",\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp\\\\\\\",\\\\\\\"caseInsensitive\\\\\\\":false}\\\",\\\"result\\\":\\\"{\\\\\\\"success\\\\\\\":{\\\\\\\"pattern\\\\\\\":\\\\\\\"fetchAllGroups|pickGroup|pickSection|pickNotebook\\\\\\\",\\\\\\\"path\\\\\\\":\\\\\\\"/Users/ian/othercode/onenote-mcp\\\\\\\",\\\\\\\"outputMode\\\\\\\":\\\\\\\"content\\\\\\\",\\\\\\\"workspaceResults\\\\\\\":{\\\\\\\"/Users/ian/othercode/onenote-mcp\\\\\\\":{\\\\\\\"content\\\\\\\":{\\\\\\\"matches\\\\\\\":[{\\\\\\\"file\\\\\\\":\\\\\\\"./list-group-pages.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":25,\\\\\\\"content\\\\\\\":\\\\\\\"async function fetchAllGroups(client) {\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":40,\\\\\\\"content\\\\\\\":\\\\\\\"function pickGroup(groups, query) {\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":86,\\\\\\\"content\\\\\\\":\\\\\\\"function pickSection(sections, query) {\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":135,\\\\\\\"content\\\\\\\":\\\\\\\"    const groups = await fetchAllGroups(client);\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":137,\\\\\\\"content\\\\\\\":\\\\\\\"    const selection = pickGroup(groups, groupQuery);\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":159,\\\\\\\"content\\\\\\\":\\\\\\\"    const sectionSelection = pickSection(sections, sectionQuery);\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./list-group-sections.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":25,\\\\\\\"content\\\\\\\":\\\\\\\"async function fetchAllGroups(client) {\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":40,\\\\\\\"content\\\\\\\":\\\\\\\"function pickGroup(groups, query) {\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":71,\\\\\\\"content\\\\\\\":\\\\\\\"function pickNotebook(notebooks, query) {\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":123,\\\\\\\"content\\\\\\\":\\\\\\\"    const groups = await fetchAllGroups(client);\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":125,\\\\\\\"content\\\\\\\":\\\\\\\"    const selection = pickGroup(groups, groupQuery);\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":149,\\\\\\\"content\\\\\\\":\\\\\\\"    const notebookSelection = pickNotebook(notebooksResponse.value, notebookQuery);\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./list-group-notebooks.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":25,\\\\\\\"content\\\\\\\":\\\\\\\"async function fetchAllGroups(client) {\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":40,\\\\\\\"content\\\\\\\":\\\\\\\"function pickGroup(groups, query) {\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":87,\\\\\\\"content\\\\\\\":\\\\\\\"    const groups = await fetchAllGroups(client);\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":89,\\\\\\\"content\\\\\\\":\\\\\\\"    const selection = pickGroup(groups, query);\\\\\\\"}]},{\\\\\\\"file\\\\\\\":\\\\\\\"./list-groups.js\\\\\\\",\\\\\\\"matches\\\\\\\":[{\\\\\\\"lineNumber\\\\\\\":25,\\\\\\\"content\\\\\\\":\\\\\\\"async function fetchAllGroups(client) {\\\\\\\"},{\\\\\\\"lineNumber\\\\\\\":51,\\\\\\\"content\\\\\\\":\\\\\\\"    const groups = await fetchAllGroups(client);\\\\\\\"}]}],\\\\\\\"totalLines\\\\\\\":18,\\\\\\\"totalMatchedLines\\\\\\\":18}}}}}\\\"},\\\"capabilityType\\\":15}\",\"f7d59909-c58e-47e2-ad12-507a6e9804a1\":\"{\\\"_v\\\":3,\\\"type\\\":2,\\\"approximateLintErrors\\\":[],\\\"lints\\\":[],\\\"codebaseContextChunks\\\":[],\\\"commits\\\":[],\\\"pullRequests\\\":[],\\\"attachedCodeChunks\\\":[],\\\"assistantSuggestedDiffs\\\":[],\\\"gitDiffs\\\":[],\\\"interpreterResults\\\":[],\\\"images\\\":[],\\\"attachedFolders\\\":[],\\\"attachedFoldersNew\\\":[],\\\"bubbleId\\\":\\\"853d1c77-d1cd-4dd1-a8c4-e21ff15df33b\\\",\\\"userResponsesToSuggestedCodeBlocks\\\":[],\\\"suggestedCodeBlocks\\\":[],\\\"diffsForCompressingFiles\\\":[],\\\"relevantFiles\\\":[],\\\"toolResults\\\":[],\\\"notepads\\\":[],\\\"capabilities\\\":[],\\\"multiFileLinterErrors\\\":[],\\\"diffHistories\\\":[],\\\"recentLocationsHistory\\\":[],\\\"recentlyViewedFiles\\\":[],\\\"isAgentic\\\":false,\\\"fileDiffTrajectories\\\":[],\\\"existedSubsequentTerminalCommand\\\":false,\\\"existedPreviousTerminalCommand\\\":false,\\\"docsReferences\\\":[],\\\"webReferences\\\":[],\\\"aiWebSearchResults\\\":[],\\\"requestId\\\":\\\"\\\",\\\"attachedFoldersListDirResults\\\":[],\\\"humanChanges\\\":[],\\\"attachedHumanChanges\\\":false,\\\"summarizedComposers\\\":[],\\\"cursorRules\\\":[],\\\"contextPieces\\\":[],\\\"editTrailContexts\\\":[],\\\"allThinkingBlocks\\\":[],\\\"diffsSinceLastApply\\\":[],\\\"deletedFiles\\\":[],\\\"supportedTools\\\":[],\\\"tokenCount\\\":{\\\"inputTokens\\\":0,\\\"outputTokens\\\":0},\\\"attachedFileCodeChunksMetadataOnly\\\":[],\\\"consoleLogs\\\":[],\\\"uiElementPicked\\\":[],\\\"isRefunded\\\":false,\\\"knowledgeItems\\\":[],\\\"documentationSelections\\\":[],\\\"externalLinks\\\":[],\\\"projectLayouts\\\":[],\\\"unifiedMode\\\":2,\\\"capabilityContexts\\\":[],\\\"todos\\\":[],\\\"createdAt\\\":\\\"2026-02-04T23:11:02.087Z\\\",\\\"mcpDescriptors\\\":[],\\\"workspaceUris\\\":[],\\\"conversationState\\\":{\\\"rootPromptMessagesJson\\\":[],\\\"turnsOld\\\":[],\\\"todos\\\":[],\\\"pendingToolCalls\\\":[],\\\"turns\\\":[],\\\"previousWorkspaceUris\\\":[],\\\"fileStates\\\":{},\\\"summaryArchives\\\":[],\\\"turnTimings\\\":[],\\\"fileStatesV2\\\":{},\\\"subagentStates\\\":{},\\\"selfSummaryCount\\\":0,\\\"readPaths\\\":[]},\\\"text\\\":\\\"\\\\n## Analysis: Duplicated Auth/Client Logic &amp; Common Patterns\\\\n\\\\n### 1. Files with Repeated Token-Reading/Client Init Logic\\\\n\\\\n**Token reading duplication:**\\\\n- &#96;onenote-mcp.mjs&#96; (lines 39-55, 69-86) — duplicated in same file\\\\n- &#96;list-pages.js&#96; (lines 15-36)\\\\n- &#96;list-sections.js&#96; (lines 15-36)\\\\n- &#96;create-page.js&#96; (lines 15-36)\\\\n- &#96;get-page-content.js&#96; (lines 15-36)\\\\n- &#96;simple-onenote.js&#96; (lines 15-36)\\\\n- &#96;get-all-page-contents.js&#96; (lines 17-32) — uses &#96;getAccessToken()&#96; helper\\\\n- &#96;get-all-page-contents-full.js&#96; (lines 15-30)\\\\n- &#96;read-all-pages.js&#96; (lines 15-30)\\\\n- &#96;simple-page-content.js&#96; (lines 15-30)\\\\n- &#96;get-page.js&#96; (lines 15-30)\\\\n\\\\n**Group files (use helper):**\\\\n- &#96;list-groups.js&#96; — &#96;readAccessToken()&#96; helper\\\\n- &#96;list-group-notebooks.js&#96; — &#96;readAccessToken()&#96; helper\\\\n- &#96;list-group-sections.js&#96; — &#96;readAccessToken()&#96; helper\\\\n- &#96;list-group-pages.js&#96; — &#96;readAccessToken()&#96; helper\\\\n\\\\n**Client init duplication:**\\\\n- All files use &#96;Client.init({ authProvider: (done) =&gt; done(null, accessToken) })&#96;\\\\n- &#96;onenote-mcp.mjs&#96; also uses &#96;Client.initWithMiddleware()&#96; (lines 106, 133)\\\\n\\\\n### 2. Common Patterns: Group vs Personal Operations\\\\n\\\\n**API path pattern:**\\\\n- Personal: &#96;/me/onenote/{resource}&#96;\\\\n- Group: &#96;/groups/{groupId}/onenote/{resource}&#96;\\\\n\\\\n**Shared group helpers (duplicated across 3 files):**\\\\n- &#96;fetchAllGroups()&#96; — pagination handling\\\\n- &#96;pickGroup()&#96; — name/ID matching\\\\n- &#96;pickSection()&#96; — in &#96;list-group-pages.js&#96; only\\\\n- &#96;pickNotebook()&#96; — in &#96;list-group-sections.js&#96; only\\\\n\\\\n**Personal operations:**\\\\n- No shared helpers\\\\n- Hardcoded \\\\\\\"first notebook/section\\\\\\\" selection\\\\n- No pagination helpers\\\\n\\\\n**Common structure:**\\\\n1. Read token\\\\n2. Init client\\\\n3. Fetch resources\\\\n4. Process/display results\\\\n\\\\n### 3. Concrete Refactor Opportunities\\\\n\\\\n**A. Create &#96;auth.js&#96; module:**\\\\n&#96;&#96;&#96;javascript\\\\n// Shared: readAccessToken(), createGraphClient(), tokenFilePath\\\\n&#96;&#96;&#96;\\\\n\\\\n**B. Create &#96;group-helpers.js&#96; module:**\\\\n&#96;&#96;&#96;javascript\\\\n// Shared: fetchAllGroups(), pickGroup(), pickSection(), pickNotebook()\\\\n// Currently duplicated in list-group-*.js files\\\\n&#96;&#96;&#96;\\\\n\\\\n**C. Create &#96;api-helpers.js&#96; module:**\\\\n&#96;&#96;&#96;javascript\\\\n// buildApiPath(type: 'personal' | 'group', groupId?: string, resource: string)\\\\n// Handles /me vs /groups/{id} path construction\\\\n&#96;&#96;&#96;\\\\n\\\\n**D. Create &#96;pagination-helpers.js&#96; module:**\\\\n&#96;&#96;&#96;javascript\\\\n// fetchAllPages(client, apiPath) - generic pagination handler\\\\n// Currently only fetchAllGroups() exists, but same pattern needed for pages/sections\\\\n&#96;&#96;&#96;\\\\n\\\\n**E. Unify client initialization:**\\\\n- Standardize on &#96;Client.init()&#96; or &#96;Client.initWithMiddleware()&#96;\\\\n- &#96;onenote-mcp.mjs&#96; mixes both approaches\\\\n\\\\n### 4. Risks &amp; Gotchas\\\\n\\\\n**Critical:**\\\\n1. Inconsistent client init: &#96;onenote-mcp.mjs&#96; uses &#96;initWithMiddleware()&#96; while scripts use &#96;init()&#96; — may behave differently\\\\n2. Token file path hardcoded in 15+ files — change requires updates everywhere\\\\n3. Error handling inconsistency: some files &#96;return&#96;, others &#96;throw&#96;, some check existence first\\\\n\\\\n**Moderate:**\\\\n4. Token format fallback logic duplicated — JSON parse with fallback to raw string in multiple places\\\\n5. Group helper functions duplicated — &#96;fetchAllGroups()&#96; and &#96;pickGroup()&#96; appear in 3 files verbatim\\\\n6. No shared pagination — only groups have pagination helper; pages/sections may miss data\\\\n7. Environment variable token only checked in &#96;onenote-mcp.mjs&#96; (line 58), not in standalone scripts\\\\n\\\\n**Minor:**\\\\n8. &#96;__dirname&#96; calculation duplicated — &#96;fileURLToPath&#96; + &#96;path.dirname&#96; pattern repeated\\\\n9. Personal operations lack selection helpers — group ops have &#96;pickGroup()&#96;, personal ops hardcode first item\\\\n\\\\n**Recommendation priority:**\\\\n1. Extract &#96;auth.js&#96; (token reading + client init)\\\\n2. Extract &#96;group-helpers.js&#96; (remove duplication)\\\\n3. Standardize client initialization method\\\\n4. Add API path builder for personal/group operations\\\\n5. Unify error handling patterns\\\"}\"},\"status\":\"completed\",\"context\":{\"composers\":[],\"selectedCommits\":[],\"selectedPullRequests\":[],\"selectedImages\":[],\"folderSelections\":[],\"fileSelections\":[],\"selections\":[],\"terminalSelections\":[],\"selectedDocs\":[],\"externalLinks\":[],\"cursorRules\":[],\"cursorCommands\":[],\"gitPRDiffSelections\":[],\"subagentSelections\":[],\"browserSelections\":[],\"mentions\":{\"composers\":{},\"selectedCommits\":{},\"selectedPullRequests\":{},\"gitDiff\":[],\"gitDiffFromBranchToMain\":[],\"selectedImages\":{},\"folderSelections\":{},\"fileSelections\":{},\"terminalFiles\":{},\"selections\":{},\"terminalSelections\":{},\"selectedDocs\":{},\"externalLinks\":{},\"diffHistory\":[],\"cursorRules\":{},\"cursorCommands\":{},\"uiElementSelections\":[],\"consoleLogs\":[],\"ideEditorsState\":[],\"gitPRDiffSelections\":{},\"subagentSelections\":{},\"browserSelections\":{}}},\"generatingBubbleIds\":[],\"isReadingLongFile\":false,\"codeBlockData\":{},\"originalFileStates\":{},\"newlyCreatedFiles\":[],\"newlyCreatedFolders\":[],\"createdAt\":1770242822240,\"hasChangedContext\":false,\"activeTabsShouldBeReactive\":true,\"capabilities\":[{\"type\":30,\"data\":{}},{\"type\":15,\"data\":{\"bubbleDataMap\":\"{}\"}}],\"name\":\"Scan codebase duplicates\",\"isFileListExpanded\":false,\"browserChipManuallyDisabled\":false,\"browserChipManuallyEnabled\":false,\"unifiedMode\":\"agent\",\"forceMode\":\"edit\",\"usageData\":{},\"allAttachedFileCodeChunksUris\":[],\"modelConfig\":{\"modelName\":\"composer-1\",\"maxMode\":false},\"subComposerIds\":[],\"capabilityContexts\":[],\"todos\":[],\"isQueueExpanded\":true,\"hasUnreadMessages\":false,\"gitHubPromptDismissed\":false,\"totalLinesAdded\":0,\"totalLinesRemoved\":0,\"addedFiles\":0,\"removedFiles\":0,\"isDraft\":false,\"isCreatingWorktree\":false,\"isApplyingWorktree\":false,\"isUndoingWorktree\":false,\"applied\":false,\"pendingCreateWorktree\":false,\"isBestOfNSubcomposer\":false,\"isBestOfNParent\":false,\"bestOfNJudgeWinner\":false,\"isSpec\":false,\"isProject\":false,\"isSpecSubagentDone\":false,\"stopHookLoopCount\":0,\"speculativeSummarizationEncryptionKey\":\"oEMC2Fmcl93hTYUpcycEjg1ZWVywLSWjk1zWItIpKdo=\",\"isNAL\":true,\"planModeSuggestionUsed\":false,\"debugModeSuggestionUsed\":false,\"conversationState\":\"~\",\"queueItems\":[],\"isAgentic\":true}"
 }
 ```
+
 Result:
 
 ```json
@@ -1486,8 +1509,8 @@ Result:
   "agentId": "104916c8-a0fb-45f6-bd5a-caeb05f03754"
 }
 ```
-Status: **completed**
 
+Status: **completed**
 
 </details>
 </tool-use>
@@ -1516,42 +1539,45 @@ I'm outlining potential code improvements and updating the todo list to reflect 
 Here are the highest‑value DRY refactors I see to consolidate common functionality between personal and group OneNote operations:
 
 ## Key Duplication
+
 - **Token reading + parsing** appears in ~15 scripts (`simple-onenote.js`, `list-pages.js`, `list-sections.js`, `create-page.js`, `get-page.js`, etc.) plus all new group scripts.
 - **Graph client init** is duplicated everywhere; `onenote-mcp.mjs` uses both `Client.init` and `Client.initWithMiddleware`.
 - **Group helpers** (`fetchAllGroups`, `pickGroup`) duplicated in `list-groups.js`, `list-group-notebooks.js`, `list-group-sections.js`, `list-group-pages.js`.
 
 ## DRY Opportunities (highest impact first)
+
 1. **Create a shared auth module**  
-   `lib/auth.js` (or `utils/auth.js`)  
-   - `readAccessToken()` (JSON fallback)  
-   - `getTokenFilePath()`  
+   `lib/auth.js` (or `utils/auth.js`)
+   - `readAccessToken()` (JSON fallback)
+   - `getTokenFilePath()`
    - `createGraphClient()` (centralized `Client.init` / `initWithMiddleware`)  
-   This removes token + client boilerplate from every script.
+     This removes token + client boilerplate from every script.
 
 2. **Create a group utils module**  
-   `lib/group-helpers.js`  
-   - `fetchAllGroups(client)` with pagination  
-   - `pickGroup(groups, query)`  
-   - `pickNotebook(notebooks, query)`  
+   `lib/group-helpers.js`
+   - `fetchAllGroups(client)` with pagination
+   - `pickGroup(groups, query)`
+   - `pickNotebook(notebooks, query)`
    - `pickSection(sections, query)`  
-   Currently repeated verbatim across group scripts.
+     Currently repeated verbatim across group scripts.
 
 3. **Create a generic pagination helper**  
-   `lib/pagination.js`  
+   `lib/pagination.js`
    - `fetchAll(client, apiPath)` that follows `@odata.nextLink`  
-   Use for groups, sections, and pages to avoid missing data.
+     Use for groups, sections, and pages to avoid missing data.
 
 4. **Unify personal + group path building**  
-   `lib/onenote-paths.js`  
-   - `buildOnenotePath({ scope: 'me' | 'group', groupId, resource })`  
+   `lib/onenote-paths.js`
+   - `buildOnenotePath({ scope: 'me' | 'group', groupId, resource })`
    - Example: `buildOnenotePath({ scope:'group', groupId, resource:'sections' })`  
-   Lets personal and group scripts share the same operation flow.
+     Lets personal and group scripts share the same operation flow.
 
 5. **Normalize selection logic**  
    Personal scripts often just “use first notebook/section”.  
    Reuse `pickNotebook` / `pickSection` for both personal + group to allow name/id targeting.
 
 ## Example Consolidation Flow
+
 All scripts could follow the same pattern:
 
 ```
@@ -1562,6 +1588,7 @@ const section = pickSection(sections, sectionQuery);
 ```
 
 ## Gotchas / Risks
+
 - **Token source mismatch**: Only `onenote-mcp.mjs` checks `GRAPH_ACCESS_TOKEN`. Scripts don’t. Decide a single token source policy.
 - **Client init consistency**: Pick `initWithMiddleware` or `init` across all scripts.
 - **Error handling**: Some scripts `throw`, others `return`. Standardize to avoid inconsistent CLI behavior.
@@ -1727,7 +1754,6 @@ I'll verify the parent directory exists with a listing, then create the new lib 
 <details>
 <summary>Tool use: **list_dir_v2**</summary>
 
-
 Parameters:
 
 ```json
@@ -1735,6 +1761,7 @@ Parameters:
   "targetDirectory": "/Users/ian/othercode/onenote-mcp"
 }
 ```
+
 Result:
 
 ```json
@@ -1838,8 +1865,8 @@ Result:
   }
 }
 ```
-Status: **completed**
 
+Status: **completed**
 
 </details>
 </tool-use>
@@ -1852,6 +1879,7 @@ Status: **completed**
 ```bash
 mkdir -p /Users/ian/othercode/onenote-mcp/lib
 ```
+
 </details>
 </tool-use>
 
@@ -1960,7 +1988,7 @@ I'm modifying authenticate.js to import DeviceCodeCredential, clientId, scopes f
 Planning to remove fileURLToPath, path, and fs imports by centralizing token path and access token read/write functions into config and auth modules, simplifying token file operations and imports in onenote-mcp.mjs.
 **Reworking token flow and client creation**
 
-Planning to remove __dirname-based paths, replace direct fs reads with unified readAccessToken calls wrapped safely, and streamline graph client creation by tracking accessToken in a variable that refreshes from file or env before errors.</details></think>
+Planning to remove \_\_dirname-based paths, replace direct fs reads with unified readAccessToken calls wrapped safely, and streamline graph client creation by tracking accessToken in a variable that refreshes from file or env before errors.</details></think>
 
 ---
 
@@ -1985,7 +2013,6 @@ I'm verifying the saveAccessToken section to ensure the tokenData variable is fu
 <details>
 <summary>Tool use: **ripgrep_raw_search**</summary>
 
-
 Parameters:
 
 ```json
@@ -1996,6 +2023,7 @@ Parameters:
   "caseInsensitive": false
 }
 ```
+
 Result:
 
 ```json
@@ -2142,8 +2170,8 @@ Result:
   }
 }
 ```
-Status: **completed**
 
+Status: **completed**
 
 </details>
 </tool-use>
@@ -2511,7 +2539,6 @@ Now verifying if imports of the Client from '@microsoft/microsoft-graph-client' 
 <details>
 <summary>Tool use: **ripgrep_raw_search**</summary>
 
-
 Parameters:
 
 ```json
@@ -2522,6 +2549,7 @@ Parameters:
   "caseInsensitive": false
 }
 ```
+
 Result:
 
 ```json
@@ -2546,8 +2574,8 @@ Result:
   }
 }
 ```
-Status: **completed**
 
+Status: **completed**
 
 </details>
 </tool-use>
@@ -2564,7 +2592,6 @@ I’m verifying unused imports in list-group-notebooks and aligning group script
 <tool-use data-tool-type="unknown" data-tool-name="read_lints">
 <details>
 <summary>Tool use: **read_lints**</summary>
-
 
 Parameters:
 
@@ -2596,6 +2623,7 @@ Parameters:
   ]
 }
 ```
+
 Result:
 
 ```json
@@ -2670,8 +2698,8 @@ Result:
   ]
 }
 ```
-Status: **completed**
 
+Status: **completed**
 
 </details>
 </tool-use>
@@ -2688,11 +2716,13 @@ Refactored shared modules now include createGraphClient, readAccessToken, fetchA
 Refactor complete. I centralized shared auth/client logic, pagination, and selection so both personal and group scripts use the same helpers and consistent patterns.
 
 Key changes
+
 - Added shared helpers in `lib/` for config, auth, pagination, selection, group lookup, and OneNote path root.
 - Updated all scripts to use `createGraphClient`, `readAccessToken`, and `fetchAll`, removing duplicated token parsing and client setup.
 - Consolidated group selection logic via `fetchAllGroups` + `pickByNameOrId`, and standardized error handling.
 
 Updated files
+
 - New helpers: `lib/config.js`, `lib/auth.js`, `lib/pagination.js`, `lib/selection.js`, `lib/groups.js`, `lib/onenote-paths.js`
 - Refactored scripts: `onenote-mcp.mjs`, `authenticate.js`, `list-pages.js`, `list-sections.js`, `create-page.js`, `simple-onenote.js`, `get-page-content.js`, `get-page.js`, `get-all-page-contents.js`, `get-all-page-contents-full.js`, `read-all-pages.js`, `simple-page-content.js`, `list-groups.js`, `list-group-notebooks.js`, `list-group-sections.js`, `list-group-pages.js`
 
@@ -2729,6 +2759,7 @@ Your OneNote Notebooks:
 npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
 
 ```
+
 </details>
 </tool-use>
 
@@ -2762,6 +2793,7 @@ Groups with OneNote notebooks:
 npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
 
 ```
+
 </details>
 </tool-use>
 
@@ -2778,13 +2810,14 @@ Note: the `npm warn Unknown env config "devdir"` warning still appears because i
 
 _**User**_
 
-1. Update the documentation to include information on the configuration that needs to be done in ~/.claude.json for Claude Code to use the MCP server. 
+1. Update the documentation to include information on the configuration that needs to be done in ~/.claude.json for Claude Code to use the MCP server.
 
 2. Update the documentation to describe the additional tools that have been added.
 
-3. Update the documentation to utilize direct npm installation of the package as described here: https://github.com/modelcontextprotocol/typescript-sdk  in the "Install" section of the documentation.  Specifically, remove the guidance to clone the repository and build the package from scratch, and instead in this repository's README.md include the two `npm install` commands:
-* npm install @modelcontextprotocol/server zod
-* npm install @modelcontextprotocol/client zod
+3. Update the documentation to utilize direct npm installation of the package as described here: https://github.com/modelcontextprotocol/typescript-sdk in the "Install" section of the documentation. Specifically, remove the guidance to clone the repository and build the package from scratch, and instead in this repository's README.md include the two `npm install` commands:
+
+- npm install @modelcontextprotocol/server zod
+- npm install @modelcontextprotocol/client zod
 
 ---
 
@@ -2825,11 +2858,13 @@ I'm replacing SDK and clone instructions with npm install commands for server an
 Updated the README to cover Claude Code config, new CLI tools, and npm-based MCP SDK installation.
 
 Changes made
+
 - Added a **Claude Code** setup section with `~/.claude.json` config.
 - Replaced SDK clone/build steps with direct npm installs for MCP packages.
 - Documented the **group-related CLI tools** and added usage examples.
 
-Reference used for npm installation guidance:  
+Reference used for npm installation guidance:
+
 - [Model Context Protocol TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
 
 Want me to also update the “Troubleshooting” section to remove the old SDK build note?
@@ -2956,6 +2991,7 @@ git status -sb
 ?? list-groups.js
 
 ```
+
 </details>
 </tool-use>
 
@@ -2974,9 +3010,9 @@ index 158480a..d62d7ad 100644
 --- a/README.md
 +++ b/README.md
 @@ -77,6 +77,26 @@ The first time you ask about OneNote, the AI will guide you through the authenti
-    
+
  4. You can now ask Claude to interact with your OneNote data
- 
+
 +### Setup for Claude Code
 +
 +1. Clone this repository and follow the installation steps below
@@ -2998,15 +3034,15 @@ index 158480a..d62d7ad 100644
 +4. Restart Claude Code and use the OneNote tools
 +
  ## Features
- 
+
  - Authentication with Microsoft OneNote using device code flow (no Azure setup needed)
 @@ -105,14 +125,11 @@ cd onenote-mcp
- 
+
  ### Step 2: Download the TypeScript SDK
- 
+
 -This project requires the MCP TypeScript SDK, which needs to be downloaded separately:
 +This project uses the MCP TypeScript SDK via npm:
- 
+
  &#96;&#96;&#96;bash
 -git clone https://github.com/modelcontextprotocol/typescript-sdk.git
 -cd typescript-sdk
@@ -3016,7 +3052,7 @@ index 158480a..d62d7ad 100644
 +npm install @modelcontextprotocol/server zod
 +npm install @modelcontextprotocol/client zod
  &#96;&#96;&#96;
- 
+
  ### Step 3: Install Project Dependencies
 @@ -158,6 +175,7 @@ Once authenticated, the following tools are available for AI assistants to use:
  | Tool Name | Description |
@@ -3029,7 +3065,7 @@ index 158480a..d62d7ad 100644
 @@ -166,6 +184,17 @@ Once authenticated, the following tools are available for AI assistants to use:
  | &#96;createPage&#96; | Create a new page with HTML content |
  | &#96;searchPages&#96; | Search for pages across your notebooks |
- 
+
 +## Additional CLI Tools
 +
 +The following scripts were added to support shared group notebooks and deeper inspection:
@@ -3042,12 +3078,12 @@ index 158480a..d62d7ad 100644
 +| &#96;npm run list-group-pages -- "&lt;group name or id&gt;" "&lt;section name or id&gt;"&#96; | List pages in a group section |
 +
  ## Example Interactions
- 
+
  Here are some examples of how you can interact with the OneNote MCP through your AI assistant:
 @@ -220,6 +249,12 @@ npm run list-sections
  # List pages in the first section
  npm run list-pages
- 
+
 +# List group notebooks (shared/team notebooks)
 +npm run list-groups
 +npm run list-group-notebooks -- "Engineering Design"
@@ -3056,16 +3092,16 @@ index 158480a..d62d7ad 100644
 +
  # Create a new page
  npm run create-page
- 
+
 @@ -242,7 +277,7 @@ node read-all-pages.js
- 
+
  - Verify Node.js is installed (version 16+): &#96;node --version&#96;
  - Make sure all dependencies are installed: &#96;npm install&#96;
 -- Check that the TypeScript SDK was built correctly
 +- Ensure the MCP SDK dependencies are installed via npm
- 
+
  ### AI Can't Connect to the Server
- 
+
 diff --git a/authenticate.js b/authenticate.js
 index a35f3f4..718710c 100644
 --- a/authenticate.js
@@ -3088,16 +3124,16 @@ index a35f3f4..718710c 100644
 -const scopes = ['Notes.Read.All', 'Notes.ReadWrite.All', 'User.Read'];
 +import { clientId, scopes, tokenFilePath } from './lib/config.js';
 +import { writeAccessToken } from './lib/auth.js';
- 
+
  async function authenticate() {
    try {
 @@ -33,7 +21,7 @@ async function authenticate() {
-     
+
      // Save the token for future use
      const accessToken = tokenResponse.token;
 -    fs.writeFileSync(tokenFilePath, JSON.stringify({ token: accessToken }));
 +    writeAccessToken(accessToken);
-     
+
      console.log('\nAuthentication successful!');
      console.log('Access token saved to:', tokenFilePath);
 diff --git a/create-page.js b/create-page.js
@@ -3119,7 +3155,7 @@ index afcf921..c624a0d 100644
 +import { createGraphClient } from './lib/auth.js';
 +import { fetchAll } from './lib/pagination.js';
 +import { pickByNameOrId } from './lib/selection.js';
- 
+
  async function createPage() {
    try {
 -    // Read the access token
@@ -3130,7 +3166,7 @@ index afcf921..c624a0d 100644
 -
 -    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');
 -    let accessToken;
--    
+-
 -    try {
 -      // Try to parse as JSON first (new format)
 -      const parsedToken = JSON.parse(tokenData);
@@ -3152,63 +3188,63 @@ index afcf921..c624a0d 100644
 -      }
 -    });
 +    const client = createGraphClient();
- 
+
      // First, get all notebooks
      console.log('Fetching notebooks...');
 -    const notebooksResponse = await client.api('/me/onenote/notebooks').get();
 +    const notebooks = await fetchAll(client, '/me/onenote/notebooks');
-     
+
 -    if (notebooksResponse.value.length === 0) {
 +    if (notebooks.length === 0) {
        console.log('No notebooks found.');
        return;
      }
- 
+
      // Use the first notebook (you can modify this to select a specific notebook)
 -    const notebook = notebooksResponse.value[0];
 +    const notebook = pickByNameOrId(notebooks, null, { allowEmpty: true }).item;
      console.log(&#96;Using notebook: "${notebook.displayName}"&#96;);
- 
+
      // Get sections in the selected notebook
      console.log(&#96;Fetching sections in "${notebook.displayName}" notebook...&#96;);
 -    const sectionsResponse = await client.api(&#96;/me/onenote/notebooks/${notebook.id}/sections&#96;).get();
 +    const sections = await fetchAll(client, &#96;/me/onenote/notebooks/${notebook.id}/sections&#96;);
-     
+
 -    if (sectionsResponse.value.length === 0) {
 +    if (sections.length === 0) {
        console.log('No sections found in this notebook.');
        return;
      }
- 
+
      // Use the first section (you can modify this to select a specific section)
 -    const section = sectionsResponse.value[0];
 +    const section = pickByNameOrId(sections, null, { allowEmpty: true }).item;
      console.log(&#96;Using section: "${section.displayName}"&#96;);
- 
+
      // Create a new page
 @@ -107,7 +71,7 @@ async function createPage() {
      console.log(&#96;Link: ${response.links.oneNoteWebUrl.href}&#96;);
- 
+
    } catch (error) {
 -    console.error('Error creating page:', error);
 +    console.error('Error creating page:', error.message || error);
    }
  }
- 
+
 diff --git a/get-all-page-contents-full.js b/get-all-page-contents-full.js
 index ef1b749..ec17845 100644
 --- a/get-all-page-contents-full.js
 +++ b/get-all-page-contents-full.js
 @@ -1,65 +1,35 @@
  #!/usr/bin/env node
- 
+
 -import { Client } from '@microsoft/microsoft-graph-client';
 -import fs from 'fs';
 -import path from 'path';
 -import { fileURLToPath } from 'url';
 +import { createGraphClient, readAccessToken } from './lib/auth.js';
 +import { fetchAll } from './lib/pagination.js';
- 
+
 -// Get current directory
 -const __filename = fileURLToPath(import.meta.url);
 -const __dirname = path.dirname(__filename);
@@ -3233,7 +3269,7 @@ index ef1b749..ec17845 100644
 -    return null;
 -  }
 -}
- 
+
  // Main function
  async function getAllPagesFullContent() {
    try {
@@ -3244,7 +3280,7 @@ index ef1b749..ec17845 100644
        console.error('No access token found');
        return;
      }
-     
+
      // Initialize Graph client
 -    const client = Client.init({
 -      authProvider: (done) =&gt; {
@@ -3252,21 +3288,21 @@ index ef1b749..ec17845 100644
 -      }
 -    });
 +    const client = createGraphClient(accessToken);
-     
+
      // List pages
      console.log("Fetching all pages...");
 -    const pages = await client.api('/me/onenote/pages').get();
 +    const pages = await fetchAll(client, '/me/onenote/pages');
-     
+
 -    if (!pages || !pages.value || pages.value.length === 0) {
 +    if (!pages || pages.length === 0) {
        console.log("No pages found");
        return;
      }
-     
+
 -    console.log(&#96;Found ${pages.value.length} pages. Fetching full content for each...\n&#96;);
 +    console.log(&#96;Found ${pages.length} pages. Fetching full content for each...\n&#96;);
-     
+
      // Process each page
 -    for (const page of pages.value) {
 +    for (const page of pages) {
@@ -3275,20 +3311,20 @@ index ef1b749..ec17845 100644
        console.log(&#96;Last modified: ${new Date(page.lastModifiedDateTime).toLocaleString()}&#96;);
 @@ -92,7 +62,7 @@ async function getAllPagesFullContent() {
      }
-     
+
    } catch (error) {
 -    console.error("Error:", error);
 +    console.error("Error:", error.message || error);
    }
  }
- 
+
 diff --git a/get-all-page-contents.js b/get-all-page-contents.js
 index 68d096b..4b75946 100644
 --- a/get-all-page-contents.js
 +++ b/get-all-page-contents.js
 @@ -1,35 +1,8 @@
  #!/usr/bin/env node
- 
+
 -import { Client } from '@microsoft/microsoft-graph-client';
 -import fs from 'fs';
 -import path from 'path';
@@ -3321,7 +3357,7 @@ index 68d096b..4b75946 100644
 -}
 +import { createGraphClient, readAccessToken } from './lib/auth.js';
 +import { fetchAll } from './lib/pagination.js';
- 
+
  // Function to extract text content from HTML
  function extractTextContent(html) {
 @@ -56,32 +29,28 @@ function extractTextContent(html) {
@@ -3334,7 +3370,7 @@ index 68d096b..4b75946 100644
        console.error('No access token found');
        return;
      }
-     
+
      // Initialize Graph client
 -    const client = Client.init({
 -      authProvider: (done) =&gt; {
@@ -3342,36 +3378,36 @@ index 68d096b..4b75946 100644
 -      }
 -    });
 +    const client = createGraphClient(accessToken);
-     
+
      // List pages
      console.log("Fetching all pages...");
 -    const pages = await client.api('/me/onenote/pages').get();
 +    const pages = await fetchAll(client, '/me/onenote/pages');
-     
+
 -    if (!pages || !pages.value || pages.value.length === 0) {
 +    if (!pages || pages.length === 0) {
        console.log("No pages found");
        return;
      }
-     
+
 -    console.log(&#96;Found ${pages.value.length} pages. Fetching content for each...&#96;);
 +    console.log(&#96;Found ${pages.length} pages. Fetching content for each...&#96;);
-     
+
      // Process each page
 -    for (const page of pages.value) {
 +    for (const page of pages) {
        console.log(&#96;\n===== ${page.title} =====&#96;);
-       
+
        try {
 @@ -110,7 +79,7 @@ async function getAllPageContents() {
      }
-     
+
    } catch (error) {
 -    console.error("Error:", error);
 +    console.error("Error:", error.message || error);
    }
  }
- 
+
 diff --git a/get-page-content.js b/get-page-content.js
 index a1d8b61..79e346e 100644
 --- a/get-page-content.js
@@ -3391,7 +3427,7 @@ index a1d8b61..79e346e 100644
 +import { createGraphClient } from './lib/auth.js';
 +import { fetchAll } from './lib/pagination.js';
 +import { pickByNameOrId } from './lib/selection.js';
- 
+
  async function getPageContent() {
    try {
 -    // Read the access token
@@ -3402,7 +3438,7 @@ index a1d8b61..79e346e 100644
 -
 -    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');
 -    let accessToken;
--    
+-
 -    try {
 -      // Try to parse as JSON first (new format)
 -      const parsedToken = JSON.parse(tokenData);
@@ -3424,40 +3460,40 @@ index a1d8b61..79e346e 100644
 -      }
 -    });
 +    const client = createGraphClient();
- 
+
      // Get all pages
      console.log('Fetching pages...');
 -    const pagesResponse = await client.api('/me/onenote/pages').get();
 +    const pages = await fetchAll(client, '/me/onenote/pages');
-     
+
 -    if (pagesResponse.value.length === 0) {
 +    if (pages.length === 0) {
        console.log('No pages found.');
        return;
      }
-     
+
      // Use the first page
 -    const page = pagesResponse.value[0];
 +    const page = pickByNameOrId(pages, null, { allowEmpty: true }).item;
      console.log(&#96;Using page: "${page.title}" (ID: ${page.id})&#96;);
-     
+
      // Test different methods to get content
 @@ -123,7 +87,7 @@ async function getPageContent() {
      }
- 
+
    } catch (error) {
 -    console.error('Error:', error);
 +    console.error('Error:', error.message || error);
    }
  }
- 
+
 diff --git a/get-page.js b/get-page.js
 index dc59d04..ca0db93 100644
 --- a/get-page.js
 +++ b/get-page.js
 @@ -1,16 +1,7 @@
  #!/usr/bin/env node
- 
+
 -import { Client } from '@microsoft/microsoft-graph-client';
 -import fs from 'fs';
 -import path from 'path';
@@ -3471,13 +3507,13 @@ index dc59d04..ca0db93 100644
 -const tokenFilePath = path.join(__dirname, '.access-token.txt');
 +import { createGraphClient, readAccessToken } from './lib/auth.js';
 +import { fetchAll } from './lib/pagination.js';
- 
+
  // Get the page title from command line
  const pageTitle = process.argv[2];
 @@ -19,59 +10,37 @@ if (!pageTitle) {
    process.exit(1);
  }
- 
+
 -// Function to read the access token
 -function getAccessToken() {
 -  try {
@@ -3506,7 +3542,7 @@ index dc59d04..ca0db93 100644
        console.error('No access token found');
        return;
      }
-     
+
      // Initialize Graph client
 -    const client = Client.init({
 -      authProvider: (done) =&gt; {
@@ -3514,24 +3550,24 @@ index dc59d04..ca0db93 100644
 -      }
 -    });
 +    const client = createGraphClient(accessToken);
-     
+
      // Get all pages
      console.log(&#96;Searching for page with title: "${pageTitle}"...&#96;);
 -    const pagesResponse = await client.api('/me/onenote/pages').get();
 +    const pages = await fetchAll(client, '/me/onenote/pages');
-     
+
 -    if (!pagesResponse.value || pagesResponse.value.length === 0) {
 +    if (!pages || pages.length === 0) {
        console.error('No pages found');
        return;
      }
-     
+
      // Find the requested page
--    const page = pagesResponse.value.find(p =&gt; 
-+    const page = pages.find(p =&gt; 
+-    const page = pagesResponse.value.find(p =&gt;
++    const page = pages.find(p =&gt;
        p.title &amp;&amp; p.title.toLowerCase().includes(pageTitle.toLowerCase())
      );
-     
+
      if (!page) {
        console.error(&#96;No page found with title containing "${pageTitle}"&#96;);
        console.log('Available pages:');
@@ -3539,16 +3575,16 @@ index dc59d04..ca0db93 100644
 +      pages.forEach(p =&gt; console.log(&#96;- ${p.title}&#96;));
        return;
      }
-     
+
 @@ -105,7 +74,7 @@ async function getPageContent() {
      console.log('\n--- END OF CONTENT ---\n');
-     
+
    } catch (error) {
 -    console.error('Error:', error);
 +    console.error('Error:', error.message || error);
    }
  }
- 
+
 diff --git a/list-pages.js b/list-pages.js
 index 79f30cd..8b421e7 100644
 --- a/list-pages.js
@@ -3568,7 +3604,7 @@ index 79f30cd..8b421e7 100644
 +import { createGraphClient } from './lib/auth.js';
 +import { fetchAll } from './lib/pagination.js';
 +import { pickByNameOrId } from './lib/selection.js';
- 
+
  async function listPages() {
    try {
 -    // Read the access token
@@ -3579,7 +3615,7 @@ index 79f30cd..8b421e7 100644
 -
 -    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');
 -    let accessToken;
--    
+-
 -    try {
 -      // Try to parse as JSON first (new format)
 -      const parsedToken = JSON.parse(tokenData);
@@ -3601,47 +3637,47 @@ index 79f30cd..8b421e7 100644
 -      }
 -    });
 +    const client = createGraphClient();
- 
+
      // First, get all notebooks
      console.log('Fetching notebooks...');
 -    const notebooksResponse = await client.api('/me/onenote/notebooks').get();
 +    const notebooks = await fetchAll(client, '/me/onenote/notebooks');
-     
+
 -    if (notebooksResponse.value.length === 0) {
 +    if (notebooks.length === 0) {
        console.log('No notebooks found.');
        return;
      }
- 
+
      // Use the first notebook (you can modify this to select a specific notebook)
 -    const notebook = notebooksResponse.value[0];
 +    const notebook = pickByNameOrId(notebooks, null, { allowEmpty: true }).item;
      console.log(&#96;Using notebook: "${notebook.displayName}"&#96;);
- 
+
      // Get sections in the selected notebook
      console.log(&#96;Fetching sections in "${notebook.displayName}" notebook...&#96;);
 -    const sectionsResponse = await client.api(&#96;/me/onenote/notebooks/${notebook.id}/sections&#96;).get();
 +    const sections = await fetchAll(client, &#96;/me/onenote/notebooks/${notebook.id}/sections&#96;);
-     
+
 -    if (sectionsResponse.value.length === 0) {
 +    if (sections.length === 0) {
        console.log('No sections found in this notebook.');
        return;
      }
- 
+
      // Use the first section (you can modify this to select a specific section)
 -    const section = sectionsResponse.value[0];
 +    const section = pickByNameOrId(sections, null, { allowEmpty: true }).item;
      console.log(&#96;Using section: "${section.displayName}"&#96;);
- 
+
      // Get pages in the section
      console.log(&#96;Fetching pages in "${section.displayName}" section...&#96;);
 -    const pagesResponse = await client.api(&#96;/me/onenote/sections/${section.id}/pages&#96;).get();
 +    const pages = await fetchAll(client, &#96;/me/onenote/sections/${section.id}/pages&#96;);
-     
+
      console.log(&#96;\nPages in ${section.displayName}:&#96;);
      console.log('=====================');
-     
+
 -    if (pagesResponse.value.length === 0) {
 +    if (pages.length === 0) {
        console.log('No pages found.');
@@ -3655,13 +3691,13 @@ index 79f30cd..8b421e7 100644
 +        console.log(&#96;${index + 1}. ${page.title} (Created: ${createdAt})&#96;);
        });
      }
- 
+
    } catch (error) {
 -    console.error('Error listing pages:', error);
 +    console.error('Error listing pages:', error.message || error);
    }
  }
- 
+
 diff --git a/list-sections.js b/list-sections.js
 index 0e7bb2a..23eaea7 100644
 --- a/list-sections.js
@@ -3681,7 +3717,7 @@ index 0e7bb2a..23eaea7 100644
 +import { createGraphClient } from './lib/auth.js';
 +import { fetchAll } from './lib/pagination.js';
 +import { pickByNameOrId } from './lib/selection.js';
- 
+
  async function listSections() {
    try {
 -    // Read the access token
@@ -3692,7 +3728,7 @@ index 0e7bb2a..23eaea7 100644
 -
 -    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');
 -    let accessToken;
--    
+-
 -    try {
 -      // Try to parse as JSON first (new format)
 -      const parsedToken = JSON.parse(tokenData);
@@ -3714,31 +3750,31 @@ index 0e7bb2a..23eaea7 100644
 -      }
 -    });
 +    const client = createGraphClient();
- 
+
      // First, let's get all notebooks
      console.log('Fetching notebooks...');
 -    const notebooksResponse = await client.api('/me/onenote/notebooks').get();
 +    const notebooks = await fetchAll(client, '/me/onenote/notebooks');
-     
+
 -    if (notebooksResponse.value.length === 0) {
 +    if (notebooks.length === 0) {
        console.log('No notebooks found.');
        return;
      }
- 
+
      // Use the first notebook (you can modify this to select a specific notebook)
 -    const notebook = notebooksResponse.value[0];
 +    const notebook = pickByNameOrId(notebooks, null, { allowEmpty: true }).item;
      console.log(&#96;Using notebook: "${notebook.displayName}"&#96;);
- 
+
      // Get sections in the selected notebook
      console.log(&#96;Fetching sections in "${notebook.displayName}" notebook...&#96;);
 -    const sectionsResponse = await client.api(&#96;/me/onenote/notebooks/${notebook.id}/sections&#96;).get();
 +    const sections = await fetchAll(client, &#96;/me/onenote/notebooks/${notebook.id}/sections&#96;);
-     
+
      console.log(&#96;\nSections in ${notebook.displayName} Notebook:&#96;);
      console.log('============================');
-     
+
 -    if (sectionsResponse.value.length === 0) {
 +    if (sections.length === 0) {
        console.log('No sections found.');
@@ -3748,20 +3784,20 @@ index 0e7bb2a..23eaea7 100644
          console.log(&#96;${index + 1}. ${section.displayName}&#96;);
        });
      }
- 
+
    } catch (error) {
 -    console.error('Error listing sections:', error);
 +    console.error('Error listing sections:', error.message || error);
    }
  }
- 
+
 diff --git a/onenote-mcp.mjs b/onenote-mcp.mjs
 index 0f12a51..46dbb81 100755
 --- a/onenote-mcp.mjs
 +++ b/onenote-mcp.mjs
 @@ -1,25 +1,16 @@
  #!/usr/bin/env node
- 
+
 -import { McpServer } from './typescript-sdk/dist/esm/server/mcp.js';
 -import { Client } from '@microsoft/microsoft-graph-client';
 -import { StdioServerTransport } from './typescript-sdk/dist/esm/server/stdio.js';
@@ -3775,10 +3811,10 @@ index 0f12a51..46dbb81 100755
  import fetch from 'node-fetch';
 +import { clientId, scopes } from './lib/config.js';
 +import { createGraphClient, readAccessToken, writeAccessToken } from './lib/auth.js';
- 
+
  // Load environment variables
  dotenv.config();
- 
+
 -// Get the current file's directory
 -const __filename = fileURLToPath(import.meta.url);
 -const __dirname = path.dirname(__filename);
@@ -3788,11 +3824,11 @@ index 0f12a51..46dbb81 100755
 -
  // Create the MCP server
  const server = new McpServer(
-   { 
+   {
 @@ -36,80 +27,30 @@ const server = new McpServer(
    }
  );
- 
+
 -// Try to read the stored access token
 -let accessToken = null;
 -try {
@@ -3816,9 +3852,9 @@ index 0f12a51..46dbb81 100755
 -  accessToken = process.env.GRAPH_ACCESS_TOKEN;
 -}
 +let accessToken = readAccessToken({ allowEnv: true });
- 
+
  let graphClient = null;
- 
+
 -// Client ID for Microsoft Graph API access
 -const clientId = '14d82eec-204b-4c2f-b7e8-296a70dab67e'; // Microsoft Graph Explorer client ID
 -const scopes = ['Notes.Read.All', 'Notes.ReadWrite.All', 'User.Read'];
@@ -3848,7 +3884,7 @@ index 0f12a51..46dbb81 100755
      if (!accessToken) {
        throw new Error("Access token not found. Please save access token first.");
      }
- 
+
      // Create Microsoft Graph client
 -    graphClient = Client.init({
 -      authProvider: (done) =&gt; {
@@ -3859,7 +3895,7 @@ index 0f12a51..46dbb81 100755
    }
    return graphClient;
  }
- 
+
  // Create graph client with device code auth or access token
 -async function createGraphClient() {
 +async function createGraphClientWithAuth() {
@@ -3877,12 +3913,12 @@ index 0f12a51..46dbb81 100755
    } else {
      // Use device code flow
 @@ -127,16 +68,10 @@ async function createGraphClient() {
-       
+
        // Save the token for future use
        accessToken = tokenResponse.token;
 -      fs.writeFileSync(tokenFilePath, JSON.stringify({ token: accessToken }));
 +      writeAccessToken(accessToken);
-       
+
        // Initialize Graph client with the token
 -      graphClient = Client.initWithMiddleware({
 -        authProvider: {
@@ -3892,7 +3928,7 @@ index 0f12a51..46dbb81 100755
 -        }
 -      });
 +      graphClient = createGraphClient(accessToken);
-       
+
        return { type: 'device_code', client: graphClient };
      } catch (error) {
 @@ -152,7 +87,7 @@ server.tool(
@@ -3902,7 +3938,7 @@ index 0f12a51..46dbb81 100755
 -      const result = await createGraphClient();
 +      const result = await createGraphClientWithAuth();
        if (result.type === 'device_code') {
-         return { 
+         return {
            content: [
 @@ -187,9 +122,8 @@ server.tool(
      try {
@@ -3913,7 +3949,7 @@ index 0f12a51..46dbb81 100755
 -      await createGraphClient();
 +      writeAccessToken(accessToken);
 +      graphClient = createGraphClient(accessToken);
-       return { 
+       return {
          content: [
            {
 diff --git a/package-lock.json b/package-lock.json
@@ -13272,7 +13308,7 @@ index 021e39f..2bc8fda 100644
 +++ b/read-all-pages.js
 @@ -1,35 +1,9 @@
  #!/usr/bin/env node
- 
+
 -import { Client } from '@microsoft/microsoft-graph-client';
 -import fs from 'fs';
 -import path from 'path';
@@ -13280,7 +13316,7 @@ index 021e39f..2bc8fda 100644
  import { JSDOM } from 'jsdom';
 +import { createGraphClient, readAccessToken } from './lib/auth.js';
 +import { fetchAll } from './lib/pagination.js';
- 
+
 -// Get current directory
 -const __filename = fileURLToPath(import.meta.url);
 -const __dirname = path.dirname(__filename);
@@ -13305,7 +13341,7 @@ index 021e39f..2bc8fda 100644
 -    return null;
 -  }
 -}
- 
+
  // Extract readable text from HTML
  function extractReadableText(html) {
 @@ -108,32 +82,28 @@ function extractReadableText(html) {
@@ -13318,7 +13354,7 @@ index 021e39f..2bc8fda 100644
        console.error('No access token found');
        return;
      }
-     
+
      // Initialize Graph client
 -    const client = Client.init({
 -      authProvider: (done) =&gt; {
@@ -13326,21 +13362,21 @@ index 021e39f..2bc8fda 100644
 -      }
 -    });
 +    const client = createGraphClient(accessToken);
-     
+
      // List pages
      console.log("Fetching all pages...");
 -    const pages = await client.api('/me/onenote/pages').get();
 +    const pages = await fetchAll(client, '/me/onenote/pages');
-     
+
 -    if (!pages || !pages.value || pages.value.length === 0) {
 +    if (!pages || pages.length === 0) {
        console.log("No pages found");
        return;
      }
-     
+
 -    console.log(&#96;Found ${pages.value.length} pages. Reading full content for each...\n&#96;);
 +    console.log(&#96;Found ${pages.length} pages. Reading full content for each...\n&#96;);
-     
+
      // Process each page
 -    for (const page of pages.value) {
 +    for (const page of pages) {
@@ -13349,13 +13385,13 @@ index 021e39f..2bc8fda 100644
        console.log(&#96;Last modified: ${new Date(page.lastModifiedDateTime).toLocaleString()}&#96;);
 @@ -167,7 +137,7 @@ async function readAllPages() {
      console.log("\nAll pages have been read. You can now ask questions about their content.");
-     
+
    } catch (error) {
 -    console.error("Error:", error);
 +    console.error("Error:", error.message || error);
    }
  }
- 
+
 diff --git a/simple-onenote.js b/simple-onenote.js
 index c75c6ec..472c9ee 100644
 --- a/simple-onenote.js
@@ -13374,7 +13410,7 @@ index c75c6ec..472c9ee 100644
 -const tokenFilePath = path.join(__dirname, '.access-token.txt');
 +import { createGraphClient } from './lib/auth.js';
 +import { fetchAll } from './lib/pagination.js';
- 
+
  async function listNotebooks() {
    try {
 -    // Read the access token
@@ -13385,7 +13421,7 @@ index c75c6ec..472c9ee 100644
 -
 -    const tokenData = fs.readFileSync(tokenFilePath, 'utf8');
 -    let accessToken;
--    
+-
 -    try {
 -      // Try to parse as JSON first (new format)
 -      const parsedToken = JSON.parse(tokenData);
@@ -13407,15 +13443,15 @@ index c75c6ec..472c9ee 100644
 -      }
 -    });
 +    const client = createGraphClient();
- 
+
      // Get notebooks
      console.log('Fetching notebooks...');
 -    const response = await client.api('/me/onenote/notebooks').get();
 +    const notebooks = await fetchAll(client, '/me/onenote/notebooks');
-     
+
      console.log('\nYour OneNote Notebooks:');
      console.log('=======================');
-     
+
 -    if (response.value.length === 0) {
 +    if (notebooks.length === 0) {
        console.log('No notebooks found.');
@@ -13425,20 +13461,20 @@ index c75c6ec..472c9ee 100644
          console.log(&#96;${index + 1}. ${notebook.displayName}&#96;);
        });
      }
- 
+
    } catch (error) {
 -    console.error('Error listing notebooks:', error);
 +    console.error('Error listing notebooks:', error.message || error);
    }
  }
- 
+
 diff --git a/simple-page-content.js b/simple-page-content.js
 index 1a78379..49a3318 100644
 --- a/simple-page-content.js
 +++ b/simple-page-content.js
 @@ -1,63 +1,33 @@
  #!/usr/bin/env node
- 
+
 -import { Client } from '@microsoft/microsoft-graph-client';
 -import fs from 'fs';
 -import path from 'path';
@@ -13471,7 +13507,7 @@ index 1a78379..49a3318 100644
 +import { createGraphClient, readAccessToken } from './lib/auth.js';
 +import { fetchAll } from './lib/pagination.js';
 +import { pickByNameOrId } from './lib/selection.js';
- 
+
  // Main function
  async function getPageContent() {
    try {
@@ -13482,7 +13518,7 @@ index 1a78379..49a3318 100644
        console.error('No access token found');
        return;
      }
-     
+
      // Initialize Graph client
 -    const client = Client.init({
 -      authProvider: (done) =&gt; {
@@ -13490,35 +13526,36 @@ index 1a78379..49a3318 100644
 -      }
 -    });
 +    const client = createGraphClient(accessToken);
-     
+
      // List pages
      console.log("Fetching pages...");
 -    const pages = await client.api('/me/onenote/pages').get();
 +    const pages = await fetchAll(client, '/me/onenote/pages');
-     
+
 -    if (!pages || !pages.value || pages.value.length === 0) {
 +    if (!pages || pages.length === 0) {
        console.log("No pages found");
        return;
      }
-     
+
      // Choose the first page
 -    const page = pages.value[0];
 +    const page = pickByNameOrId(pages, null, { allowEmpty: true }).item;
      console.log(&#96;Using page: "${page.title}" (ID: ${page.id})&#96;);
-     
+
      // Try to get the content
 @@ -92,7 +62,7 @@ async function getPageContent() {
      }
-     
+
    } catch (error) {
 -    console.error("Error:", error);
 +    console.error("Error:", error.message || error);
    }
  }
- 
+
 
 ```
+
 </details>
 </tool-use>
 
@@ -13539,6 +13576,7 @@ f4c155d Fix issues with get note content
 925cbd2 Ability to read note content
 
 ```
+
 </details>
 </tool-use>
 
@@ -13596,6 +13634,7 @@ EOF
 ?? .specstory/
 
 ```
+
 </details>
 </tool-use>
 
@@ -13626,7 +13665,6 @@ _**Agent (model gpt-5.2-codex, mode Agent)**_
 <details>
 <summary>Tool use: **list_dir_v2**</summary>
 
-
 Parameters:
 
 ```json
@@ -13634,6 +13672,7 @@ Parameters:
   "targetDirectory": "/Users/ian/.cursor/projects/Users-ian-othercode-onenote-mcp/terminals"
 }
 ```
+
 Result:
 
 ```json
@@ -13655,8 +13694,8 @@ Result:
   }
 }
 ```
-Status: **completed**
 
+Status: **completed**
 
 </details>
 </tool-use>
@@ -13707,4 +13746,3 @@ _**Agent (model gpt-5.2-codex, mode Agent)**_
 Which GitHub MCP server should I start, and how (command/path/config)?
 
 ---
-
