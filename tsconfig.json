@@ -1,20 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "rootDir": "src",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "declaration": true,
-    "strict": true
+    "sourceMap": true,
+    "strict": true,
+    "preserveShebang": true,
+    "skipLibCheck": true
   },
   "include": [
-    "*.js",
-    "*.mjs",
-    "src/**/*"
+    "src/**/*.ts",
+    "tests/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "**/*.test.ts"
+    "node_modules"
   ]
-} 
+}

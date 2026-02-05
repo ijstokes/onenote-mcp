@@ -3,18 +3,27 @@
   "version": "0.1.0",
   "description": "OneNote MCP Server Implementation with Device Code Authentication",
   "type": "module",
-  "main": "onenote-mcp.mjs",
+  "main": "dist/onenote-mcp.js",
   "scripts": {
-    "start": "node onenote-mcp.mjs",
-    "auth": "node authenticate.js",
-    "list-notebooks": "node simple-onenote.js",
-    "list-sections": "node list-sections.js",
-    "list-pages": "node list-pages.js",
-    "create-page": "node create-page.js",
-    "list-groups": "node list-groups.js",
-    "list-group-notebooks": "node list-group-notebooks.js",
-    "list-group-sections": "node list-group-sections.js",
-    "list-group-pages": "node list-group-pages.js"
+    "build": "tsc",
+    "start": "node dist/onenote-mcp.js",
+    "auth": "node dist/scripts/authenticate.js",
+    "list-notebooks": "node dist/scripts/simple-onenote.js",
+    "list-sections": "node dist/scripts/list-sections.js",
+    "list-pages": "node dist/scripts/list-pages.js",
+    "create-page": "node dist/scripts/create-page.js",
+    "get-page": "node dist/scripts/get-page.js",
+    "get-page-content": "node dist/scripts/get-page-content.js",
+    "simple-page-content": "node dist/scripts/simple-page-content.js",
+    "get-all-page-contents": "node dist/scripts/get-all-page-contents.js",
+    "get-all-page-contents-full": "node dist/scripts/get-all-page-contents-full.js",
+    "read-all-pages": "node dist/scripts/read-all-pages.js",
+    "list-groups": "node dist/scripts/list-groups.js",
+    "list-group-notebooks": "node dist/scripts/list-group-notebooks.js",
+    "list-group-sections": "node dist/scripts/list-group-sections.js",
+    "list-group-pages": "node dist/scripts/list-group-pages.js",
+    "release:tag": "git tag -a v$npm_package_version -m \"v$npm_package_version\"",
+    "test": "vitest run"
   },
   "dependencies": {
     "@azure/identity": "^2.1.0",
@@ -23,8 +32,15 @@
     "@modelcontextprotocol/sdk": "^1.26.0",
     "dotenv": "^16.0.0",
     "jsdom": "^26.0.0",
+    "keytar": "^7.9.0",
     "node-fetch": "^3.3.2",
-    "open": "^10.1.0"
+    "open": "^10.1.0",
+    "pino": "^9.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.8",
+    "typescript": "^5.9.3",
+    "vitest": "^2.1.9"
   },
   "keywords": [
     "mcp",
