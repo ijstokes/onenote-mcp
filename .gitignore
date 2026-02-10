@@ -11,6 +11,10 @@ tests/*.js
 tests/*.d.ts
 tests/*.js.map
 
+# Coverage reports
+coverage/
+coverage-report/
+
 # Environment variables and secrets
 .env
 .env.local
