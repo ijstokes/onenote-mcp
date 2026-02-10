@@ -12,10 +12,12 @@ import fetch from 'node-fetch';
 import { clientId, scopes } from './lib/config.js';
 import {
   createGraphClient,
+  deleteAccessToken,
   getTokenStorageStatus,
   readAccessToken,
   writeAccessToken
 } from './lib/auth.js';
+import { isTokenExpired } from './lib/token.js';
 import { fetchAll } from './lib/pagination.js';
 import { pickByNameOrId } from './lib/selection.js';
 import { logger, logMetadata } from './lib/logger.js';
@@ -62,28 +64,77 @@ let graphClient: Client | null = null;
 let lastAuthMessage: string | null = null;
 let lastAuthStorageWarning: string | null = null;
 
-async function ensureGraphClient() {
-  if (!graphClient) {
-    if (!accessToken) {
-      accessToken = await readAccessToken({ allowEnv: true });
-    }
-    if (!accessToken) {
+function clearAuthState() {
+  accessToken = null;
+  graphClient = null;
+}
+
+function isAuthError(error: unknown): boolean {
+  const message = String((error as Error)?.message ?? error).toLowerCase();
+  return (
+    message.includes('401') ||
+    message.includes('unauthorized') ||
+    message.includes('lifetime validation failed') ||
+    message.includes('invalid token') ||
+    message.includes('token has expired')
+  );
+}
+
+async function withAuthErrorHandling<T>(fn: () => Promise<T>): Promise<T> {
+  try {
+    return await fn();
+  } catch (error) {
+    if (isAuthError(error)) {
+      clearAuthState();
+      await deleteAccessToken();
       throw new Error(
-        'Access token not found. Please save access token first.'
+        `Authentication error: ${(error as Error).message}. Please call the 'authenticate' tool to sign in again.`
       );
     }
-    graphClient = await createGraphClient(accessToken);
+    throw error;
   }
+}
+
+async function ensureGraphClient() {
+  if (graphClient && !isTokenExpired(accessToken)) {
+    return graphClient;
+  }
+
+  if (isTokenExpired(accessToken)) {
+    clearAuthState();
+  }
+
+  if (!accessToken) {
+    const storedToken = await readAccessToken({ allowEnv: true });
+    if (storedToken && !isTokenExpired(storedToken)) {
+      accessToken = storedToken;
+    }
+  }
+
+  if (!accessToken) {
+    throw new Error(
+      "No valid access token available. Please call the 'authenticate' tool to sign in."
+    );
+  }
+
+  graphClient = await createGraphClient(accessToken);
   return graphClient;
 }
 
 async function createGraphClientWithAuth() {
   const existingToken =
     accessToken ?? (await readAccessToken({ allowEnv: true }));
-  if (existingToken) {
+  if (existingToken && !isTokenExpired(existingToken)) {
     graphClient = await createGraphClient(existingToken);
     accessToken = existingToken;
     return { type: 'token', client: graphClient };
+  }
+
+  if (existingToken && isTokenExpired(existingToken)) {
+    logger.info(
+      'Existing token has expired, starting new authentication flow.'
+    );
+    clearAuthState();
   }
 
   const credential = new DeviceCodeCredential({
@@ -198,7 +249,7 @@ server.tool(
       content: [
         {
           type: 'text',
-          text: 'Already authenticated with an access token.'
+          text: 'Already authenticated with a valid access token.'
         }
       ]
     };
@@ -241,18 +292,19 @@ server.tool(
     description: 'List all OneNote notebooks you can access.',
     inputSchema: toolInputSchemas.listNotebooks
   },
-  async () => {
-    const client = await ensureGraphClient();
-    const notebooks = await fetchAll<any>(client, '/me/onenote/notebooks');
-    return {
-      content: [
-        {
-          type: 'text',
-          text: JSON.stringify(notebooks)
-        }
-      ]
-    };
-  }
+  async () =>
+    withAuthErrorHandling(async () => {
+      const client = await ensureGraphClient();
+      const notebooks = await fetchAll<any>(client, '/me/onenote/notebooks');
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(notebooks)
+          }
+        ]
+      };
+    })
 );
 
 server.tool(
@@ -261,29 +313,33 @@ server.tool(
     description: 'Get a single notebook by ID or name.',
     inputSchema: toolInputSchemas.getNotebook
   },
-  async (params) => {
-    const { notebookId, notebookName } = normalizeParams(params, {
-      notebookId: ['id'],
-      notebookName: ['name', 'title']
-    });
-    const parsed = toolSchemas.getNotebook.parse({ notebookId, notebookName });
+  async (params) =>
+    withAuthErrorHandling(async () => {
+      const { notebookId, notebookName } = normalizeParams(params, {
+        notebookId: ['id'],
+        notebookName: ['name', 'title']
+      });
+      const parsed = toolSchemas.getNotebook.parse({
+        notebookId,
+        notebookName
+      });
 
-    const client = await ensureGraphClient();
-    const selection = await resolveNotebook(
-      client,
-      parsed.notebookId,
-      parsed.notebookName
-    );
+      const client = await ensureGraphClient();
+      const selection = await resolveNotebook(
+        client,
+        parsed.notebookId,
+        parsed.notebookName
+      );
 
-    return {
-      content: [
-        {
-          type: 'text',
-          text: JSON.stringify(selection)
-        }
-      ]
-    };
-  }
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(selection)
+          }
+        ]
+      };
+    })
 );
 
 server.tool(
@@ -292,24 +348,39 @@ server.tool(
     description: 'List sections, optionally filtered by notebook.',
     inputSchema: toolInputSchemas.listSections
   },
-  async (params) => {
-    const { notebookId, notebookName } = normalizeParams(params, {
-      notebookId: ['id'],
-      notebookName: ['name', 'title']
-    });
-    const parsed = toolSchemas.listSections.parse({ notebookId, notebookName });
+  async (params) =>
+    withAuthErrorHandling(async () => {
+      const { notebookId, notebookName } = normalizeParams(params, {
+        notebookId: ['id'],
+        notebookName: ['name', 'title']
+      });
+      const parsed = toolSchemas.listSections.parse({
+        notebookId,
+        notebookName
+      });
 
-    const client = await ensureGraphClient();
-    if (parsed.notebookId || parsed.notebookName) {
-      const selection = await resolveNotebook(
-        client,
-        parsed.notebookId,
-        parsed.notebookName
-      );
-      const sections = await fetchAll<any>(
-        client,
-        `/me/onenote/notebooks/${selection.id}/sections`
-      );
+      const client = await ensureGraphClient();
+      if (parsed.notebookId || parsed.notebookName) {
+        const selection = await resolveNotebook(
+          client,
+          parsed.notebookId,
+          parsed.notebookName
+        );
+        const sections = await fetchAll<any>(
+          client,
+          `/me/onenote/notebooks/${selection.id}/sections`
+        );
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(sections)
+            }
+          ]
+        };
+      }
+
+      const sections = await fetchAll<any>(client, '/me/onenote/sections');
       return {
         content: [
           {
@@ -318,18 +389,7 @@ server.tool(
           }
         ]
       };
-    }
-
-    const sections = await fetchAll<any>(client, '/me/onenote/sections');
-    return {
-      content: [
-        {
-          type: 'text',
-          text: JSON.stringify(sections)
-        }
-      ]
-    };
-  }
+    })
 );
 
 server.tool(
@@ -338,44 +398,45 @@ server.tool(
     description: 'List pages, optionally filtered by notebook and/or section.',
     inputSchema: toolInputSchemas.listPages
   },
-  async (params) => {
-    const { notebookId, notebookName, sectionId, sectionName } =
-      normalizeParams(params, {
-        notebookId: ['notebook', 'id'],
-        notebookName: ['notebookTitle', 'name'],
-        sectionId: ['section'],
-        sectionName: ['sectionTitle', 'name']
+  async (params) =>
+    withAuthErrorHandling(async () => {
+      const { notebookId, notebookName, sectionId, sectionName } =
+        normalizeParams(params, {
+          notebookId: ['notebook', 'id'],
+          notebookName: ['notebookTitle', 'name'],
+          sectionId: ['section'],
+          sectionName: ['sectionTitle', 'name']
+        });
+      const parsed = toolSchemas.listPages.parse({
+        notebookId,
+        notebookName,
+        sectionId,
+        sectionName
       });
-    const parsed = toolSchemas.listPages.parse({
-      notebookId,
-      notebookName,
-      sectionId,
-      sectionName
-    });
 
-    const client = await ensureGraphClient();
+      const client = await ensureGraphClient();
 
-    const targetSectionId = await resolveSectionId(client, {
-      notebookId: parsed.notebookId,
-      notebookName: parsed.notebookName,
-      sectionId: parsed.sectionId,
-      sectionName: parsed.sectionName
-    });
+      const targetSectionId = await resolveSectionId(client, {
+        notebookId: parsed.notebookId,
+        notebookName: parsed.notebookName,
+        sectionId: parsed.sectionId,
+        sectionName: parsed.sectionName
+      });
 
-    const pages = await fetchAll<any>(
-      client,
-      `/me/onenote/sections/${targetSectionId}/pages`
-    );
+      const pages = await fetchAll<any>(
+        client,
+        `/me/onenote/sections/${targetSectionId}/pages`
+      );
 
-    return {
-      content: [
-        {
-          type: 'text',
-          text: JSON.stringify(pages)
-        }
-      ]
-    };
-  }
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(pages)
+          }
+        ]
+      };
+    })
 );
 
 server.tool(
@@ -384,37 +445,35 @@ server.tool(
     description: 'Get the full HTML content for a page.',
     inputSchema: toolInputSchemas.getPage
   },
-  async (params) => {
-    const { pageId, pageTitle } = normalizeParams(params, {
-      pageId: ['id'],
-      pageTitle: ['title', 'name']
-    });
-    const parsed = toolSchemas.getPage.parse({ pageId, pageTitle });
+  async (params) =>
+    withAuthErrorHandling(async () => {
+      const { pageId, pageTitle } = normalizeParams(params, {
+        pageId: ['id'],
+        pageTitle: ['title', 'name']
+      });
+      const parsed = toolSchemas.getPage.parse({ pageId, pageTitle });
 
-    const client = await ensureGraphClient();
-    if (!accessToken) {
-      accessToken = await readAccessToken({ allowEnv: true });
-    }
-    if (!accessToken) {
-      throw new Error(
-        'Access token not found. Please save access token first.'
+      const client = await ensureGraphClient();
+      if (!accessToken) {
+        throw new Error(
+          "No valid access token available. Please call the 'authenticate' tool to sign in."
+        );
+      }
+      const content = await getPageContent(
+        client,
+        accessToken,
+        { pageId: parsed.pageId, pageTitle: parsed.pageTitle },
+        fetch
       );
-    }
-    const content = await getPageContent(
-      client,
-      accessToken,
-      { pageId: parsed.pageId, pageTitle: parsed.pageTitle },
-      fetch
-    );
-    return {
-      content: [
-        {
-          type: 'text',
-          text: content
-        }
-      ]
-    };
-  }
+      return {
+        content: [
+          {
+            type: 'text',
+            text: content
+          }
+        ]
+      };
+    })
 );
 
 server.tool(
@@ -423,38 +482,39 @@ server.tool(
     description: 'Create a new page in a section.',
     inputSchema: toolInputSchemas.createPage
   },
-  async (params) => {
-    const { notebookId, notebookName, sectionId, sectionName, title, html } =
-      normalizeParams(params, {
-        notebookId: ['notebook', 'id'],
-        notebookName: ['notebookTitle', 'name'],
-        sectionId: ['section', 'id'],
-        sectionName: ['sectionTitle', 'name'],
-        title: [],
-        html: ['content']
+  async (params) =>
+    withAuthErrorHandling(async () => {
+      const { notebookId, notebookName, sectionId, sectionName, title, html } =
+        normalizeParams(params, {
+          notebookId: ['notebook', 'id'],
+          notebookName: ['notebookTitle', 'name'],
+          sectionId: ['section', 'id'],
+          sectionName: ['sectionTitle', 'name'],
+          title: [],
+          html: ['content']
+        });
+      const parsed = toolSchemas.createPage.parse({
+        notebookId,
+        notebookName,
+        sectionId,
+        sectionName,
+        title,
+        html
       });
-    const parsed = toolSchemas.createPage.parse({
-      notebookId,
-      notebookName,
-      sectionId,
-      sectionName,
-      title,
-      html
-    });
 
-    const client = await ensureGraphClient();
+      const client = await ensureGraphClient();
 
-    const targetSectionId = await resolveSectionId(client, {
-      notebookId: parsed.notebookId,
-      notebookName: parsed.notebookName,
-      sectionId: parsed.sectionId,
-      sectionName: parsed.sectionName
-    });
+      const targetSectionId = await resolveSectionId(client, {
+        notebookId: parsed.notebookId,
+        notebookName: parsed.notebookName,
+        sectionId: parsed.sectionId,
+        sectionName: parsed.sectionName
+      });
 
-    const pageTitle = parsed.title ?? 'New Page';
-    const pageHtml =
-      parsed.html ??
-      `<!DOCTYPE html>
+      const pageTitle = parsed.title ?? 'New Page';
+      const pageHtml =
+        parsed.html ??
+        `<!DOCTYPE html>
 <html>
   <head>
     <title>${pageTitle}</title>
@@ -464,20 +524,20 @@ server.tool(
   </body>
 </html>`;
 
-    const response = await client
-      .api(`/me/onenote/sections/${targetSectionId}/pages`)
-      .header('Content-Type', 'application/xhtml+xml')
-      .post(pageHtml);
+      const response = await client
+        .api(`/me/onenote/sections/${targetSectionId}/pages`)
+        .header('Content-Type', 'application/xhtml+xml')
+        .post(pageHtml);
 
-    return {
-      content: [
-        {
-          type: 'text',
-          text: JSON.stringify(response)
-        }
-      ]
-    };
-  }
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(response)
+          }
+        ]
+      };
+    })
 );
 
 server.tool(
@@ -486,30 +546,31 @@ server.tool(
     description: 'Search page titles across notebooks.',
     inputSchema: toolInputSchemas.searchPages
   },
-  async (params) => {
-    const { query } = normalizeParams(params, {
-      query: ['searchTerm', 'random_string']
-    });
-    const parsed = toolSchemas.searchPages.safeParse({ query });
-    if (!parsed.success) {
-      throw new Error('Missing required parameter: query');
-    }
+  async (params) =>
+    withAuthErrorHandling(async () => {
+      const { query } = normalizeParams(params, {
+        query: ['searchTerm', 'random_string']
+      });
+      const parsed = toolSchemas.searchPages.safeParse({ query });
+      if (!parsed.success) {
+        throw new Error('Missing required parameter: query');
+      }
 
-    const client = await ensureGraphClient();
-    const pages = await fetchAll<any>(client, '/me/onenote/pages');
-    const filteredPages = pages.filter((page) =>
-      page.title?.toLowerCase().includes(parsed.data.query.toLowerCase())
-    );
+      const client = await ensureGraphClient();
+      const pages = await fetchAll<any>(client, '/me/onenote/pages');
+      const filteredPages = pages.filter((page) =>
+        page.title?.toLowerCase().includes(parsed.data.query.toLowerCase())
+      );
 
-    return {
-      content: [
-        {
-          type: 'text',
-          text: JSON.stringify(filteredPages)
-        }
-      ]
-    };
-  }
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(filteredPages)
+          }
+        ]
+      };
+    })
 );
 
 server.tool(

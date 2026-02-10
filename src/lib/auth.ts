@@ -90,6 +90,27 @@ export async function writeAccessToken(token: string): Promise<void> {
   fs.writeFileSync(tokenFilePath, JSON.stringify({ token }));
 }
 
+export async function deleteAccessToken(): Promise<void> {
+  if (tokenStorage !== 'file') {
+    const keytar = await getKeytar();
+    if (keytar) {
+      try {
+        await keytar.deletePassword(keychainService, keychainAccount);
+      } catch (error) {
+        logger.warn({ error }, 'Keychain delete failed.');
+      }
+    }
+  }
+
+  try {
+    if (fs.existsSync(tokenFilePath)) {
+      fs.unlinkSync(tokenFilePath);
+    }
+  } catch (error) {
+    logger.warn({ error }, 'Token file delete failed.');
+  }
+}
+
 export async function createGraphClient(accessToken?: string): Promise<Client> {
   const token = accessToken || (await readAccessToken());
   if (!token) {

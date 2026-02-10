@@ -10,9 +10,8 @@
     "declaration": true,
     "sourceMap": true,
     "strict": true,
-    "preserveShebang": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
