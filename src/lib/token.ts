@@ -28,8 +28,9 @@ export function isTokenExpired(
     return true;
   }
   const payload = decodeJwtPayload(token);
-  if (!payload?.exp) {
-    return true;
+  if (!payload || !payload.exp) {
+    // Not a JWT or no exp claim — cannot determine expiry, let the API decide
+    return false;
   }
   const nowSeconds = Math.floor(Date.now() / 1000);
   return payload.exp - marginSeconds <= nowSeconds;

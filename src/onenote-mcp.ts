@@ -74,10 +74,9 @@ function isAuthError(error: unknown): boolean {
   return (
     message.includes('401') ||
     message.includes('unauthorized') ||
-    message.includes('expired') ||
     message.includes('lifetime validation failed') ||
     message.includes('invalid token') ||
-    message.includes('access token not found or has expired')
+    message.includes('token has expired')
   );
 }
 
@@ -114,7 +113,7 @@ async function ensureGraphClient() {
 
   if (!accessToken) {
     throw new Error(
-      "Access token not found or has expired. Please call the 'authenticate' tool to sign in."
+      "No valid access token available. Please call the 'authenticate' tool to sign in."
     );
   }
 
@@ -457,7 +456,7 @@ server.tool(
       const client = await ensureGraphClient();
       if (!accessToken) {
         throw new Error(
-          "Access token not found or has expired. Please call the 'authenticate' tool to sign in."
+          "No valid access token available. Please call the 'authenticate' tool to sign in."
         );
       }
       const content = await getPageContent(
