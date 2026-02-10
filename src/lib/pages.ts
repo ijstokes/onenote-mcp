@@ -71,6 +71,9 @@ export async function getPageContent(
   });
 
   if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error(`Unauthorized (401): ${response.statusText}`);
+    }
     throw new Error(
       `HTTP error! Status: ${response.status} ${response.statusText}`
     );

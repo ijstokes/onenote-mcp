@@ -7,6 +7,9 @@ dist/
 build/
 out/
 *.tsbuildinfo
+tests/*.js
+tests/*.d.ts
+tests/*.js.map
 
 # Environment variables and secrets
 .env
