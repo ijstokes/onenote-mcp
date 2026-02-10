@@ -101,7 +101,7 @@ async function ensureGraphClient() {
     return graphClient;
   }
 
-  if (graphClient && isTokenExpired(accessToken)) {
+  if (isTokenExpired(accessToken)) {
     clearAuthState();
   }
 
