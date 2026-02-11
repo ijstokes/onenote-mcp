@@ -3,6 +3,17 @@
 Guidance for AI coding agents (Claude Code, Cursor, Codex, etc.) working in
 this repository.
 
+## Git Workflow Rules
+
+- **NEVER commit or push directly to `main`.** All changes MUST be made on
+  feature branches.
+- Create feature branches with a descriptive name (e.g.
+  `ijstokes/add-search-tool`).
+- Push feature branches to the `fork` remote and create PRs on
+  `ijstokes/onenote-mcp` against `main`.
+- Do NOT create PRs on the upstream repo (`danosb/onenote-mcp`) unless
+  explicitly asked.
+
 ## Project Overview
 
 `mcp-server-onenote` is a TypeScript MCP (Model Context Protocol) server that
