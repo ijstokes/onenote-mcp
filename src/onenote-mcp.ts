@@ -716,16 +716,49 @@ server.tool(
 
 server.tool(
   'get_group_page',
-  'Get the full HTML content of a group page. Path: "GroupName/NotebookName/SectionName/PageTitle".',
+  'Get the full HTML content of a group page. Provide either a slash-delimited path OR individual groupId/notebookName/sectionName/pageName params.',
   toolSchemas.get_group_page.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
-      const { path, format } = normalizeParams(params, {
-        path: [],
-        format: ['outputFormat', 'output_format']
+      const { path, groupId, notebookName, sectionName, pageName, format } =
+        normalizeParams(params, {
+          path: [],
+          groupId: ['group_id', 'group'],
+          notebookName: ['notebook_name', 'notebook'],
+          sectionName: ['section_name', 'section'],
+          pageName: ['page_name', 'page', 'pageTitle', 'page_title'],
+          format: ['outputFormat', 'output_format']
+        });
+      const parsed = toolSchemas.get_group_page.parse({
+        path,
+        groupId,
+        notebookName,
+        sectionName,
+        pageName,
+        format
       });
-      const parsed = toolSchemas.get_group_page.parse({ path, format });
-      const groupPath = parseGroupPath(parsed.path);
+
+      // Build a ParsedGroupPath from either the slash path or individual params
+      let groupPath;
+      if (parsed.path) {
+        groupPath = parseGroupPath(parsed.path);
+      } else if (
+        parsed.groupId &&
+        parsed.notebookName &&
+        parsed.sectionName &&
+        parsed.pageName
+      ) {
+        groupPath = {
+          group: parsed.groupId,
+          notebook: parsed.notebookName,
+          section: parsed.sectionName,
+          page: parsed.pageName
+        };
+      } else {
+        throw new Error(
+          'Provide either a slash-delimited path ("Group/Notebook/Section/Page") or all four params: groupId, notebookName, sectionName, pageName.'
+        );
+      }
 
       if (!groupPath.page) {
         throw new Error(
@@ -740,19 +773,30 @@ server.tool(
         );
       }
 
+      // Resolve full four-tuple including page
       const resolved = await resolveGroupPath(client, {
         group: groupPath.group,
         notebook: groupPath.notebook,
-        section: groupPath.section
+        section: groupPath.section,
+        page: groupPath.page
       });
 
-      const html = await getPageContent(
-        client,
-        accessToken,
-        { pageTitle: groupPath.page },
-        fetch,
-        `${resolved.onenoteRoot}/sections/${resolved.sectionId}`
-      );
+      // Construct group-scoped URL directly (bypasses user-scoped contentUrl bug)
+      const url = `https://graph.microsoft.com/v1.0/groups/${resolved.groupId}/onenote/pages/${resolved.pageId}/content`;
+      const response = await fetch(url, {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error(`Unauthorized (401): ${response.statusText}`);
+        }
+        throw new Error(
+          `HTTP error! Status: ${response.status} ${response.statusText}`
+        );
+      }
+
+      const html = await response.text();
       const output = await formatPageContent(
         html,
         parsed.format as OutputFormat

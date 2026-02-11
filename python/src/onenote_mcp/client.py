@@ -234,15 +234,31 @@ class OneNoteClient:
 
     async def get_group_page(
         self,
-        path: str,
+        path: str | None = None,
         *,
+        group_id: str | None = None,
+        notebook_name: str | None = None,
+        section_name: str | None = None,
+        page_name: str | None = None,
         format: str | None = None,  # noqa: A002
     ) -> Any:
         """Get full HTML content of a group page.
 
-        Path: 'Group/Notebook/Section/Page'.
+        Provide either a slash-delimited *path* ('Group/Notebook/Section/Page')
+        or individual keyword arguments (group_id, notebook_name, section_name,
+        page_name).
         """
-        args: dict[str, str] = {"path": path}
+        args: dict[str, str] = {}
+        if path:
+            args["path"] = path
+        if group_id:
+            args["groupId"] = group_id
+        if notebook_name:
+            args["notebookName"] = notebook_name
+        if section_name:
+            args["sectionName"] = section_name
+        if page_name:
+            args["pageName"] = page_name
         if format:
             args["format"] = format
         return await self.call_tool("get_group_page", args)

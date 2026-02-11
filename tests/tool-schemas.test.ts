@@ -39,12 +39,27 @@ describe('tool schemas', () => {
     expect(parsed.success).toBe(false);
   });
 
-  it('get_group_page accepts format parameter', () => {
+  it('get_group_page accepts path', () => {
     const parsed = toolSchemas.get_group_page.parse({
       path: 'Group/Notebook/Section/Page',
       format: 'text'
     });
     expect(parsed.format).toBe('text');
+    expect(parsed.path).toBe('Group/Notebook/Section/Page');
+  });
+
+  it('get_group_page accepts four-tuple params', () => {
+    const parsed = toolSchemas.get_group_page.parse({
+      groupId: 'grp-1',
+      notebookName: 'Team Notes',
+      sectionName: 'Q4 2024',
+      pageName: 'Retro'
+    });
+    expect(parsed.groupId).toBe('grp-1');
+    expect(parsed.notebookName).toBe('Team Notes');
+    expect(parsed.sectionName).toBe('Q4 2024');
+    expect(parsed.pageName).toBe('Retro');
+    expect(parsed.format).toBe('html');
   });
 
   it('get_group_page defaults format to html', () => {
@@ -52,5 +67,12 @@ describe('tool schemas', () => {
       path: 'Group/Notebook/Section/Page'
     });
     expect(parsed.format).toBe('html');
+  });
+
+  it('get_group_page rejects empty path', () => {
+    const parsed = toolSchemas.get_group_page.safeParse({
+      path: ''
+    });
+    expect(parsed.success).toBe(false);
   });
 });

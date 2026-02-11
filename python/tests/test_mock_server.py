@@ -131,15 +131,20 @@ def create_mock_server() -> FastMCP:
 
     @mcp.tool()
     def get_group_page(
-        path: str,
+        path: str = "",
+        groupId: str = "",  # noqa: N803
+        notebookName: str = "",  # noqa: N803
+        sectionName: str = "",  # noqa: N803
+        pageName: str = "",  # noqa: N803
         format: str = "html",  # noqa: A002
     ) -> str:
         return json.dumps(
             {
                 "id": "gpg-1",
-                "title": "Retro",
+                "title": pageName or "Retro",
                 "html": "<p>Group page</p>",
                 "format": format,
+                "source": "path" if path else "params",
             }
         )
 
@@ -326,6 +331,19 @@ class TestGroupNotebooks:
         data = result_json(result)
         assert data["title"] == "Retro"
         assert "<p>" in data["html"]
+        assert data["source"] == "path"
+
+    @pytest.mark.anyio
+    async def test_get_group_page_four_tuple(self, mock_client):
+        result = await mock_client.get_group_page(
+            group_id="grp-1",
+            notebook_name="Team Notes",
+            section_name="Q4 2024",
+            page_name="Retro",
+        )
+        data = result_json(result)
+        assert data["title"] == "Retro"
+        assert data["source"] == "params"
 
     @pytest.mark.anyio
     async def test_create_group_page(self, mock_client):
