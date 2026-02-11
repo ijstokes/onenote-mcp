@@ -91,7 +91,7 @@ async function getPageContent() {
     try {
       const content5 = await client
         .api(page.contentUrl)
-        .responseType('raw')
+        .responseType('raw' as any)
         .get();
       console.log('Success! Raw response type:', typeof content5);
       if (content5 && content5.body) {
