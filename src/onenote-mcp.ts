@@ -21,11 +21,7 @@ import { isTokenExpired } from './lib/token.js';
 import { fetchAll } from './lib/pagination.js';
 import { pickByNameOrId } from './lib/selection.js';
 import { logger, logMetadata } from './lib/logger.js';
-import {
-  normalizeParams,
-  toolInputSchemas,
-  toolSchemas
-} from './lib/tool-schemas.js';
+import { normalizeParams, toolSchemas } from './lib/tool-schemas.js';
 import { getPageContent } from './lib/pages.js';
 import { fetchAllGroups } from './lib/groups.js';
 import { getOnenoteRoot } from './lib/onenote-paths.js';
@@ -226,10 +222,7 @@ async function resolveSectionId(
 
 server.tool(
   'authenticate',
-  {
-    description: 'Start the Microsoft device-code authentication flow.',
-    inputSchema: toolInputSchemas.authenticate
-  },
+  'Start the Microsoft device-code authentication flow.',
   async () => {
     const result = await createGraphClientWithAuth();
     if (result.type === 'device_code') {
@@ -261,10 +254,8 @@ server.tool(
 
 server.tool(
   'save_access_token',
-  {
-    description: 'Save a Microsoft Graph access token for later use.',
-    inputSchema: toolInputSchemas.save_access_token
-  },
+  'Save a Microsoft Graph access token for later use.',
+  toolSchemas.save_access_token.shape,
   async (params) => {
     const { token } = normalizeParams(params, {
       token: ['accessToken', 'random_string']
@@ -291,10 +282,7 @@ server.tool(
 
 server.tool(
   'list_notebooks',
-  {
-    description: 'List all OneNote notebooks you can access.',
-    inputSchema: toolInputSchemas.list_notebooks
-  },
+  'List all OneNote notebooks you can access.',
   async () =>
     withAuthErrorHandling(async () => {
       const client = await ensureGraphClient();
@@ -312,10 +300,8 @@ server.tool(
 
 server.tool(
   'get_notebook',
-  {
-    description: 'Get a single notebook by ID or name.',
-    inputSchema: toolInputSchemas.get_notebook
-  },
+  'Get a single notebook by ID or name.',
+  toolSchemas.get_notebook.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
       const { notebookId, notebookName } = normalizeParams(params, {
@@ -347,10 +333,8 @@ server.tool(
 
 server.tool(
   'list_sections',
-  {
-    description: 'List sections, optionally filtered by notebook.',
-    inputSchema: toolInputSchemas.list_sections
-  },
+  'List sections, optionally filtered by notebook.',
+  toolSchemas.list_sections.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
       const { notebookId, notebookName } = normalizeParams(params, {
@@ -397,10 +381,8 @@ server.tool(
 
 server.tool(
   'list_pages',
-  {
-    description: 'List pages, optionally filtered by notebook and/or section.',
-    inputSchema: toolInputSchemas.list_pages
-  },
+  'List pages, optionally filtered by notebook and/or section.',
+  toolSchemas.list_pages.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
       const { notebookId, notebookName, sectionId, sectionName } =
@@ -444,10 +426,8 @@ server.tool(
 
 server.tool(
   'get_page',
-  {
-    description: 'Get the full HTML content for a page.',
-    inputSchema: toolInputSchemas.get_page
-  },
+  'Get the full HTML content for a page.',
+  toolSchemas.get_page.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
       const { pageId, pageTitle } = normalizeParams(params, {
@@ -481,10 +461,8 @@ server.tool(
 
 server.tool(
   'create_page',
-  {
-    description: 'Create a new page in a section.',
-    inputSchema: toolInputSchemas.create_page
-  },
+  'Create a new page in a section.',
+  toolSchemas.create_page.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
       const { notebookId, notebookName, sectionId, sectionName, title, html } =
@@ -545,10 +523,8 @@ server.tool(
 
 server.tool(
   'search_pages',
-  {
-    description: 'Search page titles across notebooks.',
-    inputSchema: toolInputSchemas.search_pages
-  },
+  'Search page titles across notebooks.',
+  toolSchemas.search_pages.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
       const { query } = normalizeParams(params, {
@@ -578,10 +554,7 @@ server.tool(
 
 server.tool(
   'list_groups',
-  {
-    description: 'List all Microsoft 365 groups that have OneNote notebooks.',
-    inputSchema: toolInputSchemas.list_groups
-  },
+  'List all Microsoft 365 groups that have OneNote notebooks.',
   async () =>
     withAuthErrorHandling(async () => {
       const client = await ensureGraphClient();
@@ -625,10 +598,8 @@ server.tool(
 
 server.tool(
   'list_group_notebooks',
-  {
-    description: 'List notebooks in a group. Path: "GroupName".',
-    inputSchema: toolInputSchemas.list_group_notebooks
-  },
+  'List notebooks in a group. Path: "GroupName".',
+  toolSchemas.list_group_notebooks.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
       const { path } = normalizeParams(params, { path: [] });
@@ -658,11 +629,8 @@ server.tool(
 
 server.tool(
   'list_group_sections',
-  {
-    description:
-      'List sections in a group notebook. Path: "GroupName/NotebookName".',
-    inputSchema: toolInputSchemas.list_group_sections
-  },
+  'List sections in a group notebook. Path: "GroupName/NotebookName".',
+  toolSchemas.list_group_sections.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
       const { path } = normalizeParams(params, { path: [] });
@@ -699,11 +667,8 @@ server.tool(
 
 server.tool(
   'list_group_pages',
-  {
-    description:
-      'List pages in a group section. Path: "GroupName/NotebookName/SectionName".',
-    inputSchema: toolInputSchemas.list_group_pages
-  },
+  'List pages in a group section. Path: "GroupName/NotebookName/SectionName".',
+  toolSchemas.list_group_pages.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
       const { path } = normalizeParams(params, { path: [] });
@@ -741,11 +706,8 @@ server.tool(
 
 server.tool(
   'get_group_page',
-  {
-    description:
-      'Get the full HTML content of a group page. Path: "GroupName/NotebookName/SectionName/PageTitle".',
-    inputSchema: toolInputSchemas.get_group_page
-  },
+  'Get the full HTML content of a group page. Path: "GroupName/NotebookName/SectionName/PageTitle".',
+  toolSchemas.get_group_page.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
       const { path } = normalizeParams(params, { path: [] });
@@ -792,11 +754,8 @@ server.tool(
 
 server.tool(
   'create_group_page',
-  {
-    description:
-      'Create a new page in a group section. Path: "GroupName/NotebookName/SectionName".',
-    inputSchema: toolInputSchemas.create_group_page
-  },
+  'Create a new page in a group section. Path: "GroupName/NotebookName/SectionName".',
+  toolSchemas.create_group_page.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
       const { path, title, html } = normalizeParams(params, {
@@ -851,11 +810,8 @@ server.tool(
 
 server.tool(
   'search_group_pages',
-  {
-    description:
-      'Search page titles across a group\'s notebooks. Path: "GroupName".',
-    inputSchema: toolInputSchemas.search_group_pages
-  },
+  'Search page titles across a group\'s notebooks. Path: "GroupName".',
+  toolSchemas.search_group_pages.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
       const { path, query } = normalizeParams(params, {
@@ -891,10 +847,7 @@ server.tool(
 
 server.tool(
   'info',
-  {
-    description: 'Return server version and runtime configuration details.',
-    inputSchema: toolInputSchemas.info
-  },
+  'Return server version and runtime configuration details.',
   async () => {
     const storageStatus = await getTokenStorageStatus();
     return {
