@@ -25,13 +25,19 @@
     "list-group-notebooks": "node dist/scripts/list-group-notebooks.js",
     "list-group-sections": "node dist/scripts/list-group-sections.js",
     "list-group-pages": "node dist/scripts/list-group-pages.js",
+    "get-group-page": "node dist/scripts/get-group-page.js",
+    "create-group-page": "node dist/scripts/create-group-page.js",
+    "search-group-pages": "node dist/scripts/search-group-pages.js",
+    "search-pages": "node dist/scripts/search-pages.js",
+    "get-notebook": "node dist/scripts/get-notebook.js",
+    "save-access-token": "node dist/scripts/save-access-token.js",
+    "info": "node dist/scripts/info.js",
     "release:tag": "git tag -a v$npm_package_version -m \"v$npm_package_version\"",
     "lint": "eslint .",
     "format": "prettier --check .",
     "format:write": "prettier --write .",
     "test": "vitest run",
-    "prepare": "husky",
-    "lint-staged": "lint-staged"
+    "prepare": "echo 'Run: pre-commit install && pre-commit install --hook-type commit-msg'"
   },
   "dependencies": {
     "@azure/identity": "^4.13.0",
@@ -50,6 +56,7 @@
     "@commitlint/cli": "^20.4.1",
     "@commitlint/config-conventional": "^20.4.1",
     "@eslint/js": "^9.39.2",
+    "@types/jsdom": "^27.0.0",
     "@types/node": "^22.19.8",
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "@typescript-eslint/parser": "^8.54.0",
@@ -69,13 +76,5 @@
   ],
   "author": "Zubeid Hendricks",
   "license": "MIT",
-  "lint-staged": {
-    "*.{ts,js}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md,yml,yaml}": [
-      "prettier --write"
-    ]
-  }
+  "pre-commit": "Run 'pre-commit install' after cloning. See .pre-commit-config.yaml."
 }

@@ -9,12 +9,12 @@ describe('tool schemas', () => {
   });
 
   it('rejects missing required token', () => {
-    const parsed = toolSchemas.saveAccessToken.safeParse({ token: '' });
+    const parsed = toolSchemas.save_access_token.safeParse({ token: '' });
     expect(parsed.success).toBe(false);
   });
 
   it('requires search query', () => {
-    const parsed = toolSchemas.searchPages.safeParse({ query: '' });
+    const parsed = toolSchemas.search_pages.safeParse({ query: '' });
     expect(parsed.success).toBe(false);
   });
 });

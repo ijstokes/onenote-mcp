@@ -4,7 +4,10 @@ import { pickByNameOrId } from './selection.js';
 export async function fetchAllGroups(client: {
   api: (path: string) => { get: () => Promise<any> };
 }) {
-  return fetchAll(client, '/groups?$select=id,displayName');
+  return fetchAll<Record<string, any>>(
+    client,
+    '/groups?$select=id,displayName'
+  );
 }
 
 export function pickGroup<T extends Record<string, any>>(

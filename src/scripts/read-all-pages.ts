@@ -11,27 +11,29 @@ function extractReadableText(html: string) {
     const document = dom.window.document;
 
     const scripts = document.querySelectorAll('script');
-    scripts.forEach((script) => script.remove());
+    scripts.forEach((script: Element) => script.remove());
 
     let text = '';
 
-    document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((heading) => {
-      const headingText = heading.textContent?.trim() ?? '';
-      if (headingText) {
-        text += `\n${headingText}\n${'-'.repeat(headingText.length)}\n`;
-      }
-    });
+    document
+      .querySelectorAll('h1, h2, h3, h4, h5, h6')
+      .forEach((heading: Element) => {
+        const headingText = heading.textContent?.trim() ?? '';
+        if (headingText) {
+          text += `\n${headingText}\n${'-'.repeat(headingText.length)}\n`;
+        }
+      });
 
-    document.querySelectorAll('p').forEach((paragraph) => {
+    document.querySelectorAll('p').forEach((paragraph: Element) => {
       const content = paragraph.textContent?.trim() ?? '';
       if (content) {
         text += `${content}\n\n`;
       }
     });
 
-    document.querySelectorAll('ul, ol').forEach((list) => {
+    document.querySelectorAll('ul, ol').forEach((list: Element) => {
       text += '\n';
-      list.querySelectorAll('li').forEach((item, index) => {
+      list.querySelectorAll('li').forEach((item: Element, index: number) => {
         const content = item.textContent?.trim() ?? '';
         if (content) {
           text += `${index + 1}. ${content}\n`;
@@ -40,7 +42,7 @@ function extractReadableText(html: string) {
       text += '\n';
     });
 
-    document.querySelectorAll('div, span').forEach((element) => {
+    document.querySelectorAll('div, span').forEach((element: Element) => {
       if (
         element.childNodes.length === 1 &&
         element.childNodes[0].nodeType === 3
@@ -52,11 +54,11 @@ function extractReadableText(html: string) {
       }
     });
 
-    document.querySelectorAll('table').forEach((table) => {
+    document.querySelectorAll('table').forEach((table: Element) => {
       text += '\nTable content:\n';
-      table.querySelectorAll('tr').forEach((row) => {
+      table.querySelectorAll('tr').forEach((row: Element) => {
         const cells = Array.from(row.querySelectorAll('td, th'))
-          .map((cell) => cell.textContent?.trim() ?? '')
+          .map((cell: Element) => cell.textContent?.trim() ?? '')
           .join(' | ');
         text += `${cells}\n`;
       });

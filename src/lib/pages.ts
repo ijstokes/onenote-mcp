@@ -54,16 +54,17 @@ export async function getPageContent(
   client: GraphClient,
   accessToken: string,
   selection: PageSelection,
-  fetchImpl: FetchLike
+  fetchImpl: FetchLike,
+  onenoteRoot = '/me/onenote'
 ) {
   if (!accessToken) {
     throw new Error('Access token not found. Please save access token first.');
   }
 
-  const pages = await fetchAll<any>(client, '/me/onenote/pages');
+  const pages = await fetchAll<any>(client, `${onenoteRoot}/pages`);
   const targetPage = selectPage(pages, selection);
 
-  const url = `https://graph.microsoft.com/v1.0/me/onenote/pages/${targetPage.id}/content`;
+  const url = `https://graph.microsoft.com/v1.0${onenoteRoot}/pages/${targetPage.id}/content`;
   const response = await fetchImpl(url, {
     headers: {
       Authorization: `Bearer ${accessToken}`

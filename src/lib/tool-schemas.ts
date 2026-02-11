@@ -1,194 +1,136 @@
 import { z } from 'zod';
 
-type InputSchema = {
-  type: 'object';
-  properties?: Record<
-    string,
-    { type: 'string'; description?: string; minLength?: number }
-  >;
-  required?: string[];
-  additionalProperties?: boolean;
-};
-
 export const toolSchemas = {
-  saveAccessToken: z.object({
-    token: z.string().min(1)
+  save_access_token: z.object({
+    token: z.string().min(1).describe('Microsoft Graph access token to store.')
   }),
-  getNotebook: z.object({
-    notebookId: z.string().min(1).optional(),
-    notebookName: z.string().min(1).optional()
+  get_notebook: z.object({
+    notebookId: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Notebook ID to retrieve.'),
+    notebookName: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Notebook display name to retrieve.')
   }),
-  listSections: z.object({
-    notebookId: z.string().min(1).optional(),
-    notebookName: z.string().min(1).optional()
+  list_sections: z.object({
+    notebookId: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Notebook ID to filter sections.'),
+    notebookName: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Notebook display name to filter sections.')
   }),
-  listPages: z.object({
-    notebookId: z.string().min(1).optional(),
-    notebookName: z.string().min(1).optional(),
-    sectionId: z.string().min(1).optional(),
-    sectionName: z.string().min(1).optional()
+  list_pages: z.object({
+    notebookId: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Notebook ID to filter sections.'),
+    notebookName: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Notebook display name to filter sections.'),
+    sectionId: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Section ID to list pages.'),
+    sectionName: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Section name to list pages.')
   }),
-  getPage: z.object({
-    pageId: z.string().min(1).optional(),
-    pageTitle: z.string().min(1).optional()
+  get_page: z.object({
+    pageId: z.string().min(1).optional().describe('Page ID to retrieve.'),
+    pageTitle: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Page title (partial match) to retrieve.')
   }),
-  createPage: z.object({
-    notebookId: z.string().min(1).optional(),
-    notebookName: z.string().min(1).optional(),
-    sectionId: z.string().min(1).optional(),
-    sectionName: z.string().min(1).optional(),
-    title: z.string().min(1).optional(),
-    html: z.string().min(1).optional()
+  create_page: z.object({
+    notebookId: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Notebook ID to scope the section lookup.'),
+    notebookName: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Notebook display name to scope the section lookup.'),
+    sectionId: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Section ID to create the page.'),
+    sectionName: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Section name to create the page.'),
+    title: z.string().min(1).optional().describe('Page title.'),
+    html: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Full HTML body for the new page.')
   }),
-  searchPages: z.object({
-    query: z.string().min(1)
+  search_pages: z.object({
+    query: z.string().min(1).describe('Search query used to match page titles.')
+  }),
+  list_group_notebooks: z.object({
+    path: z.string().min(1).describe('Group name or ID. Example: "Engineering"')
+  }),
+  list_group_sections: z.object({
+    path: z
+      .string()
+      .min(1)
+      .describe('Path as "Group/Notebook". Example: "Engineering/Sprint Notes"')
+  }),
+  list_group_pages: z.object({
+    path: z
+      .string()
+      .min(1)
+      .describe(
+        'Path as "Group/Notebook/Section". Example: "Engineering/Sprint Notes/2024 Q4"'
+      )
+  }),
+  get_group_page: z.object({
+    path: z
+      .string()
+      .min(1)
+      .describe(
+        'Path as "Group/Notebook/Section/Page". Example: "Engineering/Sprint Notes/2024 Q4/Retro"'
+      )
+  }),
+  create_group_page: z.object({
+    path: z
+      .string()
+      .min(1)
+      .describe(
+        'Path as "Group/Notebook/Section". Example: "Engineering/Sprint Notes/2024 Q4"'
+      ),
+    title: z.string().optional().describe('Page title.'),
+    html: z.string().optional().describe('Full HTML body for the new page.')
+  }),
+  search_group_pages: z.object({
+    path: z
+      .string()
+      .min(1)
+      .describe('Group name or ID. Example: "Engineering"'),
+    query: z.string().min(1).describe('Search query used to match page titles.')
   })
-};
-
-const emptySchema: InputSchema = {
-  type: 'object',
-  additionalProperties: false,
-  properties: {}
-};
-
-export const toolInputSchemas: Record<string, InputSchema> = {
-  authenticate: emptySchema,
-  info: emptySchema,
-  listNotebooks: emptySchema,
-  saveAccessToken: {
-    type: 'object',
-    additionalProperties: false,
-    required: ['token'],
-    properties: {
-      token: {
-        type: 'string',
-        minLength: 1,
-        description: 'Microsoft Graph access token to store.'
-      }
-    }
-  },
-  getNotebook: {
-    type: 'object',
-    additionalProperties: false,
-    properties: {
-      notebookId: {
-        type: 'string',
-        minLength: 1,
-        description: 'Notebook ID to retrieve.'
-      },
-      notebookName: {
-        type: 'string',
-        minLength: 1,
-        description: 'Notebook display name to retrieve.'
-      }
-    }
-  },
-  listSections: {
-    type: 'object',
-    additionalProperties: false,
-    properties: {
-      notebookId: {
-        type: 'string',
-        minLength: 1,
-        description: 'Notebook ID to filter sections.'
-      },
-      notebookName: {
-        type: 'string',
-        minLength: 1,
-        description: 'Notebook display name to filter sections.'
-      }
-    }
-  },
-  listPages: {
-    type: 'object',
-    additionalProperties: false,
-    properties: {
-      notebookId: {
-        type: 'string',
-        minLength: 1,
-        description: 'Notebook ID to filter sections.'
-      },
-      notebookName: {
-        type: 'string',
-        minLength: 1,
-        description: 'Notebook display name to filter sections.'
-      },
-      sectionId: {
-        type: 'string',
-        minLength: 1,
-        description: 'Section ID to list pages.'
-      },
-      sectionName: {
-        type: 'string',
-        minLength: 1,
-        description: 'Section name to list pages.'
-      }
-    }
-  },
-  getPage: {
-    type: 'object',
-    additionalProperties: false,
-    properties: {
-      pageId: {
-        type: 'string',
-        minLength: 1,
-        description: 'Page ID to retrieve.'
-      },
-      pageTitle: {
-        type: 'string',
-        minLength: 1,
-        description: 'Page title (partial match) to retrieve.'
-      }
-    }
-  },
-  createPage: {
-    type: 'object',
-    additionalProperties: false,
-    properties: {
-      notebookId: {
-        type: 'string',
-        minLength: 1,
-        description: 'Notebook ID to scope the section lookup.'
-      },
-      notebookName: {
-        type: 'string',
-        minLength: 1,
-        description: 'Notebook display name to scope the section lookup.'
-      },
-      sectionId: {
-        type: 'string',
-        minLength: 1,
-        description: 'Section ID to create the page.'
-      },
-      sectionName: {
-        type: 'string',
-        minLength: 1,
-        description: 'Section name to create the page.'
-      },
-      title: {
-        type: 'string',
-        minLength: 1,
-        description: 'Page title.'
-      },
-      html: {
-        type: 'string',
-        minLength: 1,
-        description: 'Full HTML body for the new page.'
-      }
-    }
-  },
-  searchPages: {
-    type: 'object',
-    additionalProperties: false,
-    required: ['query'],
-    properties: {
-      query: {
-        type: 'string',
-        minLength: 1,
-        description: 'Search query used to match page titles.'
-      }
-    }
-  }
 };
 
 export const getStringParam = (params: unknown, keys: string[]) => {
