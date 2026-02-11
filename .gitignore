@@ -11,9 +11,19 @@ tests/*.js
 tests/*.d.ts
 tests/*.js.map
 
-# Coverage reports
+# Coverage reports and test results
 coverage/
 coverage-report/
+test-results/
+
+# Python
+python/.venv/
+python/.pytest_cache/
+python/htmlcov/
+python/.coverage
+python/coverage.xml
+__pycache__/
+*.pyc
 
 # Environment variables and secrets
 .env
@@ -60,4 +70,4 @@ Thumbs.db
 .rpt2_cache/
 .rts2_cache_cjs/
 .rts2_cache_es/
-.rts2_cache_umd/ 
+.rts2_cache_umd/

@@ -27,6 +27,9 @@ import {
   toolSchemas
 } from './lib/tool-schemas.js';
 import { getPageContent } from './lib/pages.js';
+import { fetchAllGroups } from './lib/groups.js';
+import { getOnenoteRoot } from './lib/onenote-paths.js';
+import { parseGroupPath, resolveGroupPath } from './lib/group-paths.js';
 
 dotenv.config();
 
@@ -257,16 +260,16 @@ server.tool(
 );
 
 server.tool(
-  'saveAccessToken',
+  'save_access_token',
   {
     description: 'Save a Microsoft Graph access token for later use.',
-    inputSchema: toolInputSchemas.saveAccessToken
+    inputSchema: toolInputSchemas.save_access_token
   },
   async (params) => {
     const { token } = normalizeParams(params, {
       token: ['accessToken', 'random_string']
     });
-    const parsed = toolSchemas.saveAccessToken.safeParse({ token });
+    const parsed = toolSchemas.save_access_token.safeParse({ token });
     if (!parsed.success) {
       throw new Error('Missing required parameter: token');
     }
@@ -287,10 +290,10 @@ server.tool(
 );
 
 server.tool(
-  'listNotebooks',
+  'list_notebooks',
   {
     description: 'List all OneNote notebooks you can access.',
-    inputSchema: toolInputSchemas.listNotebooks
+    inputSchema: toolInputSchemas.list_notebooks
   },
   async () =>
     withAuthErrorHandling(async () => {
@@ -308,10 +311,10 @@ server.tool(
 );
 
 server.tool(
-  'getNotebook',
+  'get_notebook',
   {
     description: 'Get a single notebook by ID or name.',
-    inputSchema: toolInputSchemas.getNotebook
+    inputSchema: toolInputSchemas.get_notebook
   },
   async (params) =>
     withAuthErrorHandling(async () => {
@@ -319,7 +322,7 @@ server.tool(
         notebookId: ['id'],
         notebookName: ['name', 'title']
       });
-      const parsed = toolSchemas.getNotebook.parse({
+      const parsed = toolSchemas.get_notebook.parse({
         notebookId,
         notebookName
       });
@@ -343,10 +346,10 @@ server.tool(
 );
 
 server.tool(
-  'listSections',
+  'list_sections',
   {
     description: 'List sections, optionally filtered by notebook.',
-    inputSchema: toolInputSchemas.listSections
+    inputSchema: toolInputSchemas.list_sections
   },
   async (params) =>
     withAuthErrorHandling(async () => {
@@ -354,7 +357,7 @@ server.tool(
         notebookId: ['id'],
         notebookName: ['name', 'title']
       });
-      const parsed = toolSchemas.listSections.parse({
+      const parsed = toolSchemas.list_sections.parse({
         notebookId,
         notebookName
       });
@@ -393,10 +396,10 @@ server.tool(
 );
 
 server.tool(
-  'listPages',
+  'list_pages',
   {
     description: 'List pages, optionally filtered by notebook and/or section.',
-    inputSchema: toolInputSchemas.listPages
+    inputSchema: toolInputSchemas.list_pages
   },
   async (params) =>
     withAuthErrorHandling(async () => {
@@ -407,7 +410,7 @@ server.tool(
           sectionId: ['section'],
           sectionName: ['sectionTitle', 'name']
         });
-      const parsed = toolSchemas.listPages.parse({
+      const parsed = toolSchemas.list_pages.parse({
         notebookId,
         notebookName,
         sectionId,
@@ -440,10 +443,10 @@ server.tool(
 );
 
 server.tool(
-  'getPage',
+  'get_page',
   {
     description: 'Get the full HTML content for a page.',
-    inputSchema: toolInputSchemas.getPage
+    inputSchema: toolInputSchemas.get_page
   },
   async (params) =>
     withAuthErrorHandling(async () => {
@@ -451,7 +454,7 @@ server.tool(
         pageId: ['id'],
         pageTitle: ['title', 'name']
       });
-      const parsed = toolSchemas.getPage.parse({ pageId, pageTitle });
+      const parsed = toolSchemas.get_page.parse({ pageId, pageTitle });
 
       const client = await ensureGraphClient();
       if (!accessToken) {
@@ -477,10 +480,10 @@ server.tool(
 );
 
 server.tool(
-  'createPage',
+  'create_page',
   {
     description: 'Create a new page in a section.',
-    inputSchema: toolInputSchemas.createPage
+    inputSchema: toolInputSchemas.create_page
   },
   async (params) =>
     withAuthErrorHandling(async () => {
@@ -493,7 +496,7 @@ server.tool(
           title: [],
           html: ['content']
         });
-      const parsed = toolSchemas.createPage.parse({
+      const parsed = toolSchemas.create_page.parse({
         notebookId,
         notebookName,
         sectionId,
@@ -541,17 +544,17 @@ server.tool(
 );
 
 server.tool(
-  'searchPages',
+  'search_pages',
   {
     description: 'Search page titles across notebooks.',
-    inputSchema: toolInputSchemas.searchPages
+    inputSchema: toolInputSchemas.search_pages
   },
   async (params) =>
     withAuthErrorHandling(async () => {
       const { query } = normalizeParams(params, {
         query: ['searchTerm', 'random_string']
       });
-      const parsed = toolSchemas.searchPages.safeParse({ query });
+      const parsed = toolSchemas.search_pages.safeParse({ query });
       if (!parsed.success) {
         throw new Error('Missing required parameter: query');
       }
@@ -560,6 +563,319 @@ server.tool(
       const pages = await fetchAll<any>(client, '/me/onenote/pages');
       const filteredPages = pages.filter((page) =>
         page.title?.toLowerCase().includes(parsed.data.query.toLowerCase())
+      );
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(filteredPages)
+          }
+        ]
+      };
+    })
+);
+
+server.tool(
+  'list_groups',
+  {
+    description: 'List all Microsoft 365 groups that have OneNote notebooks.',
+    inputSchema: toolInputSchemas.list_groups
+  },
+  async () =>
+    withAuthErrorHandling(async () => {
+      const client = await ensureGraphClient();
+      const groups = await fetchAllGroups(client);
+
+      const groupsWithNotebooks: Array<{
+        id: string;
+        displayName: string;
+        notebookCount: number;
+      }> = [];
+
+      for (const group of groups) {
+        try {
+          const notebooks = await client
+            .api(
+              `${getOnenoteRoot({ scope: 'group', groupId: group.id })}/notebooks`
+            )
+            .get();
+          if (notebooks.value && notebooks.value.length > 0) {
+            groupsWithNotebooks.push({
+              id: group.id,
+              displayName: group.displayName,
+              notebookCount: notebooks.value.length
+            });
+          }
+        } catch {
+          // Skip groups without OneNote access
+        }
+      }
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(groupsWithNotebooks)
+          }
+        ]
+      };
+    })
+);
+
+server.tool(
+  'list_group_notebooks',
+  {
+    description: 'List notebooks in a group. Path: "GroupName".',
+    inputSchema: toolInputSchemas.list_group_notebooks
+  },
+  async (params) =>
+    withAuthErrorHandling(async () => {
+      const { path } = normalizeParams(params, { path: [] });
+      const parsed = toolSchemas.list_group_notebooks.parse({ path });
+      const groupPath = parseGroupPath(parsed.path);
+
+      const client = await ensureGraphClient();
+      const resolved = await resolveGroupPath(client, {
+        group: groupPath.group
+      });
+
+      const notebooks = await fetchAll<any>(
+        client,
+        `${resolved.onenoteRoot}/notebooks`
+      );
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(notebooks)
+          }
+        ]
+      };
+    })
+);
+
+server.tool(
+  'list_group_sections',
+  {
+    description:
+      'List sections in a group notebook. Path: "GroupName/NotebookName".',
+    inputSchema: toolInputSchemas.list_group_sections
+  },
+  async (params) =>
+    withAuthErrorHandling(async () => {
+      const { path } = normalizeParams(params, { path: [] });
+      const parsed = toolSchemas.list_group_sections.parse({ path });
+      const groupPath = parseGroupPath(parsed.path);
+
+      if (!groupPath.notebook) {
+        throw new Error(
+          'Path must include a notebook. Use "GroupName/NotebookName".'
+        );
+      }
+
+      const client = await ensureGraphClient();
+      const resolved = await resolveGroupPath(client, {
+        group: groupPath.group,
+        notebook: groupPath.notebook
+      });
+
+      const sections = await fetchAll<any>(
+        client,
+        `${resolved.onenoteRoot}/notebooks/${resolved.notebookId}/sections`
+      );
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(sections)
+          }
+        ]
+      };
+    })
+);
+
+server.tool(
+  'list_group_pages',
+  {
+    description:
+      'List pages in a group section. Path: "GroupName/NotebookName/SectionName".',
+    inputSchema: toolInputSchemas.list_group_pages
+  },
+  async (params) =>
+    withAuthErrorHandling(async () => {
+      const { path } = normalizeParams(params, { path: [] });
+      const parsed = toolSchemas.list_group_pages.parse({ path });
+      const groupPath = parseGroupPath(parsed.path);
+
+      if (!groupPath.section) {
+        throw new Error(
+          'Path must include a section. Use "GroupName/NotebookName/SectionName".'
+        );
+      }
+
+      const client = await ensureGraphClient();
+      const resolved = await resolveGroupPath(client, {
+        group: groupPath.group,
+        notebook: groupPath.notebook,
+        section: groupPath.section
+      });
+
+      const pages = await fetchAll<any>(
+        client,
+        `${resolved.onenoteRoot}/sections/${resolved.sectionId}/pages`
+      );
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(pages)
+          }
+        ]
+      };
+    })
+);
+
+server.tool(
+  'get_group_page',
+  {
+    description:
+      'Get the full HTML content of a group page. Path: "GroupName/NotebookName/SectionName/PageTitle".',
+    inputSchema: toolInputSchemas.get_group_page
+  },
+  async (params) =>
+    withAuthErrorHandling(async () => {
+      const { path } = normalizeParams(params, { path: [] });
+      const parsed = toolSchemas.get_group_page.parse({ path });
+      const groupPath = parseGroupPath(parsed.path);
+
+      if (!groupPath.page) {
+        throw new Error(
+          'Path must include a page. Use "GroupName/NotebookName/SectionName/PageTitle".'
+        );
+      }
+
+      const client = await ensureGraphClient();
+      if (!accessToken) {
+        throw new Error(
+          "No valid access token available. Please call the 'authenticate' tool to sign in."
+        );
+      }
+
+      const resolved = await resolveGroupPath(client, {
+        group: groupPath.group,
+        notebook: groupPath.notebook,
+        section: groupPath.section
+      });
+
+      const content = await getPageContent(
+        client,
+        accessToken,
+        { pageTitle: groupPath.page },
+        fetch,
+        `${resolved.onenoteRoot}/sections/${resolved.sectionId}`
+      );
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: content
+          }
+        ]
+      };
+    })
+);
+
+server.tool(
+  'create_group_page',
+  {
+    description:
+      'Create a new page in a group section. Path: "GroupName/NotebookName/SectionName".',
+    inputSchema: toolInputSchemas.create_group_page
+  },
+  async (params) =>
+    withAuthErrorHandling(async () => {
+      const { path, title, html } = normalizeParams(params, {
+        path: [],
+        title: [],
+        html: ['content']
+      });
+      const parsed = toolSchemas.create_group_page.parse({ path, title, html });
+      const groupPath = parseGroupPath(parsed.path);
+
+      if (!groupPath.section) {
+        throw new Error(
+          'Path must include a section. Use "GroupName/NotebookName/SectionName".'
+        );
+      }
+
+      const client = await ensureGraphClient();
+      const resolved = await resolveGroupPath(client, {
+        group: groupPath.group,
+        notebook: groupPath.notebook,
+        section: groupPath.section
+      });
+
+      const pageTitle = parsed.title ?? 'New Page';
+      const pageHtml =
+        parsed.html ??
+        `<!DOCTYPE html>
+<html>
+  <head>
+    <title>${pageTitle}</title>
+  </head>
+  <body>
+    <p>${pageTitle}</p>
+  </body>
+</html>`;
+
+      const response = await client
+        .api(`${resolved.onenoteRoot}/sections/${resolved.sectionId}/pages`)
+        .header('Content-Type', 'application/xhtml+xml')
+        .post(pageHtml);
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(response)
+          }
+        ]
+      };
+    })
+);
+
+server.tool(
+  'search_group_pages',
+  {
+    description:
+      'Search page titles across a group\'s notebooks. Path: "GroupName".',
+    inputSchema: toolInputSchemas.search_group_pages
+  },
+  async (params) =>
+    withAuthErrorHandling(async () => {
+      const { path, query } = normalizeParams(params, {
+        path: [],
+        query: ['searchTerm']
+      });
+      const parsed = toolSchemas.search_group_pages.parse({ path, query });
+      const groupPath = parseGroupPath(parsed.path);
+
+      const client = await ensureGraphClient();
+      const resolved = await resolveGroupPath(client, {
+        group: groupPath.group
+      });
+
+      const pages = await fetchAll<any>(
+        client,
+        `${resolved.onenoteRoot}/pages`
+      );
+      const filteredPages = pages.filter((page: any) =>
+        page.title?.toLowerCase().includes(parsed.query.toLowerCase())
       );
 
       return {

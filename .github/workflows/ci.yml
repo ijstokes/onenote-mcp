@@ -9,9 +9,11 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  checks: write
 
 jobs:
-  build-and-test:
+  typescript:
+    name: TypeScript
     runs-on: ubuntu-latest
 
     steps:
@@ -29,11 +31,84 @@ jobs:
         continue-on-error: true
 
       - name: Run tests with coverage
-        run: npx vitest run --coverage.enabled --coverage.reporter=json-summary --coverage.reporter=json
+        run: npx vitest run --coverage.enabled
 
-      - name: Coverage report
+      - name: TypeScript test report
+        uses: dorny/test-reporter@v2
+        if: always()
+        with:
+          name: TypeScript Tests
+          path: test-results/vitest-report.xml
+          reporter: java-junit
+
+      - name: TypeScript coverage comment
         uses: davelosert/vitest-coverage-report-action@v2
         if: always() && github.event_name == 'pull_request'
         with:
+          name: TypeScript Coverage
           json-summary-path: coverage/coverage-summary.json
           json-final-path: coverage/coverage-final.json
+
+      - name: Upload TypeScript coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: typescript-coverage
+          path: coverage/
+          retention-days: 14
+
+  python:
+    name: Python
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build TypeScript server
+        run: npm run build
+        continue-on-error: true
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: 'latest'
+
+      - name: Install Python dependencies
+        working-directory: python
+        run: uv sync
+
+      - name: Run Python tests with coverage
+        working-directory: python
+        run: |
+          source .venv/bin/activate
+          pytest --cov --cov-report=term --cov-report=xml:coverage.xml --cov-report=html:htmlcov --junitxml=test-results/pytest-report.xml -v
+
+      - name: Python test report
+        uses: dorny/test-reporter@v2
+        if: always()
+        with:
+          name: Python Tests
+          path: python/test-results/pytest-report.xml
+          reporter: java-junit
+
+      - name: Python coverage comment
+        uses: orgoro/coverage@v3.2
+        if: always() && github.event_name == 'pull_request'
+        with:
+          coverageFile: python/coverage.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          thresholdAll: 0
+
+      - name: Upload Python coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: python-coverage
+          path: python/htmlcov/
+          retention-days: 14

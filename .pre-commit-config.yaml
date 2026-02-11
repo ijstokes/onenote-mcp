@@ -1,0 +1,72 @@
+# See https://pre-commit.com for more information
+# Install: pre-commit install && pre-commit install --hook-type commit-msg
+# Run all: pre-commit run --all-files
+
+repos:
+  # ── General ─────────────────────────────────────────────
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+        exclude: tsconfig\.json # tsconfig allows comments
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=500]
+      - id: check-ast
+        files: ^python/
+      - id: detect-private-key
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: python-use-type-annotations
+        files: ^python/
+      - id: python-no-eval
+        files: ^python/
+
+  # ── TypeScript / JavaScript ─────────────────────────────
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v9.27.0
+    hooks:
+      - id: eslint
+        files: \.(ts|js)$
+        exclude: ^(dist|node_modules)/
+        args: [--fix]
+        additional_dependencies:
+          - eslint@9
+          - '@eslint/js'
+          - '@typescript-eslint/parser'
+          - '@typescript-eslint/eslint-plugin'
+          - typescript
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        types_or: [ts, javascript, json, markdown, yaml]
+        exclude: ^(dist|node_modules|python/\.venv)/
+
+  # ── Python ──────────────────────────────────────────────
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.0
+    hooks:
+      - id: ruff
+        args: [--fix, --config, python/pyproject.toml]
+        files: ^python/
+      - id: ruff-format
+        args: [--config, python/pyproject.toml]
+        files: ^python/
+
+  # ── Commit messages ─────────────────────────────────────
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v9.21.0
+    hooks:
+      - id: commitlint
+        stages: [commit-msg]
+        additional_dependencies:
+          - '@commitlint/cli'
+          - '@commitlint/config-conventional'

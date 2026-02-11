@@ -11,28 +11,28 @@ type InputSchema = {
 };
 
 export const toolSchemas = {
-  saveAccessToken: z.object({
+  save_access_token: z.object({
     token: z.string().min(1)
   }),
-  getNotebook: z.object({
+  get_notebook: z.object({
     notebookId: z.string().min(1).optional(),
     notebookName: z.string().min(1).optional()
   }),
-  listSections: z.object({
+  list_sections: z.object({
     notebookId: z.string().min(1).optional(),
     notebookName: z.string().min(1).optional()
   }),
-  listPages: z.object({
+  list_pages: z.object({
     notebookId: z.string().min(1).optional(),
     notebookName: z.string().min(1).optional(),
     sectionId: z.string().min(1).optional(),
     sectionName: z.string().min(1).optional()
   }),
-  getPage: z.object({
+  get_page: z.object({
     pageId: z.string().min(1).optional(),
     pageTitle: z.string().min(1).optional()
   }),
-  createPage: z.object({
+  create_page: z.object({
     notebookId: z.string().min(1).optional(),
     notebookName: z.string().min(1).optional(),
     sectionId: z.string().min(1).optional(),
@@ -40,7 +40,28 @@ export const toolSchemas = {
     title: z.string().min(1).optional(),
     html: z.string().min(1).optional()
   }),
-  searchPages: z.object({
+  search_pages: z.object({
+    query: z.string().min(1)
+  }),
+  list_group_notebooks: z.object({
+    path: z.string().min(1)
+  }),
+  list_group_sections: z.object({
+    path: z.string().min(1)
+  }),
+  list_group_pages: z.object({
+    path: z.string().min(1)
+  }),
+  get_group_page: z.object({
+    path: z.string().min(1)
+  }),
+  create_group_page: z.object({
+    path: z.string().min(1),
+    title: z.string().optional(),
+    html: z.string().optional()
+  }),
+  search_group_pages: z.object({
+    path: z.string().min(1),
     query: z.string().min(1)
   })
 };
@@ -54,8 +75,8 @@ const emptySchema: InputSchema = {
 export const toolInputSchemas: Record<string, InputSchema> = {
   authenticate: emptySchema,
   info: emptySchema,
-  listNotebooks: emptySchema,
-  saveAccessToken: {
+  list_notebooks: emptySchema,
+  save_access_token: {
     type: 'object',
     additionalProperties: false,
     required: ['token'],
@@ -67,7 +88,7 @@ export const toolInputSchemas: Record<string, InputSchema> = {
       }
     }
   },
-  getNotebook: {
+  get_notebook: {
     type: 'object',
     additionalProperties: false,
     properties: {
@@ -83,7 +104,7 @@ export const toolInputSchemas: Record<string, InputSchema> = {
       }
     }
   },
-  listSections: {
+  list_sections: {
     type: 'object',
     additionalProperties: false,
     properties: {
@@ -99,7 +120,7 @@ export const toolInputSchemas: Record<string, InputSchema> = {
       }
     }
   },
-  listPages: {
+  list_pages: {
     type: 'object',
     additionalProperties: false,
     properties: {
@@ -125,7 +146,7 @@ export const toolInputSchemas: Record<string, InputSchema> = {
       }
     }
   },
-  getPage: {
+  get_page: {
     type: 'object',
     additionalProperties: false,
     properties: {
@@ -141,7 +162,7 @@ export const toolInputSchemas: Record<string, InputSchema> = {
       }
     }
   },
-  createPage: {
+  create_page: {
     type: 'object',
     additionalProperties: false,
     properties: {
@@ -177,11 +198,103 @@ export const toolInputSchemas: Record<string, InputSchema> = {
       }
     }
   },
-  searchPages: {
+  search_pages: {
     type: 'object',
     additionalProperties: false,
     required: ['query'],
     properties: {
+      query: {
+        type: 'string',
+        minLength: 1,
+        description: 'Search query used to match page titles.'
+      }
+    }
+  },
+  list_groups: emptySchema,
+  list_group_notebooks: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['path'],
+    properties: {
+      path: {
+        type: 'string',
+        minLength: 1,
+        description: 'Group name or ID. Example: "Engineering"'
+      }
+    }
+  },
+  list_group_sections: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['path'],
+    properties: {
+      path: {
+        type: 'string',
+        minLength: 1,
+        description:
+          'Path as "Group/Notebook". Example: "Engineering/Sprint Notes"'
+      }
+    }
+  },
+  list_group_pages: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['path'],
+    properties: {
+      path: {
+        type: 'string',
+        minLength: 1,
+        description:
+          'Path as "Group/Notebook/Section". Example: "Engineering/Sprint Notes/2024 Q4"'
+      }
+    }
+  },
+  get_group_page: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['path'],
+    properties: {
+      path: {
+        type: 'string',
+        minLength: 1,
+        description:
+          'Path as "Group/Notebook/Section/Page". Example: "Engineering/Sprint Notes/2024 Q4/Retro"'
+      }
+    }
+  },
+  create_group_page: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['path'],
+    properties: {
+      path: {
+        type: 'string',
+        minLength: 1,
+        description:
+          'Path as "Group/Notebook/Section". Example: "Engineering/Sprint Notes/2024 Q4"'
+      },
+      title: {
+        type: 'string',
+        minLength: 1,
+        description: 'Page title.'
+      },
+      html: {
+        type: 'string',
+        minLength: 1,
+        description: 'Full HTML body for the new page.'
+      }
+    }
+  },
+  search_group_pages: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['path', 'query'],
+    properties: {
+      path: {
+        type: 'string',
+        minLength: 1,
+        description: 'Group name or ID. Example: "Engineering"'
+      },
       query: {
         type: 'string',
         minLength: 1,

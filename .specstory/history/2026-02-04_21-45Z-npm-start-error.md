@@ -560,7 +560,7 @@ To sign in, use a web browser to open the page https://microsoft.com/devicelogin
 
 Authentication flow started.
 
-Go to `https://microsoft.com/devicelogin` and enter code `EMLDDUP88`.  
+Go to `https://microsoft.com/devicelogin` and enter code `EMLDDUP88`.
 Let me know once you’ve completed it, and I can confirm the token was saved.
 
 ---
@@ -811,7 +811,7 @@ I'm preparing code that instructs the user to complete authentication (noting ad
 
 Re-authentication started with `Group.Read.All`.
 
-Go to `https://microsoft.com/devicelogin` and enter code `EZKDLUNS2`.  
+Go to `https://microsoft.com/devicelogin` and enter code `EZKDLUNS2`.
 If your tenant requires admin consent for group access, you may see a consent prompt.
 
 Once you finish, tell me and I’ll rerun `list-groups`.
@@ -1440,7 +1440,7 @@ That warning is coming from an environment variable, not this repo. `npm` is see
 
 Fix options (pick one):
 
-- **Remove the env var from your shell config** (permanent):  
+- **Remove the env var from your shell config** (permanent):
   Check `~/.zshrc` / `~/.zprofile` for `npm_config_devdir` and delete that line, then restart your terminal.
 
 - **Run npm without that env var** (one‑off):
@@ -1546,34 +1546,34 @@ Here are the highest‑value DRY refactors I see to consolidate common functiona
 
 ## DRY Opportunities (highest impact first)
 
-1. **Create a shared auth module**  
+1. **Create a shared auth module**
    `lib/auth.js` (or `utils/auth.js`)
    - `readAccessToken()` (JSON fallback)
    - `getTokenFilePath()`
-   - `createGraphClient()` (centralized `Client.init` / `initWithMiddleware`)  
+   - `createGraphClient()` (centralized `Client.init` / `initWithMiddleware`)
      This removes token + client boilerplate from every script.
 
-2. **Create a group utils module**  
+2. **Create a group utils module**
    `lib/group-helpers.js`
    - `fetchAllGroups(client)` with pagination
    - `pickGroup(groups, query)`
    - `pickNotebook(notebooks, query)`
-   - `pickSection(sections, query)`  
+   - `pickSection(sections, query)`
      Currently repeated verbatim across group scripts.
 
-3. **Create a generic pagination helper**  
+3. **Create a generic pagination helper**
    `lib/pagination.js`
-   - `fetchAll(client, apiPath)` that follows `@odata.nextLink`  
+   - `fetchAll(client, apiPath)` that follows `@odata.nextLink`
      Use for groups, sections, and pages to avoid missing data.
 
-4. **Unify personal + group path building**  
+4. **Unify personal + group path building**
    `lib/onenote-paths.js`
    - `buildOnenotePath({ scope: 'me' | 'group', groupId, resource })`
-   - Example: `buildOnenotePath({ scope:'group', groupId, resource:'sections' })`  
+   - Example: `buildOnenotePath({ scope:'group', groupId, resource:'sections' })`
      Lets personal and group scripts share the same operation flow.
 
-5. **Normalize selection logic**  
-   Personal scripts often just “use first notebook/section”.  
+5. **Normalize selection logic**
+   Personal scripts often just “use first notebook/section”.
    Reuse `pickNotebook` / `pickSection` for both personal + group to allow name/id targeting.
 
 ## Example Consolidation Flow

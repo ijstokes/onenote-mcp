@@ -1899,7 +1899,7 @@ I'll inform the user that the MCP server is errored and they should check its st
 
 ---
 
-The GitHub MCP server is currently in an error state, so I can’t call it.  
+The GitHub MCP server is currently in an error state, so I can’t call it.
 Please check the MCP status in Cursor Settings and restart the GitHub MCP server there. Once it’s running, tell me and I’ll list your public personal repositories via the MCP tool.
 
 ---
@@ -1956,31 +1956,31 @@ Here are the main cleanup/improvement areas I see, ordered by impact. I can act 
 
 ## Findings (highest impact first)
 
-- **No tests at all**  
+- **No tests at all**
   There are no `*.test.*` files or test folders, so auth, pagination, and error handling aren’t validated. This is a major reliability gap.
 
-- **Tool parameter schemas are missing and names are unclear**  
+- **Tool parameter schemas are missing and names are unclear**
   MCP tools in `onenote-mcp.mjs` accept a generic `random_string` with no schema or validation. This makes the tool API brittle and confusing for users and clients. Examples: `saveAccessToken`, `getPage`, `searchPages`, and `createPage` should have explicit schemas and parameter names.
 
-- **Token handling is fragile**  
+- **Token handling is fragile**
   Tokens are written to `.access-token.txt` in plaintext with no expiration handling or refresh logic. The README mentions expiration but there’s no code to detect or renew expired tokens.
 
-- **Pagination helpers are unused**  
+- **Pagination helpers are unused**
   `lib/pagination.js` exists but `listPages`/`listSections` call Graph directly without paging, so large notebooks will be incomplete.
 
-- **Hard-coded Microsoft client ID**  
+- **Hard-coded Microsoft client ID**
   The client ID is hard-coded in `lib/config.js` instead of being configurable via environment variables.
 
-- **No `.env.example`**  
+- **No `.env.example`**
   There’s no sample env file documenting required variables.
 
-- **README inconsistencies**  
+- **README inconsistencies**
   The README references a `LICENSE` file that doesn’t exist, and it doesn’t describe tool parameters or expected input formats.
 
-- **`tsconfig.json` is present but not used**  
+- **`tsconfig.json` is present but not used**
   The project is JS/ESM, so `tsconfig.json` is misleading unless you intend to migrate to TypeScript.
 
-- **Excessive console logging**  
+- **Excessive console logging**
   `onenote-mcp.mjs` contains verbose `console.error` output in production flows, which may be too noisy for users.
 
 ## Suggested next steps
