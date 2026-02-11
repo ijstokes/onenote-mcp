@@ -566,7 +566,7 @@ server.tool(
         notebookCount: number;
       }> = [];
 
-      for (const group of groups) {
+      for (const group of groups as any[]) {
         try {
           const notebooks = await client
             .api(
