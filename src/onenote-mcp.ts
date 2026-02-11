@@ -23,6 +23,7 @@ import { pickByNameOrId } from './lib/selection.js';
 import { logger, logMetadata } from './lib/logger.js';
 import { normalizeParams, toolSchemas } from './lib/tool-schemas.js';
 import { getPageContent } from './lib/pages.js';
+import { formatPageContent, type OutputFormat } from './lib/format.js';
 import { fetchAllGroups } from './lib/groups.js';
 import { getOnenoteRoot } from './lib/onenote-paths.js';
 import { parseGroupPath, resolveGroupPath } from './lib/group-paths.js';
@@ -430,11 +431,12 @@ server.tool(
   toolSchemas.get_page.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
-      const { pageId, pageTitle } = normalizeParams(params, {
+      const { pageId, pageTitle, format } = normalizeParams(params, {
         pageId: ['id'],
-        pageTitle: ['title', 'name']
+        pageTitle: ['title', 'name'],
+        format: ['outputFormat', 'output_format']
       });
-      const parsed = toolSchemas.get_page.parse({ pageId, pageTitle });
+      const parsed = toolSchemas.get_page.parse({ pageId, pageTitle, format });
 
       const client = await ensureGraphClient();
       if (!accessToken) {
@@ -442,17 +444,25 @@ server.tool(
           "No valid access token available. Please call the 'authenticate' tool to sign in."
         );
       }
-      const content = await getPageContent(
+      const html = await getPageContent(
         client,
         accessToken,
         { pageId: parsed.pageId, pageTitle: parsed.pageTitle },
         fetch
       );
+      const output = await formatPageContent(
+        html,
+        parsed.format as OutputFormat
+      );
+      const text =
+        parsed.format === 'pdf'
+          ? `data:application/pdf;base64,${output}`
+          : output;
       return {
         content: [
           {
             type: 'text',
-            text: content
+            text
           }
         ]
       };
@@ -710,8 +720,11 @@ server.tool(
   toolSchemas.get_group_page.shape,
   async (params) =>
     withAuthErrorHandling(async () => {
-      const { path } = normalizeParams(params, { path: [] });
-      const parsed = toolSchemas.get_group_page.parse({ path });
+      const { path, format } = normalizeParams(params, {
+        path: [],
+        format: ['outputFormat', 'output_format']
+      });
+      const parsed = toolSchemas.get_group_page.parse({ path, format });
       const groupPath = parseGroupPath(parsed.path);
 
       if (!groupPath.page) {
@@ -733,19 +746,27 @@ server.tool(
         section: groupPath.section
       });
 
-      const content = await getPageContent(
+      const html = await getPageContent(
         client,
         accessToken,
         { pageTitle: groupPath.page },
         fetch,
         `${resolved.onenoteRoot}/sections/${resolved.sectionId}`
       );
+      const output = await formatPageContent(
+        html,
+        parsed.format as OutputFormat
+      );
+      const text =
+        parsed.format === 'pdf'
+          ? `data:application/pdf;base64,${output}`
+          : output;
 
       return {
         content: [
           {
             type: 'text',
-            text: content
+            text
           }
         ]
       };

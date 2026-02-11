@@ -1,80 +1,9 @@
 #!/usr/bin/env node
 
 import fetch from 'node-fetch';
-import { JSDOM } from 'jsdom';
 import { createGraphClient, readAccessToken } from '../lib/auth.js';
 import { fetchAll } from '../lib/pagination.js';
-
-function extractReadableText(html: string) {
-  try {
-    const dom = new JSDOM(html);
-    const document = dom.window.document;
-
-    const scripts = document.querySelectorAll('script');
-    scripts.forEach((script: Element) => script.remove());
-
-    let text = '';
-
-    document
-      .querySelectorAll('h1, h2, h3, h4, h5, h6')
-      .forEach((heading: Element) => {
-        const headingText = heading.textContent?.trim() ?? '';
-        if (headingText) {
-          text += `\n${headingText}\n${'-'.repeat(headingText.length)}\n`;
-        }
-      });
-
-    document.querySelectorAll('p').forEach((paragraph: Element) => {
-      const content = paragraph.textContent?.trim() ?? '';
-      if (content) {
-        text += `${content}\n\n`;
-      }
-    });
-
-    document.querySelectorAll('ul, ol').forEach((list: Element) => {
-      text += '\n';
-      list.querySelectorAll('li').forEach((item: Element, index: number) => {
-        const content = item.textContent?.trim() ?? '';
-        if (content) {
-          text += `${index + 1}. ${content}\n`;
-        }
-      });
-      text += '\n';
-    });
-
-    document.querySelectorAll('div, span').forEach((element: Element) => {
-      if (
-        element.childNodes.length === 1 &&
-        element.childNodes[0].nodeType === 3
-      ) {
-        const content = element.textContent?.trim() ?? '';
-        if (content) {
-          text += `${content}\n\n`;
-        }
-      }
-    });
-
-    document.querySelectorAll('table').forEach((table: Element) => {
-      text += '\nTable content:\n';
-      table.querySelectorAll('tr').forEach((row: Element) => {
-        const cells = Array.from(row.querySelectorAll('td, th'))
-          .map((cell: Element) => cell.textContent?.trim() ?? '')
-          .join(' | ');
-        text += `${cells}\n`;
-      });
-      text += '\n';
-    });
-
-    if (!text.trim()) {
-      text = document.body.textContent?.trim().replace(/\s+/g, ' ') ?? '';
-    }
-
-    return text;
-  } catch (error) {
-    console.error('Error extracting text:', error);
-    return 'Error: Could not extract readable text from HTML content.';
-  }
-}
+import { htmlToText } from '../lib/format.js';
 
 async function readAllPages() {
   try {
@@ -127,7 +56,7 @@ async function readAllPages() {
         }
 
         const htmlContent = await response.text();
-        const readableText = extractReadableText(htmlContent);
+        const readableText = htmlToText(htmlContent);
 
         console.log(readableText);
         console.log('\n');

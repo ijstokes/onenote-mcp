@@ -56,7 +56,12 @@ export const toolSchemas = {
       .string()
       .min(1)
       .optional()
-      .describe('Page title (partial match) to retrieve.')
+      .describe('Page title (partial match) to retrieve.'),
+    format: z
+      .enum(['html', 'text', 'markdown', 'pdf'])
+      .optional()
+      .default('html')
+      .describe('Output format: html (default), text, markdown, or pdf.')
   }),
   create_page: z.object({
     notebookId: z
@@ -112,7 +117,12 @@ export const toolSchemas = {
       .min(1)
       .describe(
         'Path as "Group/Notebook/Section/Page". Example: "Engineering/Sprint Notes/2024 Q4/Retro"'
-      )
+      ),
+    format: z
+      .enum(['html', 'text', 'markdown', 'pdf'])
+      .optional()
+      .default('html')
+      .describe('Output format: html (default), text, markdown, or pdf.')
   }),
   create_group_page: z.object({
     path: z

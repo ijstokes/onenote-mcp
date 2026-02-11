@@ -168,6 +168,7 @@ class OneNoteClient:
         *,
         page_id: str | None = None,
         page_title: str | None = None,
+        format: str | None = None,  # noqa: A002
     ) -> Any:
         """Get the complete HTML content of a page."""
         args: dict[str, str] = {}
@@ -175,6 +176,8 @@ class OneNoteClient:
             args["pageId"] = page_id
         if page_title:
             args["pageTitle"] = page_title
+        if format:
+            args["format"] = format
         return await self.call_tool("get_page", args)
 
     async def create_page(
@@ -229,12 +232,20 @@ class OneNoteClient:
         """List pages in a group section. Path: 'Group/Notebook/Section'."""
         return await self.call_tool("list_group_pages", {"path": path})
 
-    async def get_group_page(self, path: str) -> Any:
+    async def get_group_page(
+        self,
+        path: str,
+        *,
+        format: str | None = None,  # noqa: A002
+    ) -> Any:
         """Get full HTML content of a group page.
 
         Path: 'Group/Notebook/Section/Page'.
         """
-        return await self.call_tool("get_group_page", {"path": path})
+        args: dict[str, str] = {"path": path}
+        if format:
+            args["format"] = format
+        return await self.call_tool("get_group_page", args)
 
     async def create_group_page(
         self,
