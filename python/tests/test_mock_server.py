@@ -82,12 +82,14 @@ def create_mock_server() -> FastMCP:
     def get_page(
         pageId: str = "",  # noqa: N803
         pageTitle: str = "",  # noqa: N803
+        format: str = "html",  # noqa: A002
     ) -> str:
         return json.dumps(
             {
                 "id": pageId or "pg-1",
                 "title": pageTitle or "Sprint Retro",
                 "html": "<p>Page content</p>",
+                "format": format,
             }
         )
 
@@ -128,9 +130,22 @@ def create_mock_server() -> FastMCP:
         return json.dumps([{"id": "gpg-1", "title": "Retro"}])
 
     @mcp.tool()
-    def get_group_page(path: str) -> str:
+    def get_group_page(
+        path: str = "",
+        groupId: str = "",  # noqa: N803
+        notebookName: str = "",  # noqa: N803
+        sectionName: str = "",  # noqa: N803
+        pageName: str = "",  # noqa: N803
+        format: str = "html",  # noqa: A002
+    ) -> str:
         return json.dumps(
-            {"id": "gpg-1", "title": "Retro", "html": "<p>Group page</p>"}
+            {
+                "id": "gpg-1",
+                "title": pageName or "Retro",
+                "html": "<p>Group page</p>",
+                "format": format,
+                "source": "path" if path else "params",
+            }
         )
 
     @mcp.tool()
@@ -260,6 +275,20 @@ class TestPersonalNotebooks:
         assert data == []
 
     @pytest.mark.anyio
+    async def test_get_page_with_format(self, mock_client):
+        result = await mock_client.get_page(
+            page_title="Sprint Retro", format="markdown"
+        )
+        data = result_json(result)
+        assert data["format"] == "markdown"
+
+    @pytest.mark.anyio
+    async def test_get_page_default_format(self, mock_client):
+        result = await mock_client.get_page(page_title="Sprint Retro")
+        data = result_json(result)
+        assert data["format"] == "html"
+
+    @pytest.mark.anyio
     async def test_info(self, mock_client):
         result = await mock_client.info()
         data = result_json(result)
@@ -302,6 +331,19 @@ class TestGroupNotebooks:
         data = result_json(result)
         assert data["title"] == "Retro"
         assert "<p>" in data["html"]
+        assert data["source"] == "path"
+
+    @pytest.mark.anyio
+    async def test_get_group_page_four_tuple(self, mock_client):
+        result = await mock_client.get_group_page(
+            group_id="grp-1",
+            notebook_name="Team Notes",
+            section_name="Q4 2024",
+            page_name="Retro",
+        )
+        data = result_json(result)
+        assert data["title"] == "Retro"
+        assert data["source"] == "params"
 
     @pytest.mark.anyio
     async def test_create_group_page(self, mock_client):
@@ -320,6 +362,14 @@ class TestGroupNotebooks:
         data = result_json(result)
         assert len(data) == 1
         assert data[0]["title"] == "Retro"
+
+    @pytest.mark.anyio
+    async def test_get_group_page_with_format(self, mock_client):
+        result = await mock_client.get_group_page(
+            "Engineering/Team Notes/Q4 2024/Retro", format="text"
+        )
+        data = result_json(result)
+        assert data["format"] == "text"
 
 
 class TestClientLifecycle:

@@ -64,7 +64,10 @@ export async function getPageContent(
   const pages = await fetchAll<any>(client, `${onenoteRoot}/pages`);
   const targetPage = selectPage(pages, selection);
 
-  const url = `https://graph.microsoft.com/v1.0${onenoteRoot}/pages/${targetPage.id}/content`;
+  // Prefer the contentUrl returned by Graph API (always correct), fall back to constructing it
+  const url =
+    targetPage.contentUrl ??
+    `https://graph.microsoft.com/v1.0${onenoteRoot.replace(/\/sections\/[^/]+$/, '')}/pages/${targetPage.id}/content`;
   const response = await fetchImpl(url, {
     headers: {
       Authorization: `Bearer ${accessToken}`
