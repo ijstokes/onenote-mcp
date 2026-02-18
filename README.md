@@ -13,6 +13,7 @@ This server is designed and maintained according to the following MCP best-pract
 - https://steipete.me/posts/2025/mcp-best-practices
 - https://www.linkedin.com/pulse/mcp-tool-descriptions-overview-examples-best-practices-merge-api-ptgue/
 - https://thenewstack.io/15-best-practices-for-building-mcp-servers-in-production/
+- https://zazencodes.com/blog/mcp-server-naming-conventions
 
 ## What Does This Do?
 
