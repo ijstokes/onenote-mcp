@@ -1,19 +1,7 @@
 # OneNote MCP Server
 
-A Model Context Protocol (MCP) server implementation that enables AI language models like Claude and other LLMs to interact with Microsoft OneNote.
-
-> This project is based on [azure-onenote-mcp-server](https://github.com/ZubeidHendricks/azure-onenote-mcp-server) by Zubeid Hendricks, with modifications to simplify authentication and improve usability.
-
-## Guiding Principles
-
-This server is designed and maintained according to the following MCP best-practice references:
-
-- https://modelcontextprotocol.info/docs/best-practices/
-- https://www.merge.dev/blog/mcp-tool-schema
-- https://steipete.me/posts/2025/mcp-best-practices
-- https://www.linkedin.com/pulse/mcp-tool-descriptions-overview-examples-best-practices-merge-api-ptgue/
-- https://thenewstack.io/15-best-practices-for-building-mcp-servers-in-production/
-- https://zazencodes.com/blog/mcp-server-naming-conventions
+Does what it says on the tin: MCP server for Microsoft OneNote.  Utilizes native keychain, supports
+shared Notebooks, provides CLI and Python API.
 
 ## What Does This Do?
 
@@ -27,94 +15,6 @@ This server allows AI assistants to:
 
 All of this happens directly through the AI interface without you having to switch contexts.
 
-## Using with AI Assistants
-
-### Setup for Cursor
-
-1. Clone this repository and follow the installation steps below
-2. Build the server: `npm run build`
-3. Start the MCP server: `npm start`
-4. Register the server in Cursor:
-   - Open Cursor preferences (Cmd+, on Mac or Ctrl+, on Windows)
-   - Go to the "MCP" tab
-   - Add a new MCP server with these settings:
-     - Name: `onenote`
-     - Command: `node`
-   - Args: `["/path/to/your/onenote-mcp/dist/onenote-mcp.js"]` (use absolute path)
-
-   Here's the complete JSON configuration example:
-
-   ```json
-   {
-     "mcpServers": {
-       "onenote": {
-         "command": "node",
-         "args": ["/absolute/path/to/your/onenote-mcp/dist/onenote-mcp.js"],
-         "env": {}
-       }
-     }
-   }
-   ```
-
-5. Restart Cursor
-6. In Cursor, you can now interact with your OneNote data using natural language:
-
-```
-Can you show me my OneNote notebooks?
-Create a new page in my first notebook with a summary of this conversation
-Find notes related to "project planning" in my OneNote
-```
-
-The first time you ask about OneNote, the AI will guide you through the authentication process.
-
-### Setup for Claude Desktop (or other MCP-compatible assistants)
-
-1. Clone this repository and follow the installation steps below
-2. Build the server: `npm run build`
-3. Start the MCP server: `npm start`
-4. In the Claude Desktop settings, add the OneNote MCP server:
-   - Name: `onenote`
-   - Command: `node`
-
-- Args: `["/path/to/your/onenote-mcp/dist/onenote-mcp.js"]` (use absolute path)
-
-JSON configuration example:
-
-```json
-{
-  "mcpServers": {
-    "onenote": {
-      "command": "node",
-      "args": ["/absolute/path/to/your/onenote-mcp/dist/onenote-mcp.js"],
-      "env": {}
-    }
-  }
-}
-```
-
-5. You can now ask Claude to interact with your OneNote data
-
-### Setup for Claude Code
-
-1. Clone this repository and follow the installation steps below
-2. Build the server: `npm run build`
-3. Start the MCP server: `npm start`
-4. Add the MCP server configuration to `~/.claude.json`:
-
-```json
-{
-  "mcpServers": {
-    "onenote": {
-      "command": "node",
-      "args": ["/absolute/path/to/your/onenote-mcp/dist/onenote-mcp.js"],
-      "env": {}
-    }
-  }
-}
-```
-
-5. Restart Claude Code and use the OneNote tools
-
 ## Features
 
 - Authentication with Microsoft OneNote using device code flow (no Azure setup needed)
@@ -126,10 +26,11 @@ JSON configuration example:
 - Read full content of all pages in a readable format
 - Search across your notes
 
-## Project Structure
+## Provenance
 
-- Source TypeScript lives in `src/`
-- Compiled JavaScript output is emitted to `dist/`
+Forked from [danosb/onenote-mcp](https://github.com/danosb/onenote-mcp) which was forked
+from [ZubeidHendricks/azure-onenote-mcp-server](https://github.com/ZubeidHendricks/azure-onenote-mcp-server).
+Pretty heavy refactoring & feature additions in this version.
 
 ## Installation
 
@@ -371,6 +272,115 @@ Environment variables are read from `.env` if present:
 - `ONENOTE_MCP_LOG_LEVEL`: `info`, `debug`, etc.
 - `ONENOTE_MCP_CONSOLE_LOGGING`: `true` to enable console logging
 
+## Security Notes
+
+- Authentication tokens are stored in the OS keychain via `keytar` by default (macOS Keychain, Windows Credential Manager, Linux Secret Service)
+- Set `ONENOTE_MCP_TOKEN_STORAGE=file` to use `.access-token.txt` instead
+- Set `ONENOTE_MCP_TOKEN_STORAGE=env` to disable token persistence and rely on `GRAPH_ACCESS_TOKEN`
+- Tokens grant access to your OneNote data, so keep them secure
+- Tokens expire after some time, requiring re-authentication
+- No Azure setup or API keys are required
+
+## Guiding Principles
+
+This server is designed and maintained according to the following MCP best-practice references:
+
+- https://modelcontextprotocol.info/docs/best-practices/
+- https://www.merge.dev/blog/mcp-tool-schema
+- https://steipete.me/posts/2025/mcp-best-practices
+- https://www.linkedin.com/pulse/mcp-tool-descriptions-overview-examples-best-practices-merge-api-ptgue/
+- https://thenewstack.io/15-best-practices-for-building-mcp-servers-in-production/
+- https://zazencodes.com/blog/mcp-server-naming-conventions
+
+## Using with AI Assistants
+
+### Setup for Cursor
+
+1. Clone this repository and follow the installation steps below
+2. Build the server: `npm run build`
+3. Start the MCP server: `npm start`
+4. Register the server in Cursor:
+   - Open Cursor preferences (Cmd+, on Mac or Ctrl+, on Windows)
+   - Go to the "MCP" tab
+   - Add a new MCP server with these settings:
+     - Name: `onenote`
+     - Command: `node`
+   - Args: `["/path/to/your/onenote-mcp/dist/onenote-mcp.js"]` (use absolute path)
+
+   Here's the complete JSON configuration example:
+
+   ```json
+   {
+     "mcpServers": {
+       "onenote": {
+         "command": "node",
+         "args": ["/absolute/path/to/your/onenote-mcp/dist/onenote-mcp.js"],
+         "env": {}
+       }
+     }
+   }
+   ```
+
+5. Restart Cursor
+6. In Cursor, you can now interact with your OneNote data using natural language:
+
+```
+Can you show me my OneNote notebooks?
+Create a new page in my first notebook with a summary of this conversation
+Find notes related to "project planning" in my OneNote
+```
+
+The first time you ask about OneNote, the AI will guide you through the authentication process.
+
+### Setup for Claude Desktop (or other MCP-compatible assistants)
+
+1. Clone this repository and follow the installation steps below
+2. Build the server: `npm run build`
+3. Start the MCP server: `npm start`
+4. In the Claude Desktop settings, add the OneNote MCP server:
+   - Name: `onenote`
+   - Command: `node`
+
+- Args: `["/path/to/your/onenote-mcp/dist/onenote-mcp.js"]` (use absolute path)
+
+JSON configuration example:
+
+```json
+{
+  "mcpServers": {
+    "onenote": {
+      "command": "node",
+      "args": ["/absolute/path/to/your/onenote-mcp/dist/onenote-mcp.js"],
+      "env": {}
+    }
+  }
+}
+```
+
+5. You can now ask Claude to interact with your OneNote data
+
+### Setup for Claude Code
+
+1. Clone this repository and follow the installation steps below
+2. Build the server: `npm run build`
+3. Start the MCP server: `npm start`
+4. Add the MCP server configuration to `~/.claude.json`:
+
+```json
+{
+  "mcpServers": {
+    "onenote": {
+      "command": "node",
+      "args": ["/absolute/path/to/your/onenote-mcp/dist/onenote-mcp.js"],
+      "env": {}
+    }
+  }
+}
+```
+
+5. Restart Claude Code and use the OneNote tools
+
+
 ## Versioning and Releases
 
 Versioning follows SemVer and is sourced from `package.json`. Tag releases with:
@@ -407,19 +417,6 @@ npm test
 - Ensure the MCP server is running (`npm start`)
 - Check your AI assistant's settings to make sure it's configured to use MCP
 - For Cursor, make sure it's the latest version that supports MCP
-
-## Security Notes
-
-- Authentication tokens are stored in the OS keychain via `keytar` by default (macOS Keychain, Windows Credential Manager, Linux Secret Service)
-- Set `ONENOTE_MCP_TOKEN_STORAGE=file` to use `.access-token.txt` instead
-- Set `ONENOTE_MCP_TOKEN_STORAGE=env` to disable token persistence and rely on `GRAPH_ACCESS_TOKEN`
-- Tokens grant access to your OneNote data, so keep them secure
-- Tokens expire after some time, requiring re-authentication
-- No Azure setup or API keys are required
-
-## Credits
-
-This project builds upon the [azure-onenote-mcp-server](https://github.com/ZubeidHendricks/azure-onenote-mcp-server) by Zubeid Hendricks, with a focus on simplifying the authentication process and improving the user experience with AI assistants.
 
 ## License
 
